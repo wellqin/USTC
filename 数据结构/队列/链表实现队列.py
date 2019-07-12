@@ -10,7 +10,6 @@ Change Activity:  2019/7/11
 """
 
 
-
 class QueueError(ValueError):
     def __init__(self, text='队列为空，不可进行操作！'):
         print(text)
@@ -52,7 +51,7 @@ class LQueue(object):
             self._rear = p
         else:
             self._rear.next = p
-            self._rear = p
+            self._rear = self._rear.next
 
     # 删除队列中最早进入的元素并将其返回，出队
     def del_queue(self):
