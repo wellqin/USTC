@@ -37,17 +37,17 @@ class Solution:
                     dp[i] += matrix[i][r]
 
                 # Find the max subarray no more than K
-                # sums, cur_sum, cur_max = [sys.maxsize], 0, -sys.maxsize
-                # for sm in dp:
-                #     bisect.insort(sums, cur_sum)
-                #     cur_sum += sm
-                #     cur_max = max(cur_max, cur_sum - sums[bisect.bisect_left(sums, cur_sum - k)])
-                # res = max(res, cur_max)
-                n = len(dp)
-                maxSum = [dp[0] for i in range(n)]
-                for i in range(1, n):
-                    maxSum[i] = max(maxSum[i - 1] + dp[i], dp[i])
-                return max(maxSum)
+                sums, cur_sum, cur_max = [sys.maxsize], 0, -sys.maxsize
+                for sm in dp:
+                    bisect.insort(sums, cur_sum)
+                    cur_sum += sm
+                    cur_max = max(cur_max, cur_sum - sums[bisect.bisect_left(sums, cur_sum - k)])
+                res = max(res, cur_max)
+                # n = len(dp)
+                # maxSum = [dp[0] for i in range(n)]
+                # for i in range(1, n):
+                #     maxSum[i] = max(maxSum[i - 1] + dp[i], dp[i])
+                # return max(maxSum)
         return res
 
 matrix = [[1,0,1],[0,-2,3]]
