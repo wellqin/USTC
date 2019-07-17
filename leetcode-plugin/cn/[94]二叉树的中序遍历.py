@@ -151,6 +151,19 @@ class Tree:
         right_item = self.postorder(root.right)
         return left_item + right_item + result
 
+    def postorderTraversal(self, root):  ## 前序遍历
+        stack = []
+        result = []
+        curr = root
+        while stack or curr:
+            if curr:
+                result.append(curr.item)
+                stack.append(curr.left)
+                curr = curr.right
+            else:
+                curr = stack.pop()
+        return result[::-1]
+
 
 t = Tree()
 for i in range(7):
@@ -162,6 +175,7 @@ print('先序遍历:',t.inorderTraversal(t.root))
 print('先序遍历:',t.inorderTraversal2(t.root))
 print('中序遍历:',t.inorder(t.root))
 print('后序遍历:',t.postorder(t.root))
+print('postorderTraversal后序遍历:',t.postorderTraversal(t.root))
 print("#############################")
 
 

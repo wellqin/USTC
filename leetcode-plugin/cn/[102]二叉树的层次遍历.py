@@ -60,13 +60,13 @@ class Solution:
                 return
             else:
                 # 层次遍历
-                # sol[level-1].append(node.val)
+                sol[level-1].append(node.val)
 
-                # 锯齿遍历
-                if level % 2 == 1:
-                    sol[level - 1].append(node.val)
-                else:
-                    sol[level - 1].insert(0, node.val)
+                # # 锯齿遍历
+                # if level % 2 == 1:
+                #     sol[level - 1].append(node.val)
+                # else:
+                #     sol[level - 1].insert(0, node.val)
 
                 if len(sol) == level:  # 遍历到新层时，只有最左边的结点使得等式成立
                     sol.append([])
