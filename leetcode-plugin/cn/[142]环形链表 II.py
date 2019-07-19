@@ -39,4 +39,39 @@
 #你是否可以不用额外空间解决此题？ 
 #
 
+def hasCycle2(head):
+    # 快慢指针, beats 96.59%
+    if not head or len(head) == 1:
+        return False
+
+    cur = prev = head
+
+    while prev and prev.next:  # 慢的
+        cur = cur.next
+        prev = prev.next.next
+        if cur == prev:
+            return ("tail connects to node index", cur)
+
+    return "no cycle"
+
+# "直接快慢指针，跟141一样，。这里注意一下while-else clause的用法就行"
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                break
+        else:
+            return None
+
+        while head != slow:  # 利用头指针去找到位置，不能用下标
+            slow = slow.next
+            head = head.next
+        return head
 

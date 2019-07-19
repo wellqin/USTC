@@ -6,15 +6,42 @@
 # 
 #
 
-class Solution:
-    def threeSumClosest(self, nums: List[int], target: int) -> int:
-        # for num in nums:
-        #     two_num = target - num
-        near = 0
-        for i in range(len(nums)-1):
-            for j in range(i+1, len(nums)-1):
-                for k in range(j+1, len(nums)-1):
-                    if nums[i] + nums[j] + nums[k] == target:
+
+# 固定一个元素
+#
+# 用两个指针来循环
+
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        n, res, diff = len(nums), None, float('inf')
+        nums.sort()
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            l, r = i+1, n-1
+            while l < r:
+                tmp = nums[i] + nums[l] + nums[r]
+                if tmp == target:
+                    return target
+                elif tmp > target:
+                    r -= 1
+                    if abs(tmp-target) < diff:
+                        diff = abs(tmp-target)
+                        res = tmp
+                    while l < r and nums[r] == nums[r+1]:
+                        r -= 1
+                else:
+                    l += 1
+                    if abs(tmp-target) < diff:
+                        diff = abs(tmp-target)
+                        res = tmp
+                    while l < r and nums[l] == nums[l-1]:
+                        l += 1
+        return res
 
 
 

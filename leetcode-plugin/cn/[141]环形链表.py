@@ -86,7 +86,7 @@ class Solution(object):
 
         cur = prev = head
 
-        while cur and cur.next:  # 慢的
+        while prev and prev.next:  # 快的
             cur = cur.next
             prev = prev.next.next
             if cur == prev:
