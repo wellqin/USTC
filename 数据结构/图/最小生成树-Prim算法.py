@@ -37,10 +37,22 @@ Graph = {'A': {'B': 6, 'E': 10, 'F': 12},
          'F': {'A': 12, 'B': 8, 'D': 11, 'E': 16},
          }
 
+# python3改变了dict.keys,返回的是dict_keys对象,支持iterable 但不支持indexable，我们可以将其明确的转化成list：
+# V = set(G.keys())[0]
+# difference() 方法用于返回集合的差集，即返回的集合元素包含在第一个集合中，但不包含在第二个集合(方法的参数)中。
+"""
+语法：set.difference(set)
+x = {"apple", "banana", "cherry"}
+y = {"google", "microsoft", "apple"}
+ 
+z = x.difference(y) 
+ 
+print(z)  # {'cherry', 'banana'}返回一个集合，元素包含在集合 x ，但不在集合 y ：
+"""
 
 def Prim(G):
-    U = set(G.keys())                        # 图G的顶点集合U，它包含了该图的所有顶点
-    V = set(G.keys()[0])                     # 将起始顶点加入集合V
+    U = set(G.keys())                        # 图G的顶点集合U，它包含了该图的所有顶点, 创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。
+    V = set(list(U)[0])                      # 将起始顶点加入集合V,  集合对 list 和 tuple 具有排序(升序)
     min_tree = []                            # 存储要返回的最小生成树的所有的边
     cost = []                                # 记录最小生成树各边的权重的值
 

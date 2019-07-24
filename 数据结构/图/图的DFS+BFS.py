@@ -80,7 +80,7 @@ def BFSTraverse(G, start):
                                          # 如果不这样做，就可能会导致无限循环
 
     queue.append(start)                  #将起始结点加入队列
-    while queue:                        #当队列不为空时，进入循环
+    while queue:                         #当队列不为空时，进入循环
         node = queue.popleft()           #将队列的队首元素出队
         if node in visited:              #判断该元素是否被访问过，如果访问过，跳出本次循环
             continue
