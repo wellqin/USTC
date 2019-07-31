@@ -43,6 +43,72 @@ class Node:
         self.right = right
         self.next = next
 """
-class Solution:
-    def connect(self, root: 'Node') -> 'Node':
-        
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+class Solution(object):
+    def __init__(self):
+        self.root = None
+
+    def add(self, item):
+        node = Node(item)
+        if self.root is None:
+            self.root = node
+        else:
+            q = [self.root]
+
+            while True:
+                pop_node = q.pop(0)
+                if pop_node.left is None:
+                    pop_node.left = node
+                    return
+                elif pop_node.right is None:
+                    pop_node.right = node
+                    return
+                else:
+                    q.append(pop_node.left)
+                    q.append(pop_node.right)
+
+    def connect(self, root):
+
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        d={}
+        def f(root, level):
+            if not root:
+                return
+            if level not in d:
+                d[level]=root
+            else:
+                root.next,d[level]=d[level],root
+            f(root.right, level+1)
+            f(root.left, level+1)
+        f(root, 1)
+        return root
+
+    def func(self, root):
+        d = {}
+        def f(root, level):
+            if root:
+                d[level] = root.val
+                f(root.right, level+1)
+                f(root.left, level+1)
+        f(root, 1)
+        lst1 = sorted(d.keys())
+        lst = d[lst1[-1]]
+        return lst[-1]
+
+
+
+tt = Solution()
+for i in range(1,8):
+    tt.add(i)
+
+print('connect:',tt.connect(tt.root))
+print('connect:',tt.func(tt.root))

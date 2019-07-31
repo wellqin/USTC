@@ -22,6 +22,34 @@
 #         self.left = None
 #         self.right = None
 
-class Solution:
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
-        
+
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+        res = [root.val]
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+
+        return res + left + right
+
+
+class Solution1:
+    def preorderTraversal1(self, root):
+        if not root:
+            return []
+        stack = []
+        res = []
+        cur = root
+        while cur or stack:
+            if cur:
+                res.append(cur.val)
+                stack.append(cur.right)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+        return res

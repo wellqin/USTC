@@ -1,24 +1,24 @@
 #coding:utf-8
 #给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
 #
-# 例如: 
-#给定二叉树: [3,9,20,null,null,15,7], 
+# 例如:
+#给定二叉树: [3,9,20,null,null,15,7],
 #
 #     3
 #   / \
 #  9  20
 #    /  \
 #   15   7
-# 
 #
-# 返回其层次遍历结果： 
+#
+# 返回其层次遍历结果：
 #
 # [
 #  [3],
 #  [9,20],
 #  [15,7]
 #]
-# 
+#
 #
 
 # Definition for a binary tree node.
@@ -61,13 +61,13 @@ class Solution:
                 return
             else:
                 # 层次遍历
-                sol[level-1].append(node.val)
+                # sol[level-1].append(node.val)
 
-                # # 锯齿遍历
-                # if level % 2 == 1:
-                #     sol[level - 1].append(node.val)
-                # else:
-                #     sol[level - 1].insert(0, node.val)
+                # 锯齿遍历
+                if level % 2 == 1:
+                    sol[level - 1].append(node.val)
+                else:
+                    sol[level - 1].insert(0, node.val)
 
                 if len(sol) == level:  # 遍历到新层时，只有最左边的结点使得等式成立
                     sol.append([])
@@ -76,6 +76,21 @@ class Solution:
         sol = [[]]
         helper(root, 1)
         return sol[:-1]
+
+    def levelOrder111(self, root):
+        if not root:
+            return []
+        sol = []
+        curr = root
+        queue = [curr]
+        while queue:
+            curr = queue.pop(0)
+            sol.append(curr.val)
+            if curr.left:
+                queue.append(curr.left)
+            if curr.right:
+                queue.append(curr.right)
+        return sol
 
     def traverse(self, root):  # 层次遍历
         if root is None:
@@ -92,17 +107,6 @@ class Solution:
                 q.append(pop_node.right)
                 res.append(pop_node.right.val)
         return res
-
-    def traverse_route(self, node):
-        if not node.left and not node.right:
-            return [str(node.val)]
-        left, right = [], []
-        if node.left:
-            left = [str(node.val) + x for x in self.traverse_route(node.left)]
-        if node.right:
-            right = [str(node.val) + x for x in self.traverse_route(node.right)]
-
-        return left + right
 
     # 思路 1 - 时间复杂度: O(N)- 空间复杂度: O(N)******
     def zigzagLevelOrder(self, root):
@@ -188,7 +192,7 @@ for i in range(10):
 print('levelOrder:',t.levelOrder(t.root))
 print('levelOrder:',t.traverse(t.root))
 print('锯齿遍历:',t.zigzagLevelOrder(t.root))
-print('路径遍历:',t.traverse_route(t.root))
+print('cengci遍历:',t.levelOrder111(t.root))
 print('maxDepth:',t.maxDepth(t.root))
 print('maxDepth1:',t.maxDepth1(t.root))
 print('maxDepth2:',t.maxDepth2(t.root))

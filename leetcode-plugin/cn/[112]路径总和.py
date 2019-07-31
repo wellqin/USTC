@@ -37,3 +37,20 @@ class Solution(object):
             return self.hasPathSum(root.left, sum-root.val) or self.hasPathSum(root.right, sum-root.val)
         else:
             return root.val == sum
+
+    def pathSum_dfs(self, root, Sum):
+        res = []
+        if not root:
+            return []
+
+        def dfs(root, cur_list):
+            if root.left:
+                dfs(root.left, cur_list + [root.left.item])
+            if root.right:
+                dfs(root.right, cur_list + [root.right.item])
+            if not root.right and not root.left:
+                if sum(cur_list) == Sum:
+                    res.append(cur_list)
+
+        dfs(root, [root.item])
+        return res

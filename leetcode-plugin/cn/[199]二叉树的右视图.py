@@ -72,6 +72,56 @@ class Tree:
             cur_level = next_level
         return res
 
+    def rightSideView1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+
+        def helper(root, level):
+            if not root:
+                return []
+            res[level - 1].append(root.val)
+            if len(res) == level:
+                res.append([])
+            helper(root.left, level + 1)
+            helper(root.right, level + 1)
+
+        res = [[]]
+        helper(root, 1)
+        res = res[:-1]
+        result = []
+        for i in res:
+            result.append(i[-1])
+        return result
+
+    def leftSideView1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+
+        def helper(root, level):
+            if not root:
+                return []
+            res[level - 1].append(root.val)
+            if len(res) == level:
+                res.append([])
+            helper(root.left, level + 1)
+            helper(root.right, level + 1)
+
+        res = [[]]
+        helper(root, 1)
+        res = res[:-1]
+        result = []
+        for i in res:
+            result.append(i[0])
+        return result
+
     def traverse1(self, root):  # 层次遍历
         if root == None:
             return []
@@ -90,3 +140,5 @@ for i in range(1, 7):
     t.add(i)
 print('cengci遍历:',t.rightSideView(t.root))
 print('traverse1遍历:',t.traverse1(t.root))
+print('rightSideView1:',t.rightSideView1(t.root))
+print('leftSideView1:',t.leftSideView1(t.root))
