@@ -68,7 +68,7 @@ class Solution:
             if not root:
                 return
             midorder(root.left)
-            res.append(root.val)
+            self.res.append(root.val)
             midorder(root.right)
 
 

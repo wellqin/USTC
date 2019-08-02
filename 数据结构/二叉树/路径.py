@@ -139,8 +139,111 @@ class Solution(object):
         helper(root, [])
 
         return ['->'.join([str(val) for val in path]) for path in res]
-"""
-    注意一点，很多人可能看到这里有好几次cur_path + [node.val]，觉得干嘛不直接写在最开头了，事实是这样做的话cur_path就已经变化了，因为要执行完if
-    node.left才去执行if
-    node.right，此时cur_path就不是原来的cur_path了。
-"""
+
+    """
+        注意一点，很多人可能看到这里有好几次cur_path + [node.val]，觉得干嘛不直接写在最开头了，事实是这样做的话cur_path就已经变化了，因为要执行完if
+        node.left才去执行if
+        node.right，此时cur_path就不是原来的cur_path了。
+    """
+
+# 路径和(三)-二叉树中路径和等于给定值的所有路径（任意两个节点）
+class Solution1:
+    def __init__(self):
+        self.path_num = 0
+
+    def pathSum(self, root, sum):
+        """
+        递归往下一次深度遍历根节点循环
+        :param root:
+        :param sum:
+        :return:
+        """
+        if root == None:
+            return self.path_num
+
+        self.getPathNum(root, sum)
+        self.pathSum(root.left, sum)
+        self.pathSum(root.right, sum)
+
+        return self.path_num
+
+    def getPathNum(self, root, sum):
+        """
+        依据当前树找目标值，进而找到路径数量
+        :param root:
+        :param sum:
+        :return:
+        """
+        if root == None:
+            return
+        if root.val == sum:
+            self.path_num += 1
+        self.getPathNum(root.left, sum - root.val)
+        self.getPathNum(root.right, sum - root.val)
+
+
+# 二叉树中任意两个节点之间路径和的最大值（二叉树的最大路径和）
+class Solution2(object):
+
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.global_max = root.val if root else 0
+        self.findmax(root)
+        return self.global_max
+
+    def findmax(self, node):
+        if not node:
+            return 0
+
+        left = self.findmax(node.left)
+        left = left if left > 0 else 0
+
+        right = self.findmax(node.right)
+        right = right if right > 0 else 0
+        # 这句是精髓，只要判断出当前这个点作为root的path更长，就更新一下
+        self.global_max = max(left + right + node.val, self.global_max)
+        # 这里是因为sub_path只能为一条边，不然跟上面的root组合起来就不是path了
+        return max(left, right) + node.val
+
+# 给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过根结点。
+class Solution3(object):
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        对每一个点都求它自身的Diameter，最后取最大值
+        """
+
+        def maxDepth(root):
+            if not root:
+                return 0
+            return 1 + max(maxDepth(root.left), maxDepth(root.right))
+
+        if not root:
+            return 0
+        return max(maxDepth(root.left) + maxDepth(root.right), self.diameterOfBinaryTree(root.left),
+                   self.diameterOfBinaryTree(root.right))
+
+    def diameterOfBinaryTree1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        """
+        刚才中间那些计算maxDepth的状态我们都可以时刻记录下来，即时刻更新res，这样时间可以下降到O(N)
+        即我们可以在算maxDepth的时候不是像思路一一样每次都重新算，而是把他们都用L和R存起来
+        """
+        def maxDepth(node):
+            if not node:
+                return 0
+            L = maxDepth(node.left)
+            R = maxDepth(node.right)
+            self.res = max(self.res, L + R)
+            return max(L, R) + 1
+
+        maxDepth(root)
+        return self.res

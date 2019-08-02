@@ -30,7 +30,7 @@
 #     根节点的值为 5 ，但是其右子节点值为 4 。
 # 
 #
-
+import sys
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -48,8 +48,8 @@ class Solution:
     def __init__(self):
         self.root = None
 
-    def add(self, item):
-        node = TreeNode(item)
+    def add(self, val):
+        node = TreeNode(val)
         if self.root is None:
             self.root = node
         else:
@@ -73,7 +73,7 @@ class Solution:
             if not root:    # 递归终止条件，不返回值，默认none，到叶子节点就终止了
                 return
             inorder(root.left)
-            res.append(root.val)
+            res.append(root)
             inorder(root.right)      # 不用return
 
         res = []   # 排好序的节点存在着里面，是节点，不是节点的值,res.append(root.val)就是节点值了
@@ -116,11 +116,39 @@ class Solution:
         return valid(root, -sys.maxsize, sys.maxsize)
 
 
+
+    def isValidBST123(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+
+        def inorder(root):
+            if not root:
+                return []
+            res = [root.val]
+            left = inorder(root.left)
+            right = inorder(root.right)
+
+            return left + res + right
+
+        if not root:
+            return True
+        node_order = inorder(root)
+        while None in node_order:
+            node_order.remove(None)
+
+        for i in range(len(node_order) - 1):
+            if node_order[i] >= node_order[i + 1]:
+                return False
+        return True
+
 t = Solution()
-for i in [2,1,3]:
+for i in [5, 1, 4, None, None, 3, 6]:
     t.add(i)
 
-print('isValidBST:',t.isValidBST(t.root))
+# print('isValidBST:',t.isValidBST(t.root))
+print('isValidBST:',t.isValidBST123(t.root))
 
 
 

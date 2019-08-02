@@ -37,6 +37,38 @@
 #= 22 
 #
 
-class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        
+"""
+实际上这里有一个很奇（sha）怪（bi）的地方，看到了么，除法➗处，如果我不这么做，就是错的，
+这是python 2 和 python 3 的除法不一致导致的，所以最终我这样做了才能得到正确答案。
+"""
+
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        stack = []
+        for t in tokens:
+            if t not in '+-*/':
+                stack.append(int(t))
+            else:
+                r, l = stack.pop(), stack.pop()
+                if t == "+":
+                    stack.append(l+r)
+                elif t == "-":
+                    stack.append(l-r)
+                elif t == "*":
+                    stack.append(l*r)
+                else:
+                    stack.append(int(float(l) / r))
+                    # here take care of the case like "1/-22",
+                    # in Python 2.x, it returns -1, while in
+                    # Leetcode it should return 0
+                    # if l*r < 0 and l % r != 0:
+                    #     stack.append(l/r+1)
+                    # else:
+                    #     stack.append(l/r)
+        return stack.pop()
+ll = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
+print(Solution().evalRPN(ll))
