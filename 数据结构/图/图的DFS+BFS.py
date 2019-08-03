@@ -90,5 +90,6 @@ def BFSTraverse(G, start):
             for adj in G[node]:
                 if adj not in visited:
                     queue.append(adj)   # 将该节点的所有邻居加入队列
+print('==========================================================')
 print ("队列实现广度优先搜索结果：")
 BFSTraverse(Graph, 'A')
