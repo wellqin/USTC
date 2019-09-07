@@ -44,11 +44,16 @@ y = Fraction(4,6)
 print(x+y)  # 1
 
 print(Fraction('.25'))  # 1/4
-print(Fraction('3.1415'))  # 6283/2000
 
 
-f=2.5
-z=Fraction(*f.as_integer_ratio())
+print(Fraction('3.1415'), type(Fraction('3.1415')))  # 6283/2000
+
+listres = str(Fraction('3.1415')).split("/")
+print(listres[0], listres[1])
+
+
+f = 2.5
+z = Fraction(*f.as_integer_ratio())
 print(z)  # 5/2
 
 
@@ -62,5 +67,14 @@ decimal.getcontext().prec=4  # 指定精度（4位小数）
 yy = decimal.Decimal(1) / decimal.Decimal(7)
 print(yy)  # 0.1429
 print(yy)  # 0.14286  decimal.getcontext().prec=5
+
+
+# fractions.gcd(a, b)
+# 用于计算最大公约数。这个函数在Python3.5之后就废弃了，官方建议使用math.gcd()。
+print(math.gcd(21, 3))
+
+
+import math
+
 
 

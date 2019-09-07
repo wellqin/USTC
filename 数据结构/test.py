@@ -23,32 +23,8 @@ print("dp= ", dp)
 
 
 
-
-res = -sys.maxsize
-k =12
-
-
-sums, cur_sum, cur_max = [sys.maxsize], 0, -sys.maxsize
-for sm in dp:
-    bisect.insort(sums, cur_sum)
-    cur_sum += sm
-    ll = bisect.bisect_left(sums, cur_sum - k)
-    rr = sums[bisect.bisect_left(sums, cur_sum - k)]
-    pp = cur_sum - sums[bisect.bisect_left(sums, cur_sum - k)]
-    cur_max = max(cur_max, cur_sum - sums[bisect.bisect_left(sums, cur_sum - k)])
-res = max(res, cur_max)
-
-
-def maxSubArray2(dp):
-    """
-    :type nums: List[int]
-    :rtype: int
-    """
-    n = len(dp)
-    maxSum = [dp[0] for i in range(n)]
-    for i in range(1, n):
-        maxSum[i] = max(maxSum[i - 1] + dp[i], dp[i])
-    return max(maxSum)
-print(maxSubArray2(dp))
+li = [1,3,4,5]
+for i in reversed([1,3,4,5]):
+    print(i)
 
 

@@ -47,7 +47,7 @@ class Solution:
         l, r = 0, len(nums) - 1
         # search for left bound
         while l <= r:
-            mid = l + ((r - l) >> 2)
+            mid = l + ((r - l) >> 1)
             if nums[mid] == target and (mid == 0 or nums[mid - 1] != target):
                 res.append(mid)
                 break
@@ -61,7 +61,7 @@ class Solution:
         # search for right bound, now we don't need to reset left pointer
         r = len(nums) - 1
         while l <= r:
-            mid = l + ((r - l) >> 2)
+            mid = l + ((r - l) >> 1)
             if nums[mid] == target and (mid == len(nums) - 1 or nums[mid + 1] != target):
                 res.append(mid)
                 break
@@ -71,4 +71,7 @@ class Solution:
                 l = mid + 1
                 # 这里直接返回res是因为前面如果判断左边界没返回的话就说明我们判断右边界的时候一定会append元素
         return res
-        
+
+nums = [5,7,7,8,8,10]
+target = 8
+print(Solution().searchRange(nums, target))
