@@ -25,7 +25,7 @@ def start_blocking():
         count += 1
         print('Connected by', addr)
         print('Accepted clinet count:%d' % count)
-        data = conn.recv(1024)  # 若无数据则阻塞
+        data = conn.recv(1024)  # 若无数据则阻塞 不论是客户还是服务器应用程序都用recv函数从TCP连接的另一端接收数据。
         if data:
             conn.sendall(data)
         conn.close()

@@ -14,7 +14,7 @@ def topsort(G):
     for u in G:
         for v in  G[u]:
             in_degrees[v] += 1          # 每一个节点的入度
-    Q = [u for u in G if in_degrees[u] == 0]          # 入度为 0 的节点
+    Q = [u for u in G if in_degrees[u] == 0]          # 入度为 0 的节点   # 遍历in_degrees也不影响
     S = []
     while Q:
         u = Q.pop()                  # 默认从最后一个移除
