@@ -84,10 +84,12 @@ Process类常⽤属性：
 # from multiprocessing import Process
 # import os
 # from time import sleep
+#
+#
 # # ⼦进程要执⾏的代码
 # def run_proc(name, age, **kwargs):
 #     for i in range(10):
-#         print('⼦进程运⾏中，name= %s,age=%d ,pid=%d...' % (name, age,os.getpid()))
+#         print('⼦进程运⾏中，name= %s,age=%d ,pid=%d...' % (name, age, os.getpid()))
 #         print(kwargs)
 #         sleep(0.5)
 #
@@ -148,3 +150,17 @@ print("p2.pid=%s"%p2.pid)
 # 所以下⾯的print会输出True，即p1仍然在执⾏
 p1.join()
 print("p1.is_alive=%s"%p1.is_alive())
+
+"""
+进程ID：19866
+p2.is_alive=True
+p1.name=Process-1
+p1.pid=19867
+p2.name=dongGe
+p2.pid=19868
+worker_1,⽗进程(19866),当前进程(19867)
+worker_2,⽗进程(19866),当前进程(19868)
+worker_2,执⾏时间为'1.00'秒
+worker_1,执⾏时间为'2.00'秒
+p1.is_alive=False
+"""
