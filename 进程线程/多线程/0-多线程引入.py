@@ -7,9 +7,43 @@ Author :          wellqin
 date:             2019/9/11
 Change Activity:  2019/9/11
 -------------------------------------------------
+
+如果你的代码是CPU密集型，多个线程的代码很有可能是线性执行的。所以这种情况下多线程是鸡肋，效率可能还不如单线程因为有context switch
+
+但是：如果你的代码是IO密集型，多线程可以明显提高效率。例如制作爬虫（我就不明白为什么Python总和爬虫联系在一起…不过也只想起来这个例子…），绝大多数时间爬虫是在等待socket返回数据。这个时候C代码里是有release GIL的，最终结果是某个线程等待IO的时候其他线程可以继续执行。
+
+反过来讲：你就不应该用Python写CPU密集型的代码…效率摆在那里…
+
+如果确实需要在CPU密集型的代码里用concurrent，就去用multiprocessing库。这个库是基于multi process实现了类multi thread的API接口，并且用pickle部分地实现了变量共享。
+
+再加一条，如果你不知道你的代码到底算CPU密集型还是IO密集型，教你个方法：
+
+multiprocessing这个module有一个dummy的sub module，它是基于multithread实现了multiprocessing的API。
+
+假设你使用的是multiprocessing的Pool，是使用多进程实现了concurrency
+
+from multiprocessing import Pool
+
+如果把这个代码改成下面这样，就变成多线程实现concurrency
+
+from multiprocessing.dummy import Pool
+
+两种方式都跑一下，哪个速度快用哪个就行了。
+
+UPDATE:
+刚刚才发现concurrent.futures这个东西，包含ThreadPoolExecutor和ProcessPoolExecutor，可能比multiprocessing更简单
 """
 
 """
+
+Python由于有全锁局的存在（同一时间只能有一个线程执行），并不能利用多核优势。所以，如果你的多线程进程是CPU密集型的，
+那多线程并不能带来效率上的提升，相反还可能会因为线程的频繁切换，导致效率下降；
+如果是IO密集型，多线程进程可以利用IO阻塞等待时的空闲时间执行其他线程，提升效率。
+
+
+Python虽然不能利用多线程实现多核任务，但可以通过多进程实现多核任务。多个Python进程有各自独立的GIL锁，互不影响。
+
+
 python 3中的多进程编程主要依靠threading模块。创建新线程与创建新进程的方法非常类似。
 threading.Thread方法可以接收两个参数, 第一个是target，一般指向函数名，第二个时args，需要向函数传递的参数。
 
