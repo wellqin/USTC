@@ -21,3 +21,8 @@ str3 = "www.google.com"
 list3 = str3.split(".")
 print(list3)
 
+
+
+import random
+random
+
