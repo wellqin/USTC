@@ -27,7 +27,7 @@ import time
 # python3中
 from queue import Queue
 
-
+# 通过阻塞队列来进⾏通讯,消除二者之间的耦合
 class Producer(threading.Thread):
     def run(self):
         global queue

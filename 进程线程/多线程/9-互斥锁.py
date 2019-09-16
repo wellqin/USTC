@@ -99,3 +99,20 @@ acquire(False)时情况
 由于可以存在多个锁，不同的线程持有不同的锁，并试图获取对⽅持有的锁时，可能会造成死锁
 """
 
+"""
+with lock:  # with Lock的作用相当于自动获取和释放锁(资源)
+    while (c < 100):
+        c += 1
+        count += 1
+        print("{0}: set count to {1}".format(threadName, count))
+
+与
+if(lock.acquire()):
+        while(c<100):
+            c+=1
+            count+=1
+            print("{0}: set count to {1}".format( threadName, count) )
+        lock.release()
+
+二者作用一样的
+"""
