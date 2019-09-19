@@ -61,3 +61,11 @@ Thread-2----do2---up----
 程序设计时要尽量避免（银⾏家算法）
 添加超时时间等
 """
+
+"""
+解决方法，递归锁：在Python中为了支持在同一线程中多次请求同一资源，python提供了可重入锁RLock。
+
+这个RLock内部维护着一个Lock和一个counter变量，counter记录了acquire的次数，从而使得资源可以被多次require。
+
+直到一个线程所有的acquire都被release，其他的线程才能获得资源。上面的例子如果使用RLock代替Lock，则不会发生死锁
+"""

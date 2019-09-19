@@ -46,9 +46,9 @@ def MAX_HEAPIFY(A, i):
 
     # largest = max(A[l], A[r], A[i])  # list index out of range
 
-    if largest != i: #如果A[i]不是最大的 就要调堆了
-        A[i],A[largest] = A[largest],A[i] #交换
-        MAX_HEAPIFY(A,largest) #递归调largest
+    if largest != i:  # 如果A[i]不是最大的 就要调堆了
+        A[i], A[largest] = A[largest], A[i]  # 交换
+        MAX_HEAPIFY(A, largest)  # 递归调largest
 
 
 def BUILD_MAX_HEAP(A):
@@ -60,17 +60,17 @@ def BUILD_MAX_HEAP(A):
 
 
 def HEAPSORT(A):
-    BUILD_MAX_HEAP(A) # 建堆
+    BUILD_MAX_HEAP(A)  # 建堆
     print("建成的堆：",A)
     for i in range(len(A)-1, 1, -1):
-        A[1],A[i] = A[i],A[1] # 第一位和最后有位换
-        A.heap_size = A.heap_size - 1 # 取出了一个
-        MAX_HEAPIFY(A,1) # 调堆
+        A[1],A[i] = A[i],A[1]  # 第一位和最后有位换
+        A.heap_size = A.heap_size - 1  # 取出了一个
+        MAX_HEAPIFY(A, 1)  # 调堆
 
 if __name__ == '__main__':
     A = Mylist()
     # print(type(A))
-    for i in[-1,4,1,3,2,16,9,10,14,8,7]: # A = [,...] A会变成list
+    for i in [-1,4,1,3,2,16,9,10,14,8,7]:  # A = [,...] A会变成list
         A.append(i)
     # print(type(A))
     HEAPSORT(A)

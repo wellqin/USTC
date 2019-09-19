@@ -16,5 +16,5 @@
 #         self.next = None
 
 class Solution:
-    def reverseList(self, head: ListNode) -> ListNode:
-        
+    def reverseList(self, head):
+        pass

@@ -52,9 +52,70 @@
 # Related Topics 数学 字符串
 
 
-
+from typing import *
+import re
 #leetcode submit region begin(Prohibit modification and deletion)
-class Solution:
+class Solution1:
     def myAtoi(self, str: str) -> int:
+        if not str:
+            return
+        flag = False
+        if str.startswith("-"):
+            str = str[1:]
+            flag = True
+
+    def myAtoi(self, s: str) -> int:
+        """
+        ^：匹配字符串开头
+        [\+\-]：代表一个+字符或-字符
+        ?：前面一个字符可有可无
+        \d：一个数字
+        +：前面一个字符的一个或多个
+        \D：一个非数字字符
+        *：前面一个字符的0个或多个
+        max(min(数字, 2**31 - 1), -2**31) 用来防止结果越界
+
+        为什么可以使用正则表达式？如果整数过大溢出怎么办？
+
+        题目中描述： 假设我们的环境只能存储 32 位大小的有符号整数
+
+        首先，这个假设对于 Python 不成立，Python 不存在 32 位的 int 类型。其次，即使搜索到的字符串转32位整数可能导致溢出，我们也可以直接通过字符串判断是否存在溢出的情况（比如 try 函数 或 判断字符串长度 + 字符串比较），聪明的你应该会解决这个问题吧？
+
+        """
+        return max(min(int(*re.findall('^[\+\-]?\d+', s.lstrip())), 2 ** 31 - 1), -2 ** 31)
+
+
         
 #leetcode submit region end(Prohibit modification and deletion)
+
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        str = str.strip()
+        strNum = 0
+        if len(str) == 0:
+            return strNum
+
+        positive = True
+        if str[0] == '+' or str[0] == '-':
+            if str[0] == '-':
+                positive = False
+            str = str[1:]
+
+        for char in str:
+            if char >= '0' and char <= '9':
+                strNum = strNum * 10 + ord(char) - ord('0')
+            if char < '0' or char > '9':
+                break
+
+        if strNum > 2147483647:
+            if positive == False:
+                return -2147483648
+            else:
+                return 2147483647
+        if not positive:
+            strNum = 0 - strNum
+        return strNum

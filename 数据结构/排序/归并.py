@@ -45,7 +45,7 @@ Change Activity:  2019/9/12
         这样一直到两个列表空了 就按顺序合并了两个列表
         
 
-时间复杂度： 最好最坏都是 O( n log n )
+时间复杂度： 最好最坏都是 O(nlogn)
 空间复杂度:  O(n)
 稳定性：稳定
 缺点：每次拆分数组都要开新的数组， 每次合并数组都要开新数组，空间复杂度很大
@@ -84,7 +84,7 @@ def merge(list_left, list_right):  # 进行归并
     return final+list_left+list_right  # 返回排序好的列表
 
 
-def merge_sort6(collection):
+def merge_sort6(array):
     ''' 自己写的（递归法）'''
     # 巧妙之处在于要想到能把merge和merge_sort6结合起来递归，思考的线索是根据参数的格式
     def merge(left,right):
@@ -93,14 +93,16 @@ def merge_sort6(collection):
             result.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
         return result+left+right
     # 递归
-    length = len(collection)
+    length = len(array)
     if length == 1:
-        return collection
+        return array
     while True:
         mid = length//2
-        return(merge(merge_sort6(collection[:mid]),merge_sort6(collection[mid:])))
+        return(merge(merge_sort6(array[:mid]),merge_sort6(array[mid:])))
 
 
 if __name__ == "__main__":
     array = [6, 5, 4, 3, 2, 1]
+    array1 = [6, 5, 4, 3, 2, 1]
     print(merge_sort(array))
+    print(merge_sort6(array1))
