@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        test
+File Name:        矩阵链
 Description :   
 Author :          wellqin
-date:             2019/7/29
-Change Activity:  2019/7/29
+date:             2019/9/19
+Change Activity:  2019/9/19
 -------------------------------------------------
 """
 
@@ -55,4 +55,3 @@ print("")
 print("其标量乘法次数为：", m[1][4])
 
 print("Over=========")
-

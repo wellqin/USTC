@@ -38,10 +38,14 @@ class Solution:
         for i in range(1,len(ratings)):
             if ratings[i] > ratings[i-1]:
                 result[i] = result[i-1]+1
+        print(result)  # [1, 2, 1, 2, 3, 1, 1, 1, 2, 1]
 
         for j in range(len(ratings)-2,-1,-1):
             if ratings[j] > ratings[j+1] and result[j] <= result[j+1]:
                 result[j] = result[j+1]+1
+        print(result)  # [1, 2, 1, 2, 4, 3, 2, 1, 2, 1]
 
         return sum(result)
-        
+
+nums = [1,2,2,3,8,5,4,3,7,2]
+print(Solution().candy(nums))
