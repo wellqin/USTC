@@ -14,7 +14,36 @@
 #尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。 
 #
 
-class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
+class Solution(object):
+    def letterCombinations(self, strs):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        lookup = {
+            '2': ['a', 'b', 'c'],
+            '3': ['d', 'e', 'f'],
+            '4': ['g', 'h', 'i'],
+            '5': ['j', 'k', 'l'],
+            '6': ['m', 'n', 'o'],
+            '7': ['p', 'q', 'r', 's'],
+            '8': ['t', 'u', 'v'],
+            '9': ['w', 'x', 'y', 'z']
+        }
+        res = []
 
-        
+        def helper(s, strs):
+            if len(strs) == 0:
+                res.append(s)
+            else:
+                cur_strs = strs[0]
+                for char in lookup[cur_strs]:
+                    helper(s + char, strs[1:])
+
+        if not strs or len(strs) == 0:
+            return res
+        helper('', strs)
+        return res
+
+s = "23"
+print(Solution().letterCombinations(s))

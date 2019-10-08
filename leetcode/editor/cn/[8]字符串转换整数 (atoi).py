@@ -56,7 +56,7 @@ from typing import *
 import re
 #leetcode submit region begin(Prohibit modification and deletion)
 class Solution1:
-    def myAtoi(self, str: str) -> int:
+    def myAtoi(self, str):
         if not str:
             return
         flag = False
@@ -64,7 +64,7 @@ class Solution1:
             str = str[1:]
             flag = True
 
-    def myAtoi(self, s: str) -> int:
+    def myAtoi1(self, s):
         """
         ^：匹配字符串开头
         [\+\-]：代表一个+字符或-字符
@@ -107,7 +107,9 @@ class Solution(object):
 
         for char in str:
             if char >= '0' and char <= '9':
-                strNum = strNum * 10 + ord(char) - ord('0')
+                strNum = strNum * 10 + int(char)  # ord(char) - ord('0')
+                print(ord(char), ord('0'))
+                # 它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值 ord('a') = 97
             if char < '0' or char > '9':
                 break
 
@@ -119,3 +121,7 @@ class Solution(object):
         if not positive:
             strNum = 0 - strNum
         return strNum
+
+str = "4193 with words"
+print(Solution().myAtoi(str))
+print(ord('0'))  # 48

@@ -75,6 +75,7 @@ def random_partition(arr, l, r):
     arr[i], arr[r] = arr[r], arr[i]
     return partition(arr, l, r)
 
+
 arr = [1,4,7,1,5,5,3,85,34,75,23,75,2,0]
 
 print("initial array:\n", arr)

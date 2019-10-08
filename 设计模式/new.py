@@ -59,6 +59,18 @@ print(s2)
 # python中单例模式
 
 class sig1(object):
+    """
+    饿汉式单例模式实现
+    预先加载，急切初始化，单例对象在类实例化前创建。
+
+    优点:
+    1. 线程安全
+    2. 在类实例化前已经创建好一个静态对象，调用时反应速度快
+    3. 直接执行其他方法或静态方法时，单例实例不会被初始化
+
+    缺点:
+    1. 不管使用与否，实例化前就初始化静态对象，有点资源浪费; ( 其实不算是大毛病)
+    """
     instance = None  # 记录对象引用
 
     init_flag = False
@@ -102,6 +114,31 @@ init
 <__main__.sig1 object at 0x000001A8EABFB470>
 
 """
+
+class Singleton(object):
+    """
+    # 懒汉模式: 只有在使用时才创建单例对象，实例化时不创建
+    保证了需要使用的时候才创建对象。（防止导入模块，但没有使用，造成的浪费）
+    优点:
+    1. 资源利用合理，不调用 get_instance 方法不创建单例对象
+    缺点:
+    1. 线程不安全，多线程时可能会获取到不同单例对象的情况。解决办法是加互斥锁，但会降低效率
+    """
+    _instance = None
+
+    def __init__(self):
+        if not hasattr(Singleton, '_instance'):
+            print("__init__ method called, but no instance created")
+        else:
+            print("instance already created:", self._instance)
+
+    @classmethod
+    def get_instance(cls):  # classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，
+                            # 但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。
+        if not cls._instance:
+            cls._instance = Singleton()
+        return cls._instance
+
 
 
 

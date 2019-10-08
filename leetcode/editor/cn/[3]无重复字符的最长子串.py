@@ -45,7 +45,7 @@ class Solution:
         return ans
 s = "abcabcbb"
 s1 = "pwwkew"
-print(Solution().lengthOfLongestSubstring(s))
+print(Solution().lengthOfLongestSubstring(s1))
 # print(Solution().lengthOfLongestSubstring(s1))
 
 
