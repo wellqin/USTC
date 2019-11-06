@@ -65,23 +65,23 @@ def BUILD_MAX_HEAP(A):
     A.heap_size = len(A)-1
     # print(len(A))
     for i in range(A.heap_size//2, 0, -1):  # 从n//2开始到1
-        print(i)
         MAX_HEAPIFY(A, i)
 
 
+# 因为建堆的时间复杂度是O（n）,调整堆的时间复杂度是lgn，所以堆排序的时间复杂度是O（nlgn）。
 def HEAPSORT(A):
-    BUILD_MAX_HEAP(A)  # 建堆
+    BUILD_MAX_HEAP(A)  # 建堆O（n）
     print("建成的堆：", A)
     for i in range(len(A)-1, 1, -1):
         A[1], A[i] = A[i], A[1]  # 第一位和最后一位换
         A.heap_size = A.heap_size - 1  # 取出了一个
-        MAX_HEAPIFY(A, 1)  # 调堆
+        MAX_HEAPIFY(A, 1)  # 调堆lgn
 
 
 if __name__ == '__main__':
     A = Mylist()
     # print(type(A))
-    for i in [-1,4,1,3,2,16,9,10,14,8,7]:  # A = [,...] A会变成list
+    for i in [-1,4,1,3,2,16,9,10,14,8,7,6]:  # A = [,...] A会变成list
         A.append(i)
     # print(type(A))
     HEAPSORT(A)

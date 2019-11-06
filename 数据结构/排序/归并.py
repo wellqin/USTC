@@ -63,26 +63,26 @@ Change Activity:  2019/9/12
 
 
 def merge_sort(array):  # 递归分解
-    mid = int((len(array)+1)/2)
+    mid = len(array) >> 1
     print("mid = ", mid)
     if len(array) == 1:  # 递归结束的条件，分解到列表只有一个数据时结束
         return array
-    list_left = merge_sort(array[:mid])
-    list_right = merge_sort(array[mid:])
+    left = merge_sort(array[:mid])
+    right = merge_sort(array[mid:])
 
-    return merge(list_left, list_right)  # 进行归并
+    return merge(left, right)  # 进行归并
 
 
-def merge(list_left, list_right):  # 进行归并
-    final = []
-    while list_left and list_right:
-        final.append(list_left.pop(0) if list_left[0] <= list_right[0] else list_right.pop(0))
+def merge(left, right):  # 进行归并
+    res = []
+    while left and right:
+        res.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
         # if list_left[0] <= list_right[0]:  # 如果将"<="改为"<",则归并排序不稳定
         #     final.append(list_left.pop(0))
         # else:
         #     final.append(list_right.pop(0))
 
-    return final+list_left+list_right  # 返回排序好的列表
+    return res+left+right  # 返回排序好的列表
 
 
 def merge_sort6(array):

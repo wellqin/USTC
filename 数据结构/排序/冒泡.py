@@ -69,7 +69,7 @@ def bubble_sort(numlist):
             break
 
 
-list1 = [19, 2, 13, 8, 34, 25, 7]
+list1 = [1,2,3,4,5,6,7,8]
 print("排序前list1 = %s" % list1)
 bubble_sort(list1)
 print("排序后list1 = %s" % list1)
