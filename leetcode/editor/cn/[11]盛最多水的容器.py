@@ -13,8 +13,39 @@
 # 输入: [1,8,6,2,5,4,8,3,7]
 #输出: 49 
 #
+# from typing import *
+# class Solution:
+#     def maxArea(self, height: List[int]) -> int:
+#         if len(height) < 2:
+#             return None
+#         i, j, res = 0, len(height) - 1, 0
+#         while i < j:
+#             if height[i] < height[j]:
+#                 res = max(res, height[i] * (j - i))
+#                 i += 1
+#             else:
+#                 res = max(res, height[j] * (j - i))
+#                 j -= 1
+#         return res
 
+from typing import *
 class Solution:
     def maxArea(self, height: List[int]) -> int:
+        if len(height) < 2:
+            return None
+        i, j, res = 0, len(height)-1, 0
+        while i<j:
+            if height[i] < height[j]:
+                res = max(res, height[i] * (j-i))
+                i += 1
+            else:
+                res = max(res, height[j] * (j-i))
+                j -=1
+        return res
+
+
+
+
+
 
         

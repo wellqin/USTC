@@ -11,22 +11,39 @@
 #]
 # 
 #
-
-class Solution:
-    def threeSum(self, nums):
-        # for num in nums:
-        #     two_num = target - num
-        res = []
-        nums.sort()
-        for i in range(len(nums)):
-            for j in range(i + 1, len(nums)):
-                for k in range(j + 1, len(nums)):
-                    if nums[i] + nums[j] + nums[k] == 0 and j != i and k != j and k != i:
-                        curRes = [nums[i], nums[j], nums[k]]
-                        if curRes not in res:
-                            res.append(curRes)
-
-        return res
+from typing import *
+# print(list(range(5,5)))
+# class Solution:
+#     def threeSum(self, nums):
+#         # for num in nums:
+#         #     two_num = target - num
+#         res = []
+#         nums.sort()
+#         for i in range(len(nums)):
+#             for j in range(i + 1, len(nums)):
+#                 for k in range(j + 1, len(nums)):
+#                     if nums[i] + nums[j] + nums[k] == 0 and j != i and k != j and k != i:
+#                         curRes = [nums[i], nums[j], nums[k]]
+#                         if curRes not in res:
+#                             res.append(curRes)
+#
+#         return res
+import copy
+# nums = [-1, 0, 1, 2, -1, -4]
+# 二数之和改版，不过边界重复未处理
+# class Solution:
+#     def threeSum(self, nums):
+#         res = []
+#         for index in range(len(nums)):
+#             target = 0 - nums[index]
+#             lookup = {}
+#
+#             for i, val in enumerate(nums[:index] + nums[index+1:]):
+#                 if target - i in lookup:
+#                     res.append([nums[index], val, target - val])
+#
+#                 lookup[val] = i
+#         return res
 
 """
 清晰的思路：
@@ -36,32 +53,35 @@ class Solution:
 左右弄边界，去重，针对不同的左右边界情况处理
 """
 
-class Solution1(object):
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        n, res = len(nums), []
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        n, res =len(nums), []
+        if (not nums or n<3):
+            return []
         nums.sort()
+
         for i in range(n):
-            if i > 0 and nums[i] == nums[i-1]:   # 因为i=0这个元素会直接往下执行
+            if (nums[i]>0):
+                return res
+            if (i>0 and nums[i] == nums[i-1]): # [[-4, 2, 2], [-1, -1, 2], [-1, 0, 1]]
+            # if (nums[i] == nums[i+1]):  [[-4, 2, 2], [-1, 0, 1]]
                 continue
-            l, r = i+1, n-1
-            while l < r:
-                tmp = nums[i] + nums[l] + nums[r]
-                if tmp == 0:
-                    res.append([nums[i], nums[l], nums[r]])
-                    l += 1
-                    r -= 1
-                    while l < r and nums[l] == nums[l-1]:
-                        l += 1
-                    while l < r and nums[r] == nums[r+1]:
-                        r -= 1
-                elif tmp > 0:
-                    r -= 1
+            L = i+1
+            R = n-1
+            while (L<R):
+                cur_sum = nums[i] + nums[L] + nums[R]
+                if (cur_sum == 0):
+                    res.append([nums[i], nums[L], nums[R]])
+                    while (L<R and nums[L] == nums[L+1]):
+                        L = L+1
+                    while (L<R and nums[R]==nums[R-1]):
+                        R = R-1
+                    L = L+1
+                    R = R-1
+                elif (cur_sum < 0):
+                    L = L + 1
                 else:
-                    l += 1
+                    R = R-1
         return res
 
-print(Solution().threeSum(nums = [-1, 0, 1, 2, -1, -4]))
+print(Solution().threeSum(nums = [-1, 0, 1, 1, 2, 2, -1, -4]))
