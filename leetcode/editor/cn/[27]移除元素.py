@@ -42,18 +42,52 @@
 #}
 # 
 #
-
-class Solution(object):
-    def removeDuplicates(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        idx = 0
-        while idx < len(nums) - 1:
-            if nums[idx] == nums[idx+1]:
-                nums.pop(idx)
-            else:
-                idx += 1
+from typing import *
+class Solution:
+    # 1. 参考之前直接倒序来做
+    def removeElement1(nums, val):
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] == val:
+                nums.pop(i)
         return len(nums)
+
+    # 2. 正向的while循环来做
+    def removeElement2(self, nums: List[int], val: int) -> int:
+        i = 0
+        while i < len(nums):
+            if nums[i] == val:
+                nums.pop(i)
+            else:
+                i += 1
+        return len(nums)
+
+    # 3. 双指针
+    def removeElement3(self, nums: List[int], val: int) -> int:
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != val:
+                nums[i] = nums[j]
+                i += 1
+        return i
+
+    # 4. 另外一种双指针写法，首尾交换(当要删除的元素很少时)
+    def removeElement(self, nums: List[int], val: int) -> int:
+        n = len(nums)
+        l = 0
+        r = n
+        while (l < r):
+            if (nums[l] == val):
+                nums[l], nums[r - 1] = nums[r - 1], nums[l]
+                r = r - 1
+            else:
+                l = l + 1
+        return l
+
+
+
+
+nums = [0,1,2,2,3,0,4,2]
+val = 2
+print(Solution().removeElement(nums, val))
+
         
