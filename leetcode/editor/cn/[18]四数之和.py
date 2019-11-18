@@ -32,8 +32,10 @@ import collections
 
 """
 Python的itertools库中提供了combinations方法可以轻松的实现排列组合
+创建一个迭代器，返回iterable中所有长度为r的子序列，返回的子序列中的项按输入iterable中的顺序排序 (不带重复).
+r 指定生成排列的元素的长度，如果不指定，则默认为可迭代对象的元素长度。
 """
-class Solution1:
+class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         from itertools import combinations as com
         dic, l = collections.defaultdict(list), [*com(range(len(nums)), 2)]
@@ -44,5 +46,45 @@ class Solution1:
 
 nums = [1, 0, -1, 0, -2, 2]
 target = 0
-print(Solution1().fourSum(nums, target))
+print(Solution().fourSum(nums, target))
+
+
+# 排序+双指针
+class Solution1:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        n=len(nums)
+        if(not nums or n<4):
+            return []
+        nums.sort()
+        res=[]
+        for i in range(n-3):
+            if(nums[i]+nums[i+1]+nums[i+2]+nums[i+3]>target):
+                break
+            if(nums[i]+nums[-1]+nums[-2]+nums[-3]<target):
+                continue
+            if(i>0 and nums[i]==nums[i-1]):
+                continue
+            for j in range(i+1,n-2):
+                if(nums[i]+nums[j]+nums[j+1]+nums[j+2]>target):
+                    break
+                if(nums[i]+nums[j]+nums[-1]+nums[-2]<target):
+                    continue
+                if(j-i>1 and nums[j]==nums[j-1]):
+                    continue
+                L=j+1
+                R=n-1
+                while(L<R):
+                    if(nums[i]+nums[j]+nums[L]+nums[R]==target):
+                        res.append([nums[i],nums[j],nums[L],nums[R]])
+                        while(L<R and nums[L]==nums[L+1]):
+                            L=L+1
+                        while(L<R and nums[R]==nums[R-1]):
+                            R=R-1
+                        L=L+1
+                        R=R-1
+                    elif(nums[i]+nums[j]+nums[L]+nums[R]>target):
+                        R=R-1
+                    else:
+                        L=L+1
+        return res
         
