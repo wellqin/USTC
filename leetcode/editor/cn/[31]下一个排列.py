@@ -68,21 +68,22 @@
 
 class Solution(object):
     def nextPermutation(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: void Do not return anything, modify nums in-place instead.
-        """
         if len(nums) <= 1:
             return
         idx = 0
+        # 如果一个序列是递减的，那么它不具有下一个排列。
         for i in range(len(nums)-1, 0, -1):
             if nums[i] > nums[i-1]: # find first number which is smaller than it's after number
                 idx = i
-                break
-        if idx != 0: # if the number exist,which means that the nums not like{5,4,3,2,1}
+                break  # 1.终止条件是前一个元素小于后一个元素
+
+        if idx != 0: # 说明存在下一个排列，如果一个序列是递减的，那么它不具有下一个排列。
             for i in range(len(nums)-1, idx-1, -1):
-                if nums[i] > nums[idx-1]:
+                if nums[i] > nums[idx-1]:  # 2.逆序找这个sequence里面第一个比前面部分大的，二者交换
                     nums[i], nums[idx-1] = nums[idx-1], nums[i]
                     break
 
-        nums[idx:] = nums[idx:][::-1]
+        nums[idx:] = nums[idx:][::-1]  # 3.前面数字变大了，后面的自然要变为升序才行[::-1]
+        return nums
+num = [1,2,4,6,5,3]
+print(Solution().nextPermutation(num))
