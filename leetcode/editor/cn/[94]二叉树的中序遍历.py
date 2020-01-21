@@ -16,11 +16,13 @@
 
 # Definition for a binary tree node.
 
+
 class Node:
-    def __init__(self,item):
+    def __init__(self, item):
         self.item = item
         self.left = None
         self.right = None
+
 
 class Tree:
     def __init__(self):
