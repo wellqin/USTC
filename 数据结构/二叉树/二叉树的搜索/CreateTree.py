@@ -75,4 +75,4 @@ class Tree:
 t = Tree()
 for i in range(6):
     t.add(i)
-print('层序遍历:', t.traverse(t.root))
+

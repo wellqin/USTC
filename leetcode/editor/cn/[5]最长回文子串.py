@@ -1,16 +1,16 @@
-#给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。 
+# 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 #
 # 示例 1： 
 #
 # 输入: "babad"
-#输出: "bab"
-#注意: "aba" 也是一个有效答案。
+# 输出: "bab"
+# 注意: "aba" 也是一个有效答案。
 # 
 #
 # 示例 2： 
 #
 # 输入: "cbbd"
-#输出: "bb"
+# 输出: "bb"
 # 
 #
 
@@ -19,6 +19,8 @@
 暴力解法虽然时间复杂度高，但是思路清晰、编写简单，因为编写的正确性高，完全可以使用暴力匹配算法检验我们编写的算法的正确性。
 
 """
+
+
 class Solution0:
     def longestPalindrome(self, s):
         """
@@ -29,11 +31,12 @@ class Solution0:
         answer = ''
         for i in range(len(s)):
             for j in range(i, len(s)):
-                temp = s[i:j+1]
+                temp = s[i:j + 1]
                 if temp == temp[::-1] and len(temp) > maxlen:
                     maxlen = len(temp)
                     answer = temp
         return answer
+
 
 # s = "babad"
 # print(Solution0().longestPalindrome(s))
@@ -45,6 +48,8 @@ class Solution0:
 要注意一个细节：回文串的长度可能是奇数，也可能是偶数。
 
 """
+
+
 class Solution:
     def longestPalindrome(self, s):
         size = len(s)
@@ -83,6 +88,8 @@ class Solution:
             l -= 1
             r += 1
         return s[l + 1:r], r - l - 1
+
+
 # s = "babad"
 # print(Solution().longestPalindrome(s))
 
@@ -97,6 +104,8 @@ dp[l, r] = (s[l] == s[r] and (r - l <= 2 or dp[l + 1, r - 1]))
 or 是短路运算，因此，如果收缩以后不构成区间，那么就没有必要看继续 dp[l + 1, r - 1] 的取值。
 
 """
+
+
 class Solution1:
     def longestPalindrome(self, s: str) -> str:
         size = len(s)
@@ -130,9 +139,9 @@ class Solution1:
             # print('---')
         return res
 
+
 s = "abc1234321ab"
 print(Solution().longestPalindrome(s))
-
 
 
 def manacher(s):
@@ -166,4 +175,3 @@ def manacher(s):
 
 
 print(manacher('abc1234321ab'))
-

@@ -34,21 +34,19 @@ Change Activity:  2019/8/23
 
 
 # 定义插入排序函数
-def insertion_sort(list):
+def insertion_sort(nums):
     # 获取需要排序数据的个数
-    N = len(list)
+    N = len(nums)
     # 插入排序的第一次插入从第二个数字开始选择，所以下标从1开始
     for i in range(1, N):
         # 从选择插入的数据，一次和它前一个比较，主要比前面的小就交换
         for j in range(i, 0, -1):
             # 判断大小
-            if list[j] < list[j - 1]:
+            if nums[j] < nums[j - 1]:
                 # 交换
-                list[j], list[j - 1] = list[j - 1], list[j]
+                nums[j], nums[j - 1] = nums[j - 1], nums[j]
 
-
-
-numlist = [19, 2, 13, 8, 34, 25, 7]
-print("排序前：%s" % numlist)
-insertion_sort(numlist)
-print("排序后：%s" % numlist)
+numnums = [19, 2, 13, 8, 34, 25, 7]
+print("排序前：%s" % numnums)
+insertion_sort(numnums)
+print("排序后：%s" % numnums)

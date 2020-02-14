@@ -1,0 +1,52 @@
+test_square (UNItest.our_testcase.TestFunc)
+Test func square ... FAIL
+test_lower_str (UNItest.our_testcase.TestFunc)
+Test func lower_str ... ok
+test_multi (UNItest.our_testcase.TestFunc)
+Test func multi ... ok
+ERROR
+
+======================================================================
+ERROR: tearDownClass (UNItest.our_testcase.TestFunc)
+----------------------------------------------------------------------
+TypeError: tearDownClass() missing 1 required positional argument: 'self'
+
+======================================================================
+FAIL: test_square (UNItest.our_testcase.TestFunc)
+Test func square
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\QWust\Desktop\GitHub\UNItest\our_testcase.py", line 38, in test_square
+    self.assertEqual(17, square(4))  # 这里故意设计一个会出错的用例，测试4的平方等于17，实际上并不等于。
+AssertionError: 17 != 16
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=1, errors=1)
+test_square (UNItest.our_testcase.TestFunc)
+Test func square ... FAIL
+test_lower_str (UNItest.our_testcase.TestFunc)
+Test func lower_str ... ok
+test_multi (UNItest.our_testcase.TestFunc)
+Test func multi ... ok
+ERROR
+
+======================================================================
+ERROR: tearDownClass (UNItest.our_testcase.TestFunc)
+----------------------------------------------------------------------
+TypeError: tearDownClass() missing 1 required positional argument: 'self'
+
+======================================================================
+FAIL: test_square (UNItest.our_testcase.TestFunc)
+Test func square
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\QWust\Desktop\GitHub\UNItest\our_testcase.py", line 41, in test_square
+    self.assertEqual(17, square(4))  # 这里故意设计一个会出错的用例，测试4的平方等于17，实际上并不等于。
+AssertionError: 17 != 16
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=1, errors=1)
