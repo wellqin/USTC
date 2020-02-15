@@ -62,5 +62,15 @@ class Solution:
         return dp[n]
 
 
+    def climbStairs1(self, n: int) -> int:
+        i = 1    # 爬到1台阶仅有1种方法
+        j = 2    # 爬到2台阶有2种方法
+        for _ in range(3, n+1):         # 自底向上递推 F(n)=F(n-1)+F(n-2)
+            i, j = j, i + j                    # 每次仅保留前两个值，依次往后推算
+        return j if n > 2 else n  # 注意当n=1,n=2时的情况
+
+
+
 sss = Solution()
 print(sss.climbStairs(4))
+print(sss.climbStairs1(4))
