@@ -34,7 +34,7 @@ class SingleLinkList(object):
 
     def is_empty(self):
         """链表是否为空"""
-        return self.__head == None
+        return self.__head is None
 
     def length(self):
         """链表长度"""
@@ -55,9 +55,9 @@ class SingleLinkList(object):
             cur = cur.next
         print("\n")
 
-    def add(self, item):
+    def add(self, val):
         """链表头部添加元素"""
-        node = Node(item)
+        node = Node(val)
         node.next = self.__head
         self.__head = node
 
@@ -82,22 +82,22 @@ class SingleLinkList(object):
             # 如果pos位置比原链表长，那么都当做尾插法来做
             self.append(item)
         else:
-            per = self.__head
+            cur = self.__head
             count = 0
             while count < pos - 1:
                 count += 1
-                per = per.next
+                cur = cur.next
             # 当循环退出后，pre指向pos-1位置
             node = Node(item)
-            node.next = per.next
-            per.next = node
+            node.next = cur.next
+            cur.next = node
 
-    def remove(self, item):
+    def remove(self, val):
         """删除节点"""
         cur = self.__head
         pre = None
         while cur is not None:
-            if cur.val == item:
+            if cur.val == val:
                 # 先判断该节点是否是头结点
                 if cur == self.__head:
                     self.__head = cur.next
@@ -108,30 +108,34 @@ class SingleLinkList(object):
                 pre = cur
                 cur = cur.next
 
-    def search(self, item):
+    def search(self, val):
         """查找节点是否存在"""
         cur = self.__head
-        while not cur:
-            if cur.elem == item:
+        while cur:
+            if cur.val == val:
                 return True
-            else:
-                cur = cur.next
+            cur = cur.next
         return False
 
 
 if __name__ == "__main__":
     # node = Node(100)  # 先创建一个节点传进去
 
-    ll = SingleLinkList()
-    print(ll.is_empty())
-    print(ll.length())
-
-    ll.append(3)
-    ll.add(999)
-    ll.insert(-3, 110)
-    ll.insert(99, 111)
-    print(ll.is_empty())
-    print(ll.length())
-    ll.travel()
-    ll.remove(111)
-    ll.travel()
+    # ll = SingleLinkList()
+    # print(ll.is_empty())
+    # print(ll.length())
+    #
+    # ll.append(3)
+    # ll.add(999)
+    # ll.insert(-3, 110)
+    # ll.insert(99, 111)
+    # print(ll.is_empty())
+    # print(ll.length())
+    # ll.travel()
+    # ll.remove(111)
+    # ll.travel()
+    obj = SingleLinkList()
+    for i in range(6):
+        obj.append(i)
+    obj.travel()
+    print(obj.search(3))
