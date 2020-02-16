@@ -9,12 +9,14 @@ Change Activity:  2019/7/11
 -------------------------------------------------
 """
 
+
 class Node(object):
     """节点"""
 
-    def __init__(self, elem):
-        self.elem = elem
+    def __init__(self, val):
+        self.val = val
         self.next = None  # 初始设置下一节点为空
+
 
 '''
 上面定义了一个节点的类，当然也可以直接使用python的一些结构。比如通过元组（elem, None）
@@ -31,50 +33,50 @@ class SingleLinkList(object):
         self.__head = node
 
     def is_empty(self):
-        '''链表是否为空'''
+        """链表是否为空"""
         return self.__head == None
 
     def length(self):
-        '''链表长度'''
+        """链表长度"""
         # cur游标，用来移动遍历节点
         cur = self.__head
         # count记录数量
         count = 0
-        while cur != None:
+        while cur is not None:
             count += 1
             cur = cur.next
         return count
 
     def travel(self):
-        '''遍历整个列表'''
+        """遍历整个列表"""
         cur = self.__head
-        while cur != None:
-            print(cur.elem, end=' ')
+        while cur is not None:
+            print(cur.val, end=' ')
             cur = cur.next
         print("\n")
 
     def add(self, item):
-        '''链表头部添加元素'''
+        """链表头部添加元素"""
         node = Node(item)
         node.next = self.__head
         self.__head = node
 
     def append(self, item):
-        '''链表尾部添加元素'''
+        """链表尾部添加元素"""
         node = Node(item)
         # 由于特殊情况当链表为空时没有next，所以在前面要做个判断
         if self.is_empty():
             self.__head = node
         else:
             cur = self.__head
-            while cur.next != None:
+            while cur.next is not None:
                 cur = cur.next
             cur.next = node
 
     def insert(self, pos, item):
-        '''指定位置添加元素'''
+        """指定位置添加元素"""
         if pos <= 0:
-                # 如果pos位置在0或者以前，那么都当做头插法来做
+            # 如果pos位置在0或者以前，那么都当做头插法来做
             self.add(item)
         elif pos > self.length() - 1:
             # 如果pos位置比原链表长，那么都当做尾插法来做
@@ -91,11 +93,11 @@ class SingleLinkList(object):
             per.next = node
 
     def remove(self, item):
-        '''删除节点'''
+        """删除节点"""
         cur = self.__head
         pre = None
-        while cur != None:
-            if cur.elem == item:
+        while cur is not None:
+            if cur.val == item:
                 # 先判断该节点是否是头结点
                 if cur == self.__head:
                     self.__head = cur.next
@@ -107,7 +109,7 @@ class SingleLinkList(object):
                 cur = cur.next
 
     def search(self, item):
-        '''查找节点是否存在'''
+        """查找节点是否存在"""
         cur = self.__head
         while not cur:
             if cur.elem == item:
@@ -118,7 +120,6 @@ class SingleLinkList(object):
 
 
 if __name__ == "__main__":
-
     # node = Node(100)  # 先创建一个节点传进去
 
     ll = SingleLinkList()

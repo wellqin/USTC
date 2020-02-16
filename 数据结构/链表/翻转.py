@@ -16,8 +16,8 @@ Change Activity:  2019/9/17
 
 
 class ListNode:
-    def __init__(self, x):
-        self.val = x
+    def __init__(self, val):
+        self.val = val
         self.next = None
 
 
@@ -54,7 +54,7 @@ newhead,新的翻转链表的表头。
 
 # 第二种方法：
 def reverse_linkedlist2(head):
-    if head == None or head.next == None:  # 边界条件
+    if head is None or head.next is None:  # 边界条件
         return head
     cur = head  # 循环变量
     tmp = None  # 保存数据的临时变量
@@ -75,7 +75,7 @@ def reverse_linkedlist2(head):
 
 # 第三种方法：
 def reverse_linkedlist3(head):
-    if head == None or head.next == None:  # 边界条件
+    if head == None or head.next is None:  # 边界条件
         return head
     p1 = head  # 循环变量1
     p2 = head.next  # 循环变量2
