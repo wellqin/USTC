@@ -39,8 +39,5 @@ if __name__ == "__main__":
     l1_1.next = l1_2
     l1_2.next = l1_3
     l1_3.next = l1_4
-
-
-
     # print(ss.addTwoNumbers(ll, tt))
     print(Solution().swapPairs(l1_1))
