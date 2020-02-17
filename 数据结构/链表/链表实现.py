@@ -42,7 +42,7 @@ class SingleLinkList(object):
         cur = self.__head
         # count记录数量
         count = 0
-        while cur is not None:
+        while cur:
             count += 1
             cur = cur.next
         return count
@@ -50,10 +50,14 @@ class SingleLinkList(object):
     def travel(self):
         """遍历整个列表"""
         cur = self.__head
-        while cur is not None:
+        while cur:
             print(cur.val, end=' ')
             cur = cur.next
-        print("\n")
+        print(cur.val)
+        # while cur.next:
+        #     print(cur.val, end=' ')
+        #     cur = cur.next
+        # print(cur.val)
 
     def add(self, val):
         """链表头部添加元素"""
@@ -95,7 +99,7 @@ class SingleLinkList(object):
     def remove(self, val):
         """删除节点"""
         cur = self.__head
-        pre = None
+        pre = self.__head
         while cur is not None:
             if cur.val == val:
                 # 先判断该节点是否是头结点
@@ -137,5 +141,7 @@ if __name__ == "__main__":
     obj = SingleLinkList()
     for i in range(6):
         obj.append(i)
+    obj.remove(2)
     obj.travel()
     print(obj.search(3))
+    print(obj.length())
