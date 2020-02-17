@@ -1,4 +1,4 @@
-#给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。 
+# 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
 #
 # 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。 
 #
@@ -11,22 +11,59 @@
 #
 
 # Definition for singly-linked list.
+
+
 class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
+
 class Solution:
-    def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+    # 和链表反转类似，关键在于有三个指针，分别指向前后和当前节点。不同点是两两交换后，移动节点步长为２
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if head is None or head.next is None:
+            return head
+        # 创建一个不含任何信息的头结点，并添加到原链表的前面
+        dummy = ListNode(None)
+        dummy.next = head
+        pre = dummy  # 指向已完成交换部分的尾结点，初始为头结点dummy
+        cur, nxt = head, head.next  # 分别指向要交换的两个结点
+        while nxt:  # 后二个都存在
+            # 重新调整结点位置
+            cur.next = nxt.next
+            nxt.next = cur
+            pre.next = nxt
+            # 更新指针
+            pre = cur
+            cur = cur.next
+            nxt = cur.next if cur else None  # 如果奇数，则最后一个不交换，此处防止出错
+        return dummy.next
+
+    def swapPairs1(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
+        else:
+            head, head.next, head.next.next = head.next, head, self.swapPairs(head.next.next)
+            return head
+
+    def swapPairs2(self, head):
+        # 1. 终止条件：当前节点为null，或者下一个节点为null
+        if not (head and head.next):
+            return head
+
+        # 2. 函数内：将2指向1，1指向下一层的递归函数，最后返回节点2
+        # 假设链表是 1->2->3->4
+        # 就先保存节点2
         tmp = head.next
-        head.next = self.swapPairs(head.next.next)
+        # 继续递归，处理节点3->4
+        # 当递归结束返回后，就变成了4->3
+        # 于是head节点就指向了4，变成1->4->3
+        head.next = self.swapPairs(tmp.next)
+        # 将2节点指向1
         tmp.next = head
+
+        # 3. 返回给上一层递归的值应该是已经交换完成后的子链表
         return tmp
 
 

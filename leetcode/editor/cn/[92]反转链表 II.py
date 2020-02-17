@@ -17,6 +17,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     # def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
     #     pre , cur = None, head
@@ -48,7 +49,7 @@ class Solution:
         tail = p.next  # tail位于m位置
 
         for i in range(n - m):  # 插入式逆序反转（12345）--234倒转--（13245）-- （14325）
-            next = p.next       # 优势：不需要在理会头尾节点的连续性，即重新串起来链表
+            next = p.next  # 优势：不需要在理会头尾节点的连续性，即重新串起来链表
             p.next = tail.next
             tail.next = tail.next.next
             p.next.next = next
@@ -94,6 +95,4 @@ class Solution:
         tail.next = cur
         return head
 
-
-        
 # leetcode submit region end(Prohibit modification and deletion)
