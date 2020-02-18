@@ -40,6 +40,27 @@ class Solution(object):
         slow.next = slow.next.next  # slow.next = fast.next，会出现fast为空，截断链表
         return dummy.next  # # 此处不返回 head 是因为 head 可能被删除.
 
+    def removeNthFromEnd1(self, head: ListNode, n: int) -> ListNode:
+        l = 0
+        cur = head
+        # 计算链表长度
+        while cur:
+            l += 1
+            cur = cur.next
+        # 如果长度为1，直接return None
+        if l == 1:
+            return None
+        # 计算删除需要移动的长度
+        l = l - n - 1
+        # 如果小于0，说明需要删除第一个元素，那么直接return head.next。
+        if l < 0:
+            return head.next
+        pnt = head
+        for i in range(l):
+            pnt = pnt.next
+        pnt.next = pnt.next.next
+        return head
+
     # def removeNthFromEnd3(self, head: ListNode, n: int) -> ListNode:  # 二次遍历
     #     cur = head
     #     count = 1  # count = 0

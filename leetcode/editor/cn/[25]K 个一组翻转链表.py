@@ -54,10 +54,22 @@ class Solution:
             nxt = self.reverseKGroup(cur, k)
             while cnt > 0:  # 反转前面k个node
                 tmp = head.next
-                head.next = nxt
+                head.next = nxt  # nxt相当于pre
                 nxt = head
                 head = tmp
                 cnt -= 1
-            return nxt
+            return nxt  # 在有K个node时：递归返回结果(4-->3)
         # 当前 k-group 压根没有k个node，那么我们直接保持这个k-group不动返回head
         return head
+
+
+if __name__ == "__main__":
+    l1_1 = ListNode(1)
+    l1_2 = ListNode(2)
+    l1_3 = ListNode(3)
+    l1_4 = ListNode(4)
+
+    l1_1.next = l1_2
+    l1_2.next = l1_3
+    l1_3.next = l1_4
+    print(Solution().reverseKGroup(l1_1, 2))
