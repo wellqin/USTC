@@ -23,12 +23,13 @@
 #         self.next = None
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution:
-    def sortedListToBST(self, head: ListNode) -> TreeNode:
+    def sortedListToBST(self, head) -> TreeNode:
+        pass
         

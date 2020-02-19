@@ -1,4 +1,4 @@
-#老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。 
+# 老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。
 #
 # 你需要按照以下要求，帮助老师给这些孩子分发糖果： 
 #
@@ -12,15 +12,15 @@
 # 示例 1: 
 #
 # 输入: [1,0,2]
-#输出: 5
-#解释: 你可以分别给这三个孩子分发 2、1、2 颗糖果。
+# 输出: 5
+# 解释: 你可以分别给这三个孩子分发 2、1、2 颗糖果。
 # 
 #
 # 示例 2: 
 #
 # 输入: [1,2,2]
-#输出: 4
-#解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
+# 输出: 4
+# 解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
 #     第三个孩子只得到 1 颗糖果，这已满足上述两个条件。 
 #
 
@@ -30,22 +30,23 @@ class Solution:
         :type ratings: List[int]
         :rtype: int
         """
-        if ratings == []:
+        if not ratings:
             return 0
         # 先给每个小孩分一个糖果，确保没人会遗漏
-        result = [1]*len(ratings)
+        result = [1] * len(ratings)
 
-        for i in range(1,len(ratings)):
-            if ratings[i] > ratings[i-1]:
-                result[i] = result[i-1]+1
+        for i in range(1, len(ratings)):
+            if ratings[i] > ratings[i - 1]:
+                result[i] = result[i - 1] + 1
         print(result)  # [1, 2, 1, 2, 3, 1, 1, 1, 2, 1]
 
-        for j in range(len(ratings)-2,-1,-1):
-            if ratings[j] > ratings[j+1] and result[j] <= result[j+1]:
-                result[j] = result[j+1]+1
+        for j in range(len(ratings) - 2, -1, -1):
+            if ratings[j] > ratings[j + 1] and result[j] <= result[j + 1]:
+                result[j] = result[j + 1] + 1
         print(result)  # [1, 2, 1, 2, 4, 3, 2, 1, 2, 1]
 
         return sum(result)
 
-nums = [1,2,2,3,8,5,4,3,7,2]
-print(Solution().candy(nums))
+
+# nums = [1, 2, 2, 3, 8, 5, 4, 3, 7, 2]
+# print(Solution().candy(nums))

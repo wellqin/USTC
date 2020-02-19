@@ -20,7 +20,11 @@
 
 
 #leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def arrayPairSum(self, nums: List[int]) -> int:
+        pass
         
 #leetcode submit region end(Prohibit modification and deletion)

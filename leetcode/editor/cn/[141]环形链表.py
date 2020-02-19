@@ -48,7 +48,7 @@
 
 
 class Solution(object):
-    def hasCycle(self, head):
+    def hasCycle2(self, head):
         """
         :type head: ListNode
         :rtype: bool
@@ -79,17 +79,16 @@ class Solution(object):
                 head = head.next
         return False
 
-    def hasCycle2(self, head):
+    def hasCycle(self, head):
         # 快慢指针, beats 96.59%
-        if not head or len(head) == 1:
+        if not (head and head.next):
             return False
 
-        cur = prev = head
-
-        while prev and prev.next:  # 快的
-            cur = cur.next
-            prev = prev.next.next
-            if cur == prev:
+        slow = fast = head
+        while fast and fast.next:  # 快的
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
                 return True
-
         return False
+
