@@ -33,57 +33,70 @@
 
 
 class Solution:
+    # def minWindow1(self, s: str, t: str) -> str:
+    #     N = len(s)
+    #     left = 0
+    #     res = ''
+    #     min_val = N
+    #     match = 0
+    #     needs = {}  # 最小子串需要哪些元素，即将T中元素进行统计
+    #     windows = {}  # 维持needs中元素的窗口
+    #
+    #     for i in t:
+    #         needs[i] = needs.get(i, 0) + 1  # dict((i, p.count(i)) for i in p)
+    #
+    #     match_N = len(needs)
+    #
+    #     for right in range(N):
+    #         if s[right] in needs:
+    #             windows[s[right]] = windows.get(s[right], 0) + 1
+    #             if windows[s[right]] == needs[s[right]]:
+    #                 match += 1
+    #             while match == match_N:  # 当windows中包含了needs中的所有元素，windows可能有重复的
+    #                 # 此while循环，直到窗口中的字符串不再符合要求，left 不再继续移动
+    #                 this_time_val = right - left
+    #                 if this_time_val < min_val:  # 每次找到比min_val更小的this_time_val区间时，更新区间
+    #                     res = s[left:right + 1]
+    #                     min_val = this_time_val
+    #
+    #                 if s[left] in needs:
+    #                     windows[s[left]] = windows[s[left]] - 1  # 去除边界的重复值
+    #                     if windows[s[left]] < needs[s[left]]:  # 如果去重复值后，窗口中的字符串不再符合要求，则match自减，while结束
+    #                         match -= 1
+    #                 left += 1
+    #     return res
+
     def minWindow(self, s: str, t: str) -> str:
-        N = len(s)
-        left = 0
-        res = ''
-        min_val = N
+        start = 0
+        minLen = float('inf')  # 不会超过
+        left = 0  # 等右指针所在的位置之前的字符串包含t以后，左指针开始移动
+        right = 0  # 右指针
+        window = {}
+        needs = dict((i, t.count(i)) for i in t)
         match = 0
-        needs = {}  # 最小子串需要哪些元素，即将T中元素进行统计
-        windows = {}  # 维持needs中元素的窗口
 
-        for i in t:
-            needs[i] = needs.get(i, 0) + 1
-
-        match_N = len(needs)
-
-        for right in range(N):
-            if s[right] in needs:
-                windows[s[right]] = windows.get(s[right], 0) + 1
-                if windows[s[right]] == needs[s[right]]:
+        while right < len(s):
+            c1 = s[right]
+            if c1 in needs.keys():
+                window[c1] = window.get(c1, 0) + 1
+                if window[c1] == needs[c1]:
                     match += 1
-                while match == match_N:  # 当windows中包含了needs中的所有元素，windows可能有重复的
-                    # 此while循环，直到窗口中的字符串不再符合要求，left 不再继续移动
-                    this_time_val = right - left
-                    if this_time_val < min_val:  # 每次找到比min_val更小的this_time_val区间时，更新区间
-                        res = s[left:right + 1]
-                        min_val = this_time_val
+            right += 1
 
-                    if s[left] in needs:
-                        windows[s[left]] = windows[s[left]] - 1  # 去除边界的重复值
-                        if windows[s[left]] < needs[s[left]]:  # 如果去重复值后，窗口中的字符串不再符合要求，则match自减，while结束
-                            match -= 1
-                    left += 1
-        return res
-
-    # def minWindowSelf(self, s: str, t: str) -> str:
-    #     if not s or not t:
-    #         return ""
-    #     left = right = 0
-    #     windows = {}
-    #     needs = {}
-    #     n = len(s)
-    #     m = len(t)
-    #     for i in range(m):
-    #         if i not in needs:
-    #             needs[t[i]] = i
-    #     for i in range(n):
-    #         if s[i] in needs:
-    #             windows[t[i]] = 1
-    #             right += 1
-    #         if windows
+            while match == len(needs):  # # 当windows中包含了needs中的所有元素，windows可能有重复的
+                # 此while循环，直到窗口中的字符串不再符合要求，left 不再继续移动
+                if right - left < minLen:  # 每次找到比minLen更小的区间时，更新区间
+                    start = left
+                    minLen = right - left
+                c2 = s[left]
+                if c2 in needs.keys():
+                    window[c2] -= 1  # 去除边界的重复值
+                    if window[c2] < needs[c2]:  # 如果去重复值后，窗口中的字符串不再符合要求，则match自减，内部while结束
+                        match -= 1
+                left += 1
+        return '' if minLen == float('inf') else s[start:start + minLen]
 
 
-S = "ABBECODEBANC"
-T = "ABC"
-print(Solution().minWindow(S, T))
+# S = "ABBECODEBANC"
+# T = "ABC"
+# print(Solution().minWindow(S, T))
