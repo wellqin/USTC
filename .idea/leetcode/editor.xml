@@ -3,6 +3,14 @@
   <component name="LeetcodeEditor">
     <option name="projectConfig">
       <map>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[1095]山脉数组中查找目标值.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[1095]山脉数组中查找目标值.py" />
+              <option name="questionId" value="1185" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[109]有序链表转换二叉搜索树.py">
           <value>
             <LeetcodeEditor>
@@ -243,6 +251,22 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[275]H指数 II.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[275]H指数 II.py" />
+              <option name="questionId" value="275" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[287]寻找重复数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[287]寻找重复数.py" />
+              <option name="questionId" value="287" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[29]两数相除.py">
           <value>
             <LeetcodeEditor>
@@ -256,6 +280,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[2]两数相加.py" />
               <option name="questionId" value="2" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[300]最长上升子序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[300]最长上升子序列.py" />
+              <option name="questionId" value="300" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -312,6 +344,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[35]搜索插入位置.py" />
               <option name="questionId" value="35" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[374]猜数字大小.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[374]猜数字大小.py" />
+              <option name="questionId" value="374" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -456,6 +496,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[64]最小路径和.py" />
               <option name="questionId" value="64" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[69]x 的平方根.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[69]x 的平方根.py" />
+              <option name="questionId" value="69" />
             </LeetcodeEditor>
           </value>
         </entry>

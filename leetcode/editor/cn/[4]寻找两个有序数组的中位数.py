@@ -128,7 +128,7 @@ class Solution:
         raise ValueError('传入无效的参数，输入的数组不是有序数组，算法失效')
 
 
-class Solution:
+class Solution1:
     # 这题很自然地想到归并排序，再取中间数，但是是nlogn的复杂度，题目要求logn
     # 所以要用二分法来巧妙地进一步降低时间复杂度
     # 思想就是利用总体中位数的性质和左右中位数之间的关系来把所有的数先分成两堆，然后再在两堆的边界返回答案
@@ -147,7 +147,7 @@ class Solution:
         imin, imax = 0, m
 
         # 二分答案
-        while (imin <= imax):
+        while imin <= imax:
             imid = imin + (imax - imin) // 2
             # 左堆最大的只有可能是nums1[imid-1],nums2[jmid-1]
             # 右堆最小只有可能是nums1[imid],nums2[jmid]
@@ -156,25 +156,25 @@ class Solution:
             jmid = (m + n - 2 * imid) // 2
 
             # 前面的判断条件只是为了保证不会index out of range
-            if (imid > 0 and nums1[imid - 1] > nums2[jmid]):
+            if imid > 0 and nums1[imid - 1] > nums2[jmid]:
                 # imid太大了，这是里精确查找，不是左闭右开，而是双闭区间，所以直接移动一位
                 imax = imid - 1
-            elif (imid < m and nums2[jmid - 1] > nums1[imid]):
+            elif imid < m and nums2[jmid - 1] > nums1[imid]:
                 imin = imid + 1
             # 满足条件
             else:
                 # 边界情况处理，都是为了不out of index
                 # 依次得到左堆最大和右堆最小
-                if (imid == m):
+                if imid == m:
                     minright = nums2[jmid]
-                elif (jmid == n):
+                elif jmid == n:
                     minright = nums1[imid]
                 else:
                     minright = min(nums1[imid], nums2[jmid])
 
-                if (imid == 0):
+                if imid == 0:
                     maxleft = nums2[jmid - 1]
-                elif (jmid == 0):
+                elif jmid == 0:
                     maxleft = nums1[imid - 1]
                 else:
                     maxleft = max(nums1[imid - 1], nums2[jmid - 1])
@@ -188,7 +188,36 @@ class Solution:
                 return (maxleft + minright) / 2
 
 
+def findMedianSortedArrays1(nums1, nums2):
+    m = len(nums1)
+    n = len(nums2)
+    p, q = 0, 0
+    # 获取中位数的索引
+    mid = ((m + n) // 2 - 1, (m + n) // 2) if (m + n) % 2 == 0 else ((m + n) // 2, (m + n) // 2)
+    li = []
+    while p < m and q < n:
+        if nums1[p] <= nums2[q]:
+            li.append(nums1[p])
+            p += 1
+        else:
+            li.append(nums2[q])
+            q += 1
+    else:
+        if p >= m:
+            while q < n:
+                li.append(nums2[q])
+                q += 1
+        else:
+            while p < m:
+                li.append(nums1[p])
+                p += 1
+    res = (li[mid[0]] + li[mid[1]]) / 2
+    print(li)
+    return res
+
+
 nums1 = [3, 4, 6, 7, 8, 11, 13]
 nums2 = [2, 5, 9, 12, 17, 20, 22]
 solution = Solution()
 print(solution.findMedianSortedArrays(nums1, nums2))
+print(findMedianSortedArrays1(nums1, nums2))

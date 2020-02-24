@@ -9,5 +9,12 @@ Change Activity:  2019/7/12
 -------------------------------------------------
 """
 
-dic = {')': '(', ']': '[', '}': '{'}
-print('(' in dic)
+import collections
+
+str1 = ['a', 'b', 'c', 'd', 'a', 'a', 'b', 'c']
+m = collections.Counter(str1)
+print(m)
+
+nums = ['a', 'b', 'c', 'd', 'a', 'a', 'b', 'c']
+
+
