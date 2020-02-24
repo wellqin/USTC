@@ -30,46 +30,48 @@
 # 最后 left=right退出时，剩下那一个可能的解【3】，就一定是解，所以直接return left, 有点绕
 #
 
-class Solution(object):
-    # def searchInsert(self, nums, target):
-    #     """
-    #     :type nums: List[int] 排序数组
-    #     :type target: int
-    #     :rtype: int
-    #     """
-    #     i = 0
-    #     while nums[i] < target:
-    #         i += 1
-    #         if i == len(nums):
-    #             return i
-    #     return i
-    #
-    # def searchInsert1(self, nums, target):
-    #     """
-    #     :type nums: List[int]
-    #     :type target: int
-    #     :rtype: int
-    #     """
-    #     l, r = 0, len(nums) - 1
-    #     while l <= r:
-    #         mid = l + ((r - l) >> 1)
-    #         if nums[mid] < target:
-    #             l = mid + 1
-    #         else:
-    #             r = mid - 1
-    #     return l
 
-    def searchInsert(self, nums, target):  # 排序数组和一个目标值
-        l = 0
-        r = len(nums) - 1
+class Solution(object):
+    def searchInsertN(self, nums, target):
+        i = 0
+        while nums[i] < target:
+            i += 1
+            if i == len(nums):
+                return i
+        return i
+
+    #
+    def searchInsert1(self, nums, target):
+        l, r = 0, len(nums) - 1
         while l <= r:
             mid = l + ((r - l) >> 1)
-            if nums[mid] == target:
-                return mid
-            elif nums[mid] < target:
+            if nums[mid] < target:
                 l = mid + 1
             else:
                 r = mid - 1
+        return l
+
+    def searchInsert(self, nums, target):  # 排序数组和一个目标值
+        if not nums or len(nums) == 0:
+            return 0
+        if target > nums[-1]:
+            return len(nums)
+        if target < nums[0]:
+            return 0
+
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = left + ((right - left) >> 1)
+            if nums[mid] == target:  # 此部分可以去除，本题不存在重复相等情况
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return left
 
 
-
+nums = [1, 3, 5, 6]
+target = 2
+print(Solution().searchInsert(nums, target))
