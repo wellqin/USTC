@@ -1,4 +1,4 @@
-#给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。 
+# 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 #
 # 有效字符串需满足： 
 #
@@ -12,31 +12,31 @@
 # 示例 1: 
 #
 # 输入: "()"
-#输出: true
+# 输出: true
 # 
 #
 # 示例 2: 
 #
 # 输入: "()[]{}"
-#输出: true
+# 输出: true
 # 
 #
 # 示例 3: 
 #
 # 输入: "(]"
-#输出: false
+# 输出: false
 # 
 #
 # 示例 4: 
 #
 # 输入: "([)]"
-#输出: false
+# 输出: false
 # 
 #
 # 示例 5: 
 #
 # 输入: "{[]}"
-#输出: true 
+# 输出: true
 #
 
 class Solution:
@@ -46,7 +46,8 @@ class Solution:
         :rtype: bool
         """
         while '[]' in s or '()' in s or '{}' in s:
-            s = s.replace('[]','').replace('()','').replace('{}','')
+            s = s.replace('[]', '').replace('()', '').replace('{}', '')
+            print(s)
         return len(s) == 0
 
     def isValid1(self, s):
@@ -71,5 +72,20 @@ class Solution:
                 if char == '}' and tmp != '{':
                     return False
         return stack == []
-s = "([)]"
-print(Solution().isValid1(s))
+
+    def isValidSelf(self, s):
+        if not s:
+            return False
+        dic = {')': '(', ']': '[', '}': '{'}
+        stack = []
+        for i in s:
+            if stack and i in dic:  # 比的键，而不是值
+                if stack[-1] == dic[i]:
+                    stack.pop()
+            else:
+                stack.append(i)
+        return not stack
+
+
+s = "{()[()]}"
+print(Solution().isValid(s))

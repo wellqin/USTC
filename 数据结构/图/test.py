@@ -10,7 +10,7 @@ Change Activity:  2019/7/22
 """
 
 from collections import deque
-import directed
+# import directed
 
 
 class vertex:

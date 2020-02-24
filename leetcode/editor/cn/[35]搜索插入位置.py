@@ -24,7 +24,10 @@
 #
 # 输入: [1,3,5,6], 0
 # 输出: 0
-# 
+
+# 【1, 3, 5, 6】，target=2， nums[mid]=3, 终于想明白了：当nums[mid]>target,
+# 表明nums[mid]可能是解，所以右边间right =mid 先保留nums[mid]得到【1,3】, 再明确排除1之后，
+# 最后 left=right退出时，剩下那一个可能的解【3】，就一定是解，所以直接return left, 有点绕
 #
 
 class Solution(object):
