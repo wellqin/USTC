@@ -107,6 +107,22 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[153]寻找旋转排序数组中的最小值.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[153]寻找旋转排序数组中的最小值.py" />
+              <option name="questionId" value="153" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[154]寻找旋转排序数组中的最小值 II.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[154]寻找旋转排序数组中的最小值 II.py" />
+              <option name="questionId" value="154" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[160]相交链表.py">
           <value>
             <LeetcodeEditor>

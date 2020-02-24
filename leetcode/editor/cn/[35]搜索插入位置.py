@@ -40,7 +40,6 @@ class Solution(object):
                 return i
         return i
 
-    #
     def searchInsert1(self, nums, target):
         l, r = 0, len(nums) - 1
         while l <= r:
