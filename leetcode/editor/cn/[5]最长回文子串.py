@@ -39,8 +39,8 @@ class Solution0:
         return answer
 
 
-# s = "babad"
-# print("answer is :", Solution0().longestPalindrome(s))
+s = "babad"
+print("answer is :", Solution0().longestPalindrome(s))
 
 
 """

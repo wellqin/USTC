@@ -1,23 +1,25 @@
-#给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 
+# 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
 #
 # 说明：解集不能包含重复的子集。 
 #
 # 示例: 
 #
 # 输入: [1,2,2]
-#输出:
-#[
+# 输出:
+# [
 #  [2],
 #  [1],
 #  [1,2,2],
 #  [2,2],
 #  [1,2],
 #  []
-#] 
+# ]
 #
 
 c1 = 0
 c2 = 0
+
+
 class Solution(object):
     def subsetsWithDup(self, nums):
         """
@@ -29,6 +31,7 @@ class Solution(object):
         n = len(nums)
         res = []
         nums.sort()
+
         # 思路1
         def helper1(idx, n, temp_list):
             global c1
@@ -37,6 +40,7 @@ class Solution(object):
             for i in range(idx, n):
                 c1 += 1
                 helper1(i + 1, n, temp_list + [nums[i]])
+
         # 思路2
         def helper2(idx, n, temp_list):
             global c2
@@ -49,7 +53,9 @@ class Solution(object):
 
         helper2(0, n, [])
         return res
-nums = [1,2,2]
+
+
+nums = [1, 2, 2]
 print(Solution().subsetsWithDup(nums))
 print(c2)
 
@@ -81,5 +87,4 @@ class Solution1:
 
         helper(res, [], list(set(nums)), n)
         return res
-
 print(Solution1().subsets(nums))

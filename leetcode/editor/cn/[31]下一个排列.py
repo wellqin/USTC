@@ -1,13 +1,13 @@
-#实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。 
+# 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
 #
 # 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。 
 #
 # 必须原地修改，只允许使用额外常数空间。 
 #
 # 以下是一些例子，输入位于左侧列，其相应输出位于右侧列。 
-#1,2,3 → 1,3,2 
-#3,2,1 → 1,2,3 
-#1,1,5 → 1,5,1 
+# 1,2,3 → 1,3,2
+# 3,2,1 → 1,2,3
+# 1,1,5 → 1,5,1
 #
 
 """
@@ -66,24 +66,27 @@
 这个时候，得到下一个sequence 130245
 """
 
+
 class Solution(object):
     def nextPermutation(self, nums):
         if len(nums) <= 1:
             return
         idx = 0
         # 如果一个序列是递减的，那么它不具有下一个排列。
-        for i in range(len(nums)-1, 0, -1):
-            if nums[i] > nums[i-1]: # find first number which is smaller than it's after number
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i] > nums[i - 1]:  # find first number which is smaller than it's after number
                 idx = i
                 break  # 1.终止条件是前一个元素小于后一个元素
 
-        if idx != 0: # 说明存在下一个排列，如果一个序列是递减的，那么它不具有下一个排列。
-            for i in range(len(nums)-1, idx-1, -1):
-                if nums[i] > nums[idx-1]:  # 2.逆序找这个sequence里面第一个比前面部分大的，二者交换
-                    nums[i], nums[idx-1] = nums[idx-1], nums[i]
+        if idx != 0:  # 说明存在下一个排列，如果一个序列是递减的，那么它不具有下一个排列。
+            for i in range(len(nums) - 1, idx - 1, -1):
+                if nums[i] > nums[idx - 1]:  # 2.逆序找这个sequence里面第一个比前面部分大的，二者交换
+                    nums[i], nums[idx - 1] = nums[idx - 1], nums[i]
                     break
 
         nums[idx:] = nums[idx:][::-1]  # 3.前面数字变大了，后面的自然要变为升序才行[::-1]
         return nums
-num = [1,2,4,6,5,3]
+
+
+num = [1, 2, 4, 6, 5, 3]
 print(Solution().nextPermutation(num))

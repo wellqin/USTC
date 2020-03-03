@@ -1,57 +1,60 @@
-#给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。 
+# 给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
 #
 # 示例: 
 #
 # 输入: "25525511135"
-#输出: ["255.255.11.135", "255.255.111.35"] 
+# 输出: ["255.255.11.135", "255.255.111.35"]
 # Related Topics 字符串 回溯算法
 
 """
 首先，我们s的长度必须在4到12之间才可以，不然这个ip不可能合法
-
 然后再写一个check ip是否合法的函数
-
 然后对于我们的s，选择三个位置插入3个'.'构造一个ip，合法的ip放入结果中
 """
 from typing import *
-#leetcode submit region begin(Prohibit modification and deletion)
-class Solution:
-    def restoreIpAddresses(self, s):
-        """
-        :type s: str
-        :rtype: List[str]
-        """
-        if len(s) > 12 or len(s) < 4:
-            return []
-        self.count = 0
-        def isValid(ip):
-            self.count += 1
-            if ip.count('.') != 3:
-                return False
-            lst = ip.split('.')
-            for num in lst:
-                if not num or int(num) > 255 or (len(num) > 1 and num[0] == '0'):
-                    return False
-            return True
 
-        self.res = []
 
-        def helper(cur, idx, cnt):
-            if cnt == 3:
-                if isValid(cur):
-                    self.res.append(cur)
-                return
-            if idx > len(cur) - 1:
-                return
-            helper(cur[:idx] + '.' + cur[idx:], idx + 2, cnt + 1)
-            helper(cur, idx + 1, cnt)
-
-        helper(s, 0, 0)
-        return self.res, self.count
-        
-#leetcode submit region end(Prohibit modification and deletion)
-s = "25525511135"
-print(Solution().restoreIpAddresses(s))
+# leetcode submit region begin(Prohibit modification and deletion)
+# class Solution:
+#     def __init__(self):
+#         self.res = []
+#         self.count = 0
+#
+#     def restoreIpAddresses(self, s):
+#         """
+#         :type s: str
+#         :rtype: List[str]
+#         """
+#         if len(s) > 12 or len(s) < 4:
+#             return []
+#
+#         def isValid(ip):
+#             self.count += 1
+#             if ip.count('.') != 3:
+#                 return False
+#             lst = ip.split('.')
+#             for num in lst:
+#                 if not num or int(num) > 255 or (len(num) > 1 and num[0] == '0'):
+#                     return False
+#             return True
+#
+#         def helper(cur, idx, cnt):
+#             if cnt == 3:
+#                 if isValid(cur):
+#                     self.res.append(cur)
+#                 return
+#             if idx > len(cur) - 1:
+#                 return
+#             helper(cur[:idx] + '.' + cur[idx:], idx + 2, cnt + 1)
+#             helper(cur, idx + 1, cnt)
+#
+#         helper(s, 0, 0)
+#         return self.res, self.count
+#
+#
+# # leetcode submit region end(Prohibit modification and deletion)
+# s = "25525511135"
+# print(Solution().restoreIpAddresses(s))
 
 
 # 暴力法
@@ -59,11 +62,13 @@ class Solution1:
     def restoreIpAddresses(self, s: str) -> List[str]:
         n = len(s)
         res = []
+
         # 判读是否满足ip的条件
         def helper(tmp):
             if not tmp or (tmp[0] == "0" and len(tmp) > 1) or int(tmp) > 255:
                 return False
             return True
+
         # 三个循环,把数字分成四份
         for i in range(3):
             for j in range(i + 1, i + 4):
@@ -73,11 +78,15 @@ class Solution1:
                         tmp2 = s[i + 1:j + 1]
                         tmp3 = s[j + 1:k + 1]
                         tmp4 = s[k + 1:]
-                        print(tmp1, tmp2, tmp3, tmp4)
+                        print(i, j, k)
+                        # print(tmp1, tmp2, tmp3, tmp4)
                         # all() 函数用于判断给定的可迭代参数 iterable 中的所有元素是否都为 TRUE，如果是返回 True，否则返回 False。
                         if all(map(helper, [tmp1, tmp2, tmp3, tmp4])):
                             res.append(tmp1 + "." + tmp2 + "." + tmp3 + "." + tmp4)
         return res
+
+
+s = "25525511135"
 print(Solution1().restoreIpAddresses(s))
 # 回溯法
 """
@@ -86,8 +95,79 @@ print(Solution1().restoreIpAddresses(s))
 很好理解，直接看代码理解吧。
 
 """
+
+
 class Solution2:
     def restoreIpAddresses(self, s: str) -> List[str]:
+        """
+        回溯两个点：
+        1.首先边界条件：ip的四个部分凑齐了
+        2.其次：考虑每个部分必须0~255之间，同时第一位必须大于0除非整个该部分为0
+        """
+
+        def traceback(num: int, temp: str, s: str):
+            if num == 4 and not s:
+                res.append(temp[:-1])
+                return
+            for i in range(1, 4):
+                if i <= len(s) and int(s[:i]) <= 255 and (s[0] > '0' or s[:i] == '0'):
+                    traceback(num + 1, temp + s[:i] + '.', s[i:] if i < len(s) else "")
+
+        res = []
+        if len(s) <= 12:
+            traceback(0, "", s)
+        else:
+            return []
+
+        return res
+
+    # 递归
+    def restoreIpAddresses1(self, s: str) -> List[str]:
+        """
+        首先只能分成四份，所以记录一下n,如果n=4并且s为空，那么是符合条件的。
+        其次在递归的时候判断一下是不是范围，是不是为0-255之间，如果不是，不进行递归
+        """
+        ans = []
+
+        def findIp(s, pre, n):
+            if not s and n == 4:
+                ans.append(".".join(str(i) for i in pre))
+                return
+            if n == 4 and s:
+                return
+            if s and s[0] == "0":
+                findIp(s[1:], pre + [s[:1]], n + 1)
+            else:
+                for i in range(min(len(s), 3)):
+                    if s[:i + 1] and 0 <= int(s[:i + 1]) < 256:
+                        findIp(s[i + 1:], pre + [s[:i + 1]], n + 1)
+
+        findIp(s, [], 0)
+        return ans
+
+    def restoreIpAddresses2(self, s: str) -> List[str]:
+        def backtrack(string, temp, count):
+            if count == 0 and len(string) != 0:
+                return
+            if count == 0 and len(string) == 0:
+                res.append(temp[1:])
+            else:
+                if not string:
+                    return
+                if string[0] == '0':
+                    backtrack(string[1:], temp + ('.' + string[:1]), count - 1)
+                else:
+                    for i in range(1, len(string) + 1):
+                        if 0 <= int(string[:i]) <= 255:
+                            backtrack(string[i:], temp + ('.' + string[:i]), count - 1)
+                        else:
+                            break
+
+        res = []
+        backtrack(s, '', 4)
+        return res
+
+    def restoreIpAddresses3(self, s: str) -> List[str]:
         res = []
         n = len(s)
 
@@ -108,93 +188,9 @@ class Solution2:
         backtrack(0, "", 4)
         return res
 
-    def restoreIpAddresses1(self, s: str) -> List[str]:
-        if not s:
-            return []
 
-        def restore(s, remain):  # 从s里恢复几个ip段
-            if remain == 1:  # 结束条件，仅当剩的数在[0,255]且不存在'01','022'这种情况时返回
-                if -1 < int(s) < 256 and str(int(s)) == s:
-                    return [s]
-                return []  # 否则返回空
-            res = []
-            if remain <= len(s) <= 3 * remain - 2:
-                # 除掉1位后剩余至少remain-1个字符，至多3*(remain-1)个字符
-                for i in restore(s[1:], remain - 1):
-                    res.append(s[:1] + '.' + i)
-            if int(s[:2]) > 9 and remain + 1 <= len(s) <= 3 * remain - 1:
-                # 除掉2位（真正的两位数）后剩余至少remain-1个字符，至多3*(remain-1)个字符
-                for i in restore(s[2:], remain - 1):
-                    res.append(s[:2] + '.' + i)
-            if 99 < int(s[:3]) < 256 and remain + 2 <= len(s) <= 3 * remain:
-                # 除掉3位（真正的三位数）后剩余至少remain-1个字符，至多3*(remain-1)个字符
-                for i in restore(s[3:], remain - 1):
-                    res.append(s[:3] + '.' + i)
-            return res
-
-        return restore(s, 4)
-
-
-print(Solution2().restoreIpAddresses(s))
-print(Solution2().restoreIpAddresses1(s))
-
-
-
-# class RestoreIpAddress(object):
-#
-#     def __init__(self, s):
-#         """
-#         output为最终符合要求的列表
-#         segments为存储符合要求的截取部分的列表
-#         """
-#         self._s = s
-#         self.length = len(s)
-#         self.output, self.segments = [], []
-#
-#     def is_valid(self, segment):
-#         """
-#         1. 截取的部分的整数必须小于或者等于255
-#         2. 截取部分除非是0否则不可以以0开头
-#         3. 返回bool
-#         """
-#         return int(segment) <= 255 if segment[0] != '0' else len(segment) == 1
-#
-#     def update_output(self, curr_pos):
-#         """
-#         :param curr_pos:
-#         :return:
-#         """
-#         # 最后一个点放置完成后，针对剩余截取部分是curr_pos+1开始
-#         segment = self._s[curr_pos + 1:self.length]
-#         # 判断最后剩余部分是否符合
-#         if self.is_valid(segment):
-#             self.segments.append(segment)
-#             print(self.segments)
-#             self.output.append(".".join(self.segments))
-#             # 将最后部分删除，然后移动curr_pos，这里需要很好的理解递归
-#             self.segments.pop()
-#         # 最后一部分验证不合格，则最为一种递归出口
-#
-#     def backtrack(self, pre_pos=-1, dots=3):
-#         """
-#         1. 有限制条件可知，'.'符号不可以放在头部或尾部之后或者距离上一个'.'三个字符以上，
-#         所以range(pre_pos + 1, min(self.length - 1, pre_pos + 4))
-#
-#         """
-#         for curr_pos in range(pre_pos + 1, min(self.length - 1, pre_pos + 4)):
-#             segment = self._s[pre_pos + 1:curr_pos + 1]
-#             if self.is_valid(segment):
-#                 self.segments.append(segment)
-#                 # 这个点为最后一个点则判断是output否可以更新
-#                 if dots - 1 == 0:
-#                     self.update_output(curr_pos)
-#                 else:
-#                     # 递归，尝试放入下一个"."
-#                     self.backtrack(curr_pos, dots - 1)
-#                 # 1. 当update_output中最后一部分验证失败时，回溯时删除截取的部分
-#                 # 2. 在backtrack中验证失败，回溯时，删除截取的部分
-#                 self.segments.pop()
-#
-#     def result(self):
-#         self.backtrack()
-#         return self.output
+s1 = "25525511135"
+print(Solution2().restoreIpAddresses(s1))
+print(Solution2().restoreIpAddresses1(s1))
+print(Solution2().restoreIpAddresses2(s1))
+print(Solution2().restoreIpAddresses3(s1))

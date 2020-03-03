@@ -128,7 +128,9 @@ class Solution:
             elif nums[mid] > target:
                 right = mid - 1
         if right >= 0 and nums[right] == target:
-            return right  # 注意
+            # 退出循环时，left比right大1，因为left = right时，left已经到边界，但还是left = mid + 1
+            # 此时right所在位置就是右边界
+            return right
         else:
             return -1
 
@@ -146,6 +148,9 @@ class Solution:
             elif nums[mid] > target:
                 right = mid - 1
         if left <= len(nums) - 1 and nums[left] == target:
+            # 退出循环时，left比right大1，因为left = right时，right已经缩小边界到了左边界
+            # 同时right = mid - 1退出循环，此时上一步left = right代表已经找到边界了
+            # 所以返回的是left
             return left  # 注意判断最后一个元素
         else:
             return -1
@@ -155,7 +160,7 @@ class Solution:
 # target = 8
 # print(Solution().searchRangeSelf(nums, target))
 
-nums1 = [5, 7, 7, 8, 8, 10]
+nums1 = [5, 7, 7, 8, 8, 8]
 target = 8
 print(Solution().searchRangeSelf(nums1, target))
 print(Solution().searchRangeEqual(nums1, target))

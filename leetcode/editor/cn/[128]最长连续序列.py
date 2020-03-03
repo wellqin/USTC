@@ -1,12 +1,12 @@
-#给定一个未排序的整数数组，找出最长连续序列的长度。 
+# 给定一个未排序的整数数组，找出最长连续序列的长度。
 #
 # 要求算法的时间复杂度为 O(n)。 
 #
 # 示例: 
 #
 # 输入: [100, 4, 200, 1, 3, 2]
-#输出: 4
-#解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
+# 输出: 4
+# 解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
 
 # 利用并查集思想和字典解决，尤其是Python的简洁表述，代码如下：
 #
@@ -21,28 +21,28 @@
 最后，遍历所有连续序列的长度，即可得到正确结果
 
 """
+
+
 class Solution:
     def longestConsecutive(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        if nums==None or len(nums)==0:
+        if nums is None or len(nums) == 0:
             return 0
 
-        rmap,vmap={},{}     # 这里可以使用单一字典形成 key->(rank,value) 映射，然而如此代码比较乱，读者可以一试
+        rmap, vmap = {}, {}  # 这里可以使用单一字典形成 key->(rank,value) 映射，然而如此代码比较乱，读者可以一试
 
         for e in nums:
             if e not in rmap:
-                rmap[e],vmap[e]=e,1     # 新元素初始指向自己，连续序列值value为1
-                if e+1 in rmap:         # 若当前元素紧邻右边有元素，当前元素value+=右边元素value
-                    vmap[e]+=vmap[e+1]
-                if e-1 in rmap:         # 若当前元素紧邻左边有元素，更新左边元素的序列头，当前元素指向序列头
-                    vmap[rmap[e-1]]+=vmap[e]
-                    rmap[e]=rmap[e-1]
-                rmap[rmap[e]+vmap[rmap[e]]-1]=rmap[e]       # 最后更新当前序列尾的rank，使其指向序列头
+                rmap[e], vmap[e] = e, 1  # 新元素初始指向自己，连续序列值value为1
+                if e + 1 in rmap:  # 若当前元素紧邻右边有元素，当前元素value+=右边元素value
+                    vmap[e] += vmap[e + 1]
+                if e - 1 in rmap:  # 若当前元素紧邻左边有元素，更新左边元素的序列头，当前元素指向序列头
+                    vmap[rmap[e - 1]] += vmap[e]
+                    rmap[e] = rmap[e - 1]
+                rmap[rmap[e] + vmap[rmap[e]] - 1] = rmap[e]  # 最后更新当前序列尾的rank，使其指向序列头
 
-        tmp,res=max(vmap.items(),key=lambda x: x[1])
+        tmp, res = max(vmap.items(), key=lambda x: x[1])
         return res
-
-        

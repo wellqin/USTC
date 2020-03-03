@@ -75,6 +75,14 @@ class Solution:
             lookup[i] = index
         return None
 
+    def two_sum(self, nums, target):
+        """这样写更直观，遍历列表同时查字典"""
+        dct = {}
+        for i, n in enumerate(nums):
+            if target - n in dct:
+                return [dct[target - n], i]
+            dct[n] = i
+
 
 nums = [2, 7, 11, 15,3]
 target = 9

@@ -73,19 +73,17 @@ class Solution:
                     return False
         return stack == []
 
-    def isValidSelf(self, s):
-        if not s:
-            return False
-        dic = {')': '(', ']': '[', '}': '{'}
-        stack = []
+    def isValidSelf1(self, s):
+        lookup = {")": "(", "]": "[", "}": "{"}
+        stack = []  # 栈里面只保存待匹配的左括号
         for i in s:
-            if stack and i in dic:  # 比的键，而不是值
-                if stack[-1] == dic[i]:
-                    stack.pop()
+            if stack and i in lookup:  # 如果栈不为空 同时 当前的为右括号
+                if stack[-1] == lookup[i]:  # 如果栈中存在与右括号匹配的左括号
+                    stack.pop()  # 则匹配到最小括号对，栈中进行删除
             else:
                 stack.append(i)
         return not stack
 
 
 s = "{()[()]}"
-print(Solution().isValid(s))
+print(Solution().isValidSelf1(s))
