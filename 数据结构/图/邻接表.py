@@ -20,24 +20,23 @@ heads = []
 data = [[1, 2], [2, 1], [1, 5], [5, 1], [2, 3], [3, 2], [2, 4], [4, 2],
         [3, 4], [4, 3], [3, 5], [5, 3], [4, 5], [5, 4]]
 
-print(len(data))
-print( "图的邻接表的内容")
-print( "-----------------------------------------------------")
-
 for i in range(len(vertex_list)):
-    head = list_node(None)
+    # head = [list_node] * len(vertex_list) 这样在外面声明弊端很大
+    head = list_node(None)                # 在内单个申明，防止节点在同一个位置，同时粘连变更
     head.data = vertex_list[i]            # 生成头结点，以五个顶点作为头结点
     head.next = None
 
     for j in range(len(data)):
-        if data[j][0] == vertex_list[i]:       # 输入数据中的起始结点等于顶点，就在终止结点加入到该顶点的邻接链表中去。
-            newnode = list_node(data[j][1])    # 为终止顶点创建一个结点信息，并将其元素值加入到数据域中
-            cur = head
-            while cur.next:
-                cur= cur.next              # 这是尾部插入法
-            cur.next = newnode
-    heads.append(head)
+        if data[j][0] == vertex_list[i]:       # 找到以当前头结点开始的边了
+            newnode = list_node(data[j][1])    # 为目前终止顶点创建一个结点信息
 
+            cur = head                         # 这是尾部插入法
+            while cur.next:
+                cur= cur.next
+            cur.next = newnode
+    heads.append(head)                         # 加入到整体列表中进行保存
+
+# 遍历保存的链表节点
 for head in heads:
     while head:
         print(head.data, end='')
