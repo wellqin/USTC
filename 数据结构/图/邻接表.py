@@ -22,15 +22,14 @@ data = [[1, 2], [2, 1], [1, 5], [5, 1], [2, 3], [3, 2], [2, 4], [4, 2],
 
 for i in range(len(vertex_list)):
     # head = [list_node] * len(vertex_list) 这样在外面声明弊端很大
-    head = list_node(None)                # 在内单个申明，防止节点在同一个位置，同时粘连变更
-    head.data = vertex_list[i]            # 生成头结点，以五个顶点作为头结点
-    head.next = None
+                                               # 1. 生成头结点，以五个顶点作为头结点
+    head = list_node(vertex_list[i])           # 在内单个申明，防止节点在同一个位置，同时粘连变更
 
     for j in range(len(data)):
-        if data[j][0] == vertex_list[i]:       # 找到以当前头结点开始的边了
-            newnode = list_node(data[j][1])    # 为目前终止顶点创建一个结点信息
+        if data[j][0] == vertex_list[i]:       # 2. 找到以当前头结点开始的边了
+            newnode = list_node(data[j][1])    # 3. 生成边所对应的顶点（链表节点）
 
-            cur = head                         # 这是尾部插入法
+            cur = head                         # 4. 尾部插入
             while cur.next:
                 cur= cur.next
             cur.next = newnode
