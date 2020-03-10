@@ -63,6 +63,6 @@ class Solution:
         return res
 
 
-nums = [1, 2, 3]
+nums = [1, 1, 2]
 print(Solution().subsets(nums))
 # print(Solution().subsets1(nums))

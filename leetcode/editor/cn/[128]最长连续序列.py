@@ -24,25 +24,60 @@
 
 
 class Solution:
+    # def longestConsecutive(self, nums):
+    #     """
+    #     :type nums: List[int]
+    #     :rtype: int
+    #     """
+    #     if nums is None or len(nums) == 0:
+    #         return 0
+    #
+    #     rmap, vmap = {}, {}  # 这里可以使用单一字典形成 key->(rank,value) 映射，然而如此代码比较乱，读者可以一试
+    #
+    #     for e in nums:
+    #         if e not in rmap:
+    #             rmap[e], vmap[e] = e, 1  # 新元素初始指向自己，连续序列值value为1
+    #             if e + 1 in rmap:  # 若当前元素紧邻右边有元素，当前元素value+=右边元素value
+    #                 vmap[e] += vmap[e + 1]
+    #             if e - 1 in rmap:  # 若当前元素紧邻左边有元素，更新左边元素的序列头，当前元素指向序列头
+    #                 vmap[rmap[e - 1]] += vmap[e]
+    #                 rmap[e] = rmap[e - 1]
+    #             rmap[rmap[e] + vmap[rmap[e]] - 1] = rmap[e]  # 最后更新当前序列尾的rank，使其指向序列头
+    #
+    #     tmp, res = max(vmap.items(), key=lambda x: x[1])
+    #     return res
+
     def longestConsecutive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if nums is None or len(nums) == 0:
-            return 0
-
-        rmap, vmap = {}, {}  # 这里可以使用单一字典形成 key->(rank,value) 映射，然而如此代码比较乱，读者可以一试
-
-        for e in nums:
-            if e not in rmap:
-                rmap[e], vmap[e] = e, 1  # 新元素初始指向自己，连续序列值value为1
-                if e + 1 in rmap:  # 若当前元素紧邻右边有元素，当前元素value+=右边元素value
-                    vmap[e] += vmap[e + 1]
-                if e - 1 in rmap:  # 若当前元素紧邻左边有元素，更新左边元素的序列头，当前元素指向序列头
-                    vmap[rmap[e - 1]] += vmap[e]
-                    rmap[e] = rmap[e - 1]
-                rmap[rmap[e] + vmap[rmap[e]] - 1] = rmap[e]  # 最后更新当前序列尾的rank，使其指向序列头
-
-        tmp, res = max(vmap.items(), key=lambda x: x[1])
+        nums = set(nums)  # 去重
+        res = 0
+        for x in nums:
+            if x - 1 not in nums:
+                y = x + 1
+                while y in nums:
+                    y += 1
+                res = max(res, y - x)
         return res
+
+    def longestConsecutive1(self, nums):
+        hash_dict = dict()
+
+        max_length = 0
+        for num in nums:
+            if num not in hash_dict:  # 若数已在哈希表中：跳过不做处理，若是新数加入：
+                left = hash_dict.get(num - 1, 0)
+                right = hash_dict.get(num + 1, 0)
+
+                cur_length = 1 + left + right
+                if cur_length > max_length:
+                    max_length = cur_length
+
+                hash_dict[num] = cur_length
+                hash_dict[num - left] = cur_length
+                hash_dict[num + right] = cur_length
+        print(hash_dict)
+
+        return max_length
+
+
+nums = [100, 4, 200, 1, 3, 2]
+print(Solution().longestConsecutive1(nums))

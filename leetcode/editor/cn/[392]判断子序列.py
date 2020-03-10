@@ -22,7 +22,69 @@
 #
 # 特别感谢 @pbrother 添加此问题并且创建所有测试用例。 
 #
+from typing import List
+
 
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        
+        # 判断 s 是否为 t 的子序列
+        if not s:
+            return True
+        if not t:
+            return False
+        if s == t:
+            return True
+        # dp创建是如果s, t位置调换则出错
+        dp = [[0 for _ in range(len(t) + 1)] for _ in range(len(s) + 1)]
+        for i in range(1, len(s)+1):
+            for j in range(1, len(t)+1):
+                if s[i-1] == t[j-1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+        return dp[-1][-1] == len(s)
+
+    def isSubsequence1(self, s, t):
+        if not s:
+            return True
+        if not t:
+            return False
+        if s == t:
+            return True
+        s = list(s)
+        t = list(t)
+        m = len(s)
+        n = len(t)
+        i = 0
+        j = 0
+        res = 0
+        while i < m and j < n:
+            if s[i] == t[j]:
+                res += 1
+                i += 1
+            j += 1
+        return res == m
+
+    def isSubsequence2(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if not s:
+            return True
+        for i in s:
+            res = t.find(i)
+            if res == -1:
+                return False
+            else:
+                t = t[res + 1:]
+        return True
+
+
+s = "abc"
+t = "ahbgdc"
+print(Solution().isSubsequence(s, t))
+print(Solution().isSubsequence1(s, t))
+print(Solution().isSubsequence2(s, t))

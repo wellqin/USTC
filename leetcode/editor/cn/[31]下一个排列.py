@@ -87,6 +87,26 @@ class Solution(object):
         nums[idx:] = nums[idx:][::-1]  # 3.前面数字变大了，后面的自然要变为升序才行[::-1]
         return nums
 
+    def nextPermutation1(self, nums):
+        if len(nums) <= 1:
+            return
+        idx = 0
+        # 1. 从这个序列中从右至左找第一个左邻小于右邻的数,并标记为idx
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] > nums[i - 1]:
+                idx = i - 1
+                break  # 终止条件是前一个元素小于后一个元素
+        if idx == 0:  # 如果找不到，则所有排列求解完成，如果找得到则说明排列未完成
+            nums.reverse()  # 最后一句已经处理，否则nums[::-1]
+        else:
+            for i in range(len(nums) - 1, idx, -1):  # 2. 又要从右到左到第一个比4大的数
+                if nums[i] > nums[idx]:
+                    nums[i], nums[idx] = nums[idx], nums[i]  # 3.逆序找这个sequence里面第一个比前面部分大的，二者交换
+                    break
+            nums[idx+1:] = nums[idx+1:][::-1]  # 4. 交换后[idx:]后面递减，所以逆序后递增为下一个排列
+        return nums
 
-num = [1, 2, 4, 6, 5, 3]
-print(Solution().nextPermutation(num))
+
+# nums = [1, 2, 4, 6, 5, 3]
+nums = [1,3,2]
+print(Solution().nextPermutation(nums))

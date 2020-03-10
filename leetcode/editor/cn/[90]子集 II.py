@@ -15,6 +15,7 @@
 #  []
 # ]
 #
+from typing import List
 
 c1 = 0
 c2 = 0
@@ -51,40 +52,90 @@ class Solution(object):
                 c2 += 1
                 helper2(i + 1, n, temp_list + [nums[i]])
 
-        helper2(0, n, [])
+        def helper3(idx, temp_list):
+            if idx == len(nums):
+                if temp_list not in res:
+                    res.append(temp_list)
+                    # return here is wrong 如果出现重复的将不会return
+                return  # 要保证return回去，不能在向下走了，此处肯定return
+            helper3(idx + 1, temp_list + [nums[idx]])
+            helper3(idx + 1, temp_list)
+
+        # helper3(0, [])
+        # print(res)
+        # reList = list(set([tuple(t) for t in res]))
+        # reList = [list(v) for v in reList]
+
+        def helper4(idx, temp_list):
+            if temp_list not in res:
+                res.append(temp_list)
+            for i in range(idx, n):
+                helper4(i + 1, temp_list + [nums[i]])
+
+        helper4(0, [])
+
         return res
 
 
-nums = [1, 2, 2]
-print(Solution().subsetsWithDup(nums))
-print(c2)
+nums = [1, 1, 2]
+# print(Solution().subsetsWithDup(nums))
+# print(c2)
 
 # print(Solution().subsetsWithDup(nums))
 # print(c1)
 
 
 from collections import Counter
+
+
 class Solution1:
-    def subsets(self, nums):  # dfs or 回溯
-        if not nums:
-            return []
+    # 刚开始我们只有空集一个答案，循环所有可能的数字，每次循环我们对当前答案的每一种情况考虑加入从1到上限次该数字并更新答案即可
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        dic = {}
+        for i in nums:
+            dic[i] = dic.get(i, 0) + 1
+        res = [[]]
+        for i, v in dic.items():
+            temp = res.copy()
+            for j in res:
+                temp.extend(j + [i] * (k + 1) for k in range(v))
+            res = temp
+        return res
+
+    # def subsetsWithDup1(self, nums: List[int]) -> List[List[int]]:
+    #     if not nums:
+    #         return []
+    #     nums.sort()
+    #     res = [[]]
+    #     pos = 0
+    #
+    #     for i in range(len(nums)):
+    #         if i >= 1 and nums[i] == nums[i - 1]:
+    #             pos = len(res)
+    #             res = res + [[nums[i]] + num for num in res[pos:]]
+    #         else:
+    #             res = res + [[nums[i]] + num for num in res]
+    #         pos = len(res)
+    #
+    #     return res
+
+    def subsetsWithDup1(self, nums: List[int]) -> List[List[int]]:
         res = []
         n = len(nums)
-        counter = Counter(nums)
+        nums.sort()
 
-        def helper(res, temp_list, nums, n):
-
+        def dfs(deepth, temp_list):
             res.append(temp_list)
-
-            for i in nums:
-                if counter[i] == 0:
+            for i in range(deepth, n):
+                if i > deepth and nums[i] == nums[i - 1]:
                     continue
-                counter[i] -= 1
-                temp_list.append(i)
-                helper(res, temp_list, nums, n)
-                counter[i] += 1
-                temp_list.pop()
+                dfs(i + 1, temp_list + [nums[i]])
 
-        helper(res, [], list(set(nums)), n)
+        dfs(0, [])
         return res
-print(Solution1().subsets(nums))
+
+
+# nums1 = [4, 4, 4, 1, 4]
+
+# print(Solution1().subsetsWithDup(nums))
+print(Solution1().subsetsWithDup1(nums))

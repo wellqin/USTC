@@ -30,6 +30,32 @@ from typing import List
 
 class Solution:
     def maxScoreSightseeingPair(self, A: List[int]) -> int:
-        pass
-        
+        if not A:
+            return 0
+
+        l = 0
+        r = len(A) - 1
+        res = 0
+        tmp = 0
+        while l < r:
+            if tmp < res:
+                tmp = A[l] + A[r] + l - r
+                res = max(res, tmp)
+                r -= 1
+            l += 1
+
+        return res
+
+    def maxScoreSightseeingPair1(self, A):
+        # A[i] + A[j] + i - j
+        res = 0
+        pre_max = A[0] + 0  # 初始值
+        for k in range(1, len(A)):
+            res = max(res, pre_max + A[k] - k)  # 判断能否刷新res
+            pre_max = max(pre_max, A[k] + k)  # 判断能否刷新pre_max， 得到更大的A[i] + i
+        return res
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+A = [8, 1, 5, 2, 6]
+print(Solution().maxScoreSightseeingPair1(A))

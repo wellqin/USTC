@@ -17,7 +17,56 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
-    def subarraySum(self, nums: List[int], k: int) -> int:
-        
+    def subarraySum(self, nums: List[int], k: int) -> int:  # 暴力
+        if not nums:
+            return 0
+        N = len(nums)
+        count = 0
+        for i in range(N):
+            for j in range(i, N):
+                res = 0
+                for n in range(i, j + 1):
+                    res += nums[n]
+                if res == k:
+                    count += 1
+        return count
+
+    def subarraySum1(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return 0
+        N = len(nums)
+        count = 0
+        for i in range(N):
+            pre = 0
+            for j in range(i, N):
+                pre += nums[j]
+                if pre == k:
+                    count += 1
+        return count
+
+    def subarraySum2(self, nums: List[int], k: int) -> int:
+        dict = {0: 1}
+        count = 0
+        sum = 0
+        for num in nums:
+            sum += num
+            if sum - k in dict:
+                count += dict[sum - k]
+            dict[sum] = dict.get(sum, 0) + 1
+
+        return count
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+nums = [1, 1, 1]
+k = 2
+print(Solution().subarraySum(nums, k))
+print(Solution().subarraySum1(nums, k))
+
+nums1 = [1, 2, 3, 4, 5]
+k1 = 9
+print(Solution().subarraySum2(nums1, k1))

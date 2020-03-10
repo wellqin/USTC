@@ -22,7 +22,43 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        
+        if not nums:
+            return 0
+        N = len(nums)
+        count = 0
+        for i in range(N):
+            res = 1
+            for j in range(i, N):
+                res *= nums[j]
+                if res < k:
+                    count += 1
+                if res >= k:
+                    break
+        return count
+
+
+    def numSubarrayProductLessThanK1(self, nums: List[int], k: int) -> int:
+        if k == 0: return 0
+        l, r = 0, 0
+        tmp, res = 1, 0
+        while r < len(nums):
+            tmp *= nums[r]
+            while tmp >= k and l < len(nums):
+                tmp /= nums[l]
+                l += 1
+            if r >= l: res += (r - l + 1)
+            r += 1
+        return res
+
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+nums = [10, 5, 2, 6]
+k = 100
+print(Solution().numSubarrayProductLessThanK(nums, k))
+print(Solution().numSubarrayProductLessThanK1(nums, k))
