@@ -33,32 +33,31 @@ Graph = {'A': {'B': 6, 'E': 10, 'F': 12},
 }
 
 def Kruskal(G):
-    def f1(x):
-        return x[2]
-    record_node = set()                                                     # 记录添加的边节点
-    mintree = []                                                            # 最小生成树的所有的边
+    record_node = set()    # 记录添加的边节点,重复的会忽略
+    mintree = []           # 最小生成树的所有的边
     cost = []
-    edges = []                                                              # 获得图的所有的边，并对它排序
+    edges = []             # 获得图的所有的边，并对它排序
 
     for key1 in G.keys():
         for key2 in G[key1].keys():
             edges.append([key1, key2, G[key1][key2]])
-    edges.sort(key=f1, reverse=True)                                        # 对所有的边的成本进行从大到小排序
+    edges = sorted(edges, key=lambda x:x[2], reverse=True)     # 边的权值降序排列
 
     while edges:
-        edge = edges.pop()                                                  # 选取最短的边
-        if (edge[0] in record_node) and (edge[1] in record_node):           # 如果这两个顶点同时在集合中，表示会形成环路，不能加入这条边
+        edge = edges.pop()  # edge = ["B", "C", 3] 形式         # 选取最短的边
+        if (edge[0] in record_node) and (edge[1] in record_node):
+            # 如果这两个顶点同时在集合中，表示会形成环路，不能加入这条边
             continue
         else:
-            record_node.add(edge[0])
-            record_node.add(edge[1])
-            cost.append(edge.pop())
-            mintree.append(edge)
+            record_node.add(edge[0])  # "B"
+            record_node.add(edge[1])  # "C"
+            cost.append(edge.pop())   #  3
+            mintree.append(edge)      # ["B", "C"]
 
-    print ("克鲁斯卡尔Kruskal算法最小生成树：")
-    print ("各个边的权值: ", cost)
+    print ("各个边的权值: ", cost)  # [3, 5, 6, 8, 9]
     print ("最小生成树的成本: ", sum(cost))
     print ("最小生成树的边: ", mintree)
+    # [['B', 'C'], ['B', 'D'], ['B', 'A'], ['B', 'F'], ['E', 'D']]
     return cost, mintree
 
 if __name__ == '__main__':

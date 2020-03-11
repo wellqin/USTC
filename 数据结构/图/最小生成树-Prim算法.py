@@ -49,14 +49,18 @@ z = x.difference(y)
  
 print(z)  # {'cherry', 'banana'}返回一个集合，元素包含在集合 x ，但不在集合 y ：
 """
-
+# python3改变了dict.keys,返回的是dict_keys对象,支持iterable 但不支持indexable，我们可以将其明确的转化成list：
+# V = set(G.keys())[0]
+# difference() 方法用于返回集合的差集，即返回的集合元素包含在第一个集合中，但不包含在第二个集合(方法的参数)中。
 def Prim(G):
-    U = set(G.keys())                        # 图G的顶点集合U，它包含了该图的所有顶点, 创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。
-    V = set(list(U)[0])                      # 将起始顶点加入集合V,  集合对 list 和 tuple 具有排序(升序)
+    U = set(G.keys())                        # 图G的顶点集合U，它包含了该图的所有顶点, 创建一个空集合必须用 set() 而不是 { }，
+                                             # 因为 { } 是用来创建一个空字典。
+    # V = set(list(U)[0])                      # 将起始顶点加入集合V,  集合对 list 和 tuple 具有排序(升序)
+    V = set(('C',))
     min_tree = []                            # 存储要返回的最小生成树的所有的边
     cost = []                                # 记录最小生成树各边的权重的值
 
-    while U.difference(V):                   # 当集合U和V不想等时，进入循环
+    while U.difference(V):                   # 当集合U和V不想等时，进入循环while U != V
         min_value = float("inf")             # 初始化一个最小值
         node1 = None                         # 用于记录加入边的第一个节点
         node2 = None                         # 用于记录加入边的第二个节点
@@ -77,6 +81,30 @@ def Prim(G):
     print("最小生成树的成本: ", sum(cost))
     print("最小生成树的边: ", min_tree)
     return cost, min_tree
+
+
+
+
+def PrimSelf(G):
+    U = set(G.keys())
+    V = set(list(U)[0])
+    tree = []
+    cost = []
+
+    while U != V:
+        min_value = float("inf")
+        node1, node2 = None, None
+        for v in V:
+            for u in U.difference(V):
+                if u in G[v]:
+                    if G[v][u] < min_value:
+                        min_value = G[v][u]
+                        node1 = v
+                        node2 = u
+
+        V.add(node2)
+        tree.append([node1, node2])
+        cost.append(min_value)
 
 
 if __name__ == '__main__':

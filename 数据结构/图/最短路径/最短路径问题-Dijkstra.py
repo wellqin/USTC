@@ -9,7 +9,6 @@ Change Activity:  2019/7/24
 -------------------------------------------------
 """
 
-
 """
 迪杰斯特拉（Dijkstra）算法是一个按照路径长度递增的次序产生的最短路径算法。
 
@@ -42,6 +41,7 @@ v0-v5表示数组的索引编号0-5，二维数组的值表示节点之间的权
 就可以找到从vi到起始节点的最短路径。比如起始节点索引为0，若path[3]=4, path[4]=0；那么节点v2的最短路径为，v0->v4->v3。
 """
 
+
 def dijkstra(graph, startIndex, path, cost, max):
     """
     求解各节点最短路径，获取path，和cost数组，
@@ -57,7 +57,7 @@ def dijkstra(graph, startIndex, path, cost, max):
         else:
             cost[i] = graph[startIndex][i]
             path[i] = startIndex if (cost[i] < max) else -1
-    print("v = ", v,)
+    print("v = ", v, )
     print("cost = ", cost)
     print("path = ", path)
 
@@ -74,10 +74,11 @@ def dijkstra(graph, startIndex, path, cost, max):
         v[curNode] = 1
         for w in range(lenth):
             if v[w] == 0 and (graph[curNode][w] + cost[curNode] < cost[w]):
-                cost[w] = graph[curNode][w] + cost[curNode] # 更新权值
-                path[w] = curNode # 更新路径
+                cost[w] = graph[curNode][w] + cost[curNode]  # 更新权值
+                path[w] = curNode  # 更新路径
         # for 更新其他节点的权值（距离）和路径
-    return path
+    return path, cost
+
 
 if __name__ == '__main__':
     max = 2147483647
@@ -88,12 +89,10 @@ if __name__ == '__main__':
         [max, max, max, max, max, 10],
         [max, max, max, 20, max, 60],
         [max, max, max, max, max, max],
-        ]
+    ]
     path = [0] * 6
     cost = [0] * 6
     print("dijkstra", dijkstra(graph, 0, path, cost, max))
-
-
 
 # 利用最小堆实现, 时间复杂度: O(e * logv), e是边的个数
 
@@ -112,47 +111,57 @@ class Graph(object):
         self.graph = {}
 
     def add_edge(self, start: str, end: str, distance: float):
-        self.graph.setdefault(start, {})   # setdefault() 函数和 get()方法 类似, 如果键不存在于字典中，将会添加键并将值设为默认值。
+        self.graph.setdefault(start, {})  # setdefault() 函数和 get()方法 类似, 如果键不存在于字典中，将会添加键并将值设为默认值。
         self.graph[start][end] = distance
 
 
-def dijkstra(start: str, end: str, graph: dict) -> list:
-    pqueue = []
-    heapq.heappush(pqueue, (0, start))
+def dijkstra(start, end, graph):
+    queue = []
+    heapq.heappush(queue, (0, start))  # 初始化起点
+
+    # 三个动态存储结构，邻接矩阵中用列表固定
     visited = set()  # 存储已经处理过的节点
     distance = {start: 0}
     parent = {}  # 用于复原路径
 
-    while pqueue:
-        dist, min_node = heapq.heappop(pqueue)
-        if min_node == end:
+    while queue:
+        dis, min_node = heapq.heappop(queue)
+        if min_node == end:  # 对于有向图，这里可以break了
             break
         visited.add(min_node)
-        neighbors = graph[min_node]
-        for i, j in neighbors.items():
-            new_dis = dist + j
+
+        for i, j in graph[min_node].items():  # 检查节点邻居路径值
+            new_dis = dis + j
+            # 如果是新节点，或者到该点的距离比之前近，则进行更新
             if (i not in distance) or (new_dis < distance[i]):
                 distance[i] = new_dis
-                heapq.heappush(pqueue, (new_dis, i))
+                heapq.heappush(queue, (new_dis, i))
                 parent[i] = min_node
 
     res = []
     while end != start:
-        res.append(end)
+        res.insert(0, end)
         end = parent[end]
-    res.append(start)
-    res.reverse()
-
+    res.insert(0, start)
     return res
 
 
 g1 = Graph()
-g1.add_edge('start', 'a', 6)
-g1.add_edge('start', 'b', 2)
-g1.add_edge('b', 'a', 3)
-g1.add_edge('b', 'end', 5)
-g1.add_edge('a', 'end', 1)
-print(dijkstra('start', 'end', g1.graph))
+G = [['start', 'a', 6], ['start', 'b', 2], ['b', 'a', 3], ['b', 'end', 5], ['a', 'end', 1]]
+for i in G:
+    g1.add_edge(*i)
+# g1.add_edge('start', 'a', 6)
+# g1.add_edge('start', 'b', 2)
+# g1.add_edge('b', 'a', 3)
+# g1.add_edge('b', 'end', 5)
+# g1.add_edge('a', 'end', 1)
+
+G = {'start': {'a': 6, 'b': 2},
+     'a': {'end': 1},
+     'b': {'end': 5, 'a': 3}
+     }
+
+print(dijkstra('start', 'end', G))
 
 g2 = Graph()
 g2.add_edge('start', 'a', 5)
@@ -160,4 +169,4 @@ g2.add_edge('start', 'b', 2)
 g2.add_edge('b', 'a', 1)
 g2.add_edge('b', 'end', 5)
 g2.add_edge('a', 'end', 1)
-assert dijkstra('start', 'end', g2.graph) == ['start', 'b', 'a', 'end']
+# assert dijkstra('start', 'end', g2.graph) == ['start', 'b', 'a', 'end']

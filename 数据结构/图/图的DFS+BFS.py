@@ -8,6 +8,7 @@ date:             2019/7/22
 Change Activity:  2019/7/22
 -------------------------------------------------
 """
+
 """
 深度优先遍历也称为深度优先搜索（Depth First Search），它类似于树的先序遍历，
 具体定义如下：
@@ -46,50 +47,83 @@ Graph['I'] = ['G']
 
 # 使用堆栈来实现深度优先遍历
 def DFSTraverse(G, start):
-    stack = []                           # 初始化一个堆栈
-    visited = set()                      # 初始化一个访问过的节点集合
-    stack.append(start)                  # 将起始结点入栈
-    while stack:                         # 如果栈不为空，进入循环
-        node = stack.pop()               # 栈顶元素出栈
-        if node in visited:              # 判断栈顶元素是否被访问过
-            continue                     # 元素被访问过，跳出循环,查看栈内的其他元素
-        else:                            # 栈顶元素未被访问
-            print (node + "-" , end='')  # 访问栈顶元素
-            visited.add(node)            # 将其加入访问过的集合
-            for adj in G[node]:          # 将该元素的邻居节点加入到栈中去
-                if adj not in visited:
-                    stack.append(adj)
+    res = []
+    stack = [start]  # 初始化一个堆栈并将起始结点入栈
+    visited = set()  # 初始化一个访问过的节点集合
 
-print ("堆栈实现深度优先搜索结果：")
-DFSTraverse(Graph, 'A')
+    while stack:  # 如果栈不为空，进入循环
+        node = stack.pop()  # 栈顶元素出栈
+        if node in visited:
+            continue  # 判断栈顶元素是否被访问过，元素被访问过，跳出循环,查看栈内的其他元素
+        else:  # 栈顶元素未被访问
+            res.append(node)  # 保存访问的栈顶元素（遍历结果）
+            visited.add(node)  # 将其加入访问过的集合
+            # 将该元素的邻居节点加入到栈中去，加整体中的序列用extend，分开写用append
+            stack.extend(adj for adj in G[node] if adj not in visited)
+    return res
 
 
+# def DFSTraverse(G, start):
+#     res = []
+#     stack = [start]
+#     visited = set()
+#     while stack:
+#         node = stack.pop()
+#         if node in visited: continue
+#         else:
+#             res.append(node)
+#             visited.add(node)
+#             stack.extend(adj for adj in G[node] if adj not in visited)
+#     return res
+
+# 自定义遍历初始点
+print(DFSTraverse(Graph, 'A'))
+# DFS ['A', 'D', 'H', 'G', 'I', 'C', 'F', 'E', 'B']
 
 
-
-#使用队列来实现广度优先遍历,  需要按添加顺序进行检查。有一个可实现这种目的的数据结构，那就是队列（queue）。
+# 使用队列来实现广度优先遍历,  需要按添加顺序进行检查。有一个可实现这种目的的数据结构，那就是队列（queue）。
 # 广度优先搜索的运行时间为O(顶点数 + 边数)，这通常写作O(V + E)，其中V为顶点（vertice）数，E为边数。
 """
 你需要按加入顺序检查搜索列表中的人，否则找到的就不是最短路径，因此搜索列表必须是队列。
 对于检查过的人，务必不要再去检查，否则可能导致无限循环。
 """
-def BFSTraverse(G, start):
-    from collections import deque
-    queue = deque()                      #初始化一个队列， 函数deque来创建一个双端队列。
-    visited = set()                      #初始化一个存储访问过元素的集合， 检查之前，要确认之前没检查过他，这很重要。为此，你可使用一个列表来记录检查过的人。
-                                         # 如果不这样做，就可能会导致无限循环
 
-    queue.append(start)                  #将起始结点加入队列
-    while queue:                         #当队列不为空时，进入循环
-        node = queue.popleft()           #将队列的队首元素出队
-        if node in visited:              #判断该元素是否被访问过，如果访问过，跳出本次循环
+
+def BFSTraverse(G, start):
+    res = []
+    stack = [start]
+    visited = set()
+
+    while stack:
+        node = stack.pop(0)
+        if node in visited:
             continue
         else:
-            print (node + "-" , end='')
+            res.append(node)
+            visited.add(node)
+            stack.extend(adj for adj in G[node] if adj not in visited)
+    return res
+
+
+print(BFSTraverse(Graph, 'A'))
+# ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+
+
+from collections import deque
+
+
+def BFSTraverse1(G, start):
+    queue = deque()  # 初始化一个队列， 函数deque来创建一个双端队列。
+    visited = set()  # 初始化一个存储访问过元素的集合， 检查之前，要确认之前没检查过他，这很重要。为此，你可使用一个列表来记录检查过的人。
+    # 如果不这样做，就可能会导致无限循环
+    queue.append(start)  # 将起始结点加入队列
+    while queue:  # 当队列不为空时，进入循环
+        node = queue.popleft()  # 将队列的队首元素出队
+        if node in visited:  # 判断该元素是否被访问过，如果访问过，跳出本次循环
+            continue
+        else:
+            print(node + "-", end='')
             visited.add(node)
             for adj in G[node]:
                 if adj not in visited:
-                    queue.append(adj)   # 将该节点的所有邻居加入队列
-print('==========================================================')
-print ("队列实现广度优先搜索结果：")
-BFSTraverse(Graph, 'A')
+                    queue.append(adj)  # 将该节点的所有邻居加入队列
