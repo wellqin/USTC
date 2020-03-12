@@ -39,19 +39,18 @@ import random
 def quicksort(arr, l, r):
     if l < r:
         q = random_partition(arr, l, r)
-        # print(divIndex)
-        quicksort(arr, l, q-1)
-        quicksort(arr, q+1, r)
+        quicksort(arr, l, q - 1)
+        quicksort(arr, q + 1, r)
 
 
 def partition(arr, l, r):
-    i = l-1
+    i = l - 1
     for j in range(l, r):
         if arr[j] <= arr[r]:
-            i = i+1
+            i = i + 1
             arr[i], arr[j] = arr[j], arr[i]
-    arr[i+1], arr[r] = arr[r], arr[i+1]
-    return i+1
+    arr[i + 1], arr[r] = arr[r], arr[i + 1]
+    return i + 1
 
 
 def random_partition(arr, l, r):
@@ -60,11 +59,8 @@ def random_partition(arr, l, r):
     return partition(arr, l, r)
 
 
-arr = [1,4,7,1,5,5,3,85,34,75,23,75,2,0]
+arr = [1, 4, 7, 1, 5, 5, 3, 85, 34, 75, 23, 75, 2, 0]
 
 print("initial array:\n", arr)
-quicksort(arr, 0, len(arr)-1)
+quicksort(arr, 0, len(arr) - 1)
 print("result array:\n", arr)
-
-
-

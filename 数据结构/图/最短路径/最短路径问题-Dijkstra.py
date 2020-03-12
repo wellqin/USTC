@@ -125,7 +125,7 @@ def dijkstra(start, end, graph):
     parent = {}  # 用于复原路径
 
     while queue:
-        dis, min_node = heapq.heappop(queue)
+        dis, min_node = heapq.heappop(queue)  # 优先队列中取节点
         if min_node == end:  # 对于有向图，这里可以break了
             break
         visited.add(min_node)
