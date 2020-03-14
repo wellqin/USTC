@@ -24,7 +24,7 @@ class ListNode:
 
 
 class Solution(object):
-    def removeNthFromEnd(self, head, n):
+    def removeNthFromEnd2(self, head, n):
         """
         :type head: ListNode
         :type n: int
@@ -99,6 +99,41 @@ class Solution(object):
     #         count += 1
     #     pre.next = cur.next
     #     return head
+
+    def removeNthFromEnd3(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return head
+        count = 0
+        cur = head
+        while cur:  # 最后停留在None，若写成cur.next，则停在最后一个元素
+            count += 1
+            cur = cur.next
+
+        k = count - k + 1  # 倒数k个，为正数count - k + 1个
+        if count == 1 or k - 2 < 0:
+            return head.next
+
+        cur = head
+        for i in range(k - 2):  # i从0开始计数，所以只能走k-2步
+            cur = cur.next
+        cur.next = cur.next.next
+
+        return head
+
+    def removeNthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        dummy = fast = slow = ListNode(-1)
+        dummy.next = head
+
+        for i in range(k):
+            fast = fast.next
+
+        while slow and fast.next:
+            slow = slow.next
+            fast = fast.next
+
+        slow.next = slow.next.next
+
+        return dummy.next
 
 
 if __name__ == "__main__":

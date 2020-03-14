@@ -43,6 +43,14 @@ class Solution:
             head = head.next  # not duplicate of current node, move to next node
         return dummy
 
+    def deleteDuplicatesself(self, head: ListNode) -> ListNode:
+        cur = head
+        while cur.next:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
+            cur = cur.next
+        return head.next
+
 
 # leetcode submit region end(Prohibit modification and deletion)
 head = ListNode(1)  # 测试代码
@@ -53,4 +61,4 @@ head.next = p1
 p1.next = p2
 p2.next = p3
 
-print(Solution().deleteDuplicates(head))
+print(Solution().deleteDuplicatesself(head))

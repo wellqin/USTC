@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        trave;
+File Name:        travel
 Description :   
 Author :          wellqin
 date:             2020/3/12
@@ -31,7 +31,7 @@ def preOrder(root):
     return res + left + right
 
 
-# print("先序遍历-递归", preOrder(root))
+print("先序遍历-递归", preOrder(root))
 
 
 # 先序遍历-迭代1，效率较低，不够灵性
@@ -68,9 +68,7 @@ def preOrderLteration1(root):
 def preOrderLteration2(root):
     if not root:
         return []
-    stack = []
-    res = []
-    cur = root
+    res, stack, cur = [], [], root
 
     while cur or stack:
         if cur:
@@ -110,9 +108,7 @@ def inOrder(root):
 def inOrderIteration(root):
     if not root:
         return []
-    stack = []
-    res = []
-    cur = root
+    res, stack, cur = [], [], root
     while cur or stack:
         if cur:
             stack.append(cur)
@@ -142,9 +138,7 @@ print("后序遍历-递归", postOrder(root))
 def postOrderIteration(root):
     if not root:
         return []
-    stack = []
-    res = []
-    cur = root
+    res, stack, cur = [], [], root
 
     while cur or stack:
         if cur:
@@ -153,10 +147,16 @@ def postOrderIteration(root):
             cur = cur.right
         else:
             cur = stack.pop()
+    print(res)  # [0, 2, 6, 5, 1, 4, 3]
     return res[::-1]
 
 
-print("后序遍历-迭代", postOrderIteration(root))
+"""
+     0
+  1     2
+3  4   5  6
+"""
+print("后序遍历-迭代", postOrderIteration(root))  # [3, 4, 1, 5, 6, 2, 0]
 
 
 

@@ -56,3 +56,10 @@ class Solution:
             cur.next, pre, cur = pre, cur, cur.next
 
         return pre
+
+    def reverse(self, head):
+        pre = None
+        cur = head
+        while cur:
+            cur.next, pre, cur = pre, cur, cur.next
+        return pre

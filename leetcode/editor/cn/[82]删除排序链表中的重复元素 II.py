@@ -58,4 +58,31 @@ class Solution:
                 pre.next = cur
         return dummy.next
 
+    def deleteDuplicates2(self, head: ListNode) -> ListNode:
+        if not head or not head.next: return head
+        dummy = ListNode(0)
+        dummy.next = head
+        pre = dummy
+        cur = head
+        while cur and cur.next:
+            if cur.val == cur.next.val:
+                while cur.next and cur.val == cur.next.val:
+                    cur = cur.next
+                pre.next = cur.next  # 停留在最后一个重复元素位置
+                cur = cur.next  # 重复元素位置的下一个不重复了
+            else:
+                pre = cur
+                cur = cur.next
+        return dummy.next
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+head = ListNode(1)  # 测试代码
+p1 = ListNode(2)  # 建立链表1->2->3->4->None;
+p2 = ListNode(2)
+p3 = ListNode(3)
+head.next = p1
+p1.next = p2
+p2.next = p3
+
+print(Solution().deleteDuplicates2(head))

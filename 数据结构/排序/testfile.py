@@ -146,13 +146,13 @@ def merge_sorts(nums):
 # print(merge_sorts(list))
 
 def print_tree(array):  # 打印堆排序使用
-    '''
+    """
     深度 前空格 元素间空格
     1     7       0
     2     3       7
     3     1       3
     4     0       1
-    '''
+    """
     # first=[0]
     # first.extend(array)
     # array=first

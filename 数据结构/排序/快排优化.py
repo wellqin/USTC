@@ -102,7 +102,7 @@ def partition2(nums, left, right):
     而用小于等于和大于等于方式则会将连续出现的这些值归为其中一方，使得两棵子树不平衡
     """
     while True:
-        while i <= right and nums[i] < x:
+        while i <= right and nums[i] < x:  # 边界：用小于和大于号
             i += 1
         while j >= left + 1 and nums[j] > x:
             j -= 1
@@ -143,21 +143,21 @@ def __partition_three_ways(nums, left, right):
     nums[left], nums[rand_index] = nums[rand_index], nums[left]
     x = nums[left]
 
-    less_than, great_than = left, right+1
+    lt, gt = left, right+1
     i = left
-    while i < great_than:
+    while i < gt:
         if nums[i] < x:
-            nums[i], nums[less_than + 1] = nums[less_than + 1], nums[i]
+            nums[i], nums[lt + 1] = nums[lt + 1], nums[i]
             i += 1
-            less_than += 1
+            lt += 1
         elif nums[i] > x:
-            nums[i], nums[great_than - 1] = nums[great_than - 1], nums[i]
-            great_than -= 1
+            nums[i], nums[gt - 1] = nums[gt - 1], nums[i]
+            gt -= 1
         else:
             i += 1
-    nums[left], nums[less_than] = nums[less_than], nums[left]
+    nums[left], nums[lt] = nums[lt], nums[left]
 
-    return less_than, great_than
+    return lt, gt
 
 
 def __quick_sort3(nums, left, right):
