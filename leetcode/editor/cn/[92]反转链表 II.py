@@ -41,18 +41,20 @@ class Solution:
         """
         if not head or m == n:  # 特殊判断
             return head
-        p = dummy = ListNode(None)
+        pre = dummy = ListNode(None)
         dummy.next = head
 
         for i in range(m - 1):  # 此时p位于m - 1位置
-            p = p.next
-        tail = p.next  # tail位于m位置
+            pre = pre.next
+        cur = pre.next  # tail位于m位置
 
         for i in range(n - m):  # 插入式逆序反转（12345）--234倒转--（13245）-- （14325）
-            next = p.next  # 优势：不需要在理会头尾节点的连续性，即重新串起来链表
-            p.next = tail.next
-            tail.next = tail.next.next
-            p.next.next = next
+            next = pre.next  # 优势：不需要在理会头尾节点的连续性，即重新串起来链表
+            pre.next = cur.next
+            cur.next = cur.next.next
+            pre.next.next = next
+
+            # pre.next, cur.next, pre.next.next = cur.next, cur.next.next, pre.next
         return dummy.next
 
     def reverseBetween2(self, head, m, n):  # 官方题解

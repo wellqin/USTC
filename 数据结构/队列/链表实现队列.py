@@ -18,8 +18,8 @@ class QueueError(ValueError):
 
 # 链表节点
 class Node:
-    def __init__(self, elem, next_=None):
-        self.elem = elem
+    def __init__(self, val, next_=None):
+        self.val = val
         self.next = next_
 
 
@@ -36,16 +36,14 @@ class LQueue(object):
     def peek(self):
         if self.is_empty():
             raise QueueError('队列为空不可进行查看元素操作！')
-        return self._head.elem
+        return self._head.val
 
     # 将元素elem加入队列，入队
-    def enqueue(self, elem):
+    def enqueue(self, val):
         '''
         尾插法
-        :param elem:
-        :return:
         '''
-        p = Node(elem)
+        p = Node(val)
         if self.is_empty():
             self._head = p
             self._rear = p
@@ -57,9 +55,9 @@ class LQueue(object):
     def del_queue(self):
         if self.is_empty():
             raise QueueError('队列为空不可进行元素删除操作！')
-        result = self._head.elem
+        cur = self._head.val
         self._head = self._head.next
-        return result
+        return cur
 
 
 if __name__ == "__main__":

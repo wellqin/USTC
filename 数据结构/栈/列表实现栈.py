@@ -29,20 +29,21 @@ size() 返回堆栈中项的个数
 top() 返回栈顶的项
 """
 
+
 class Stack:
     def __init__(self, size):
         self.size = size  # 静态数组实现可以判断栈是否满了，动态的话不行
         self.stack = []
         self.top = -1
 
-    def push(self,x):     # 入栈之前检查栈是否已满
+    def push(self, x):  # 入栈之前检查栈是否已满
         if self.isfull():
             return 'full'
         else:
             self.stack.append(x)
             self.top += 1
 
-    def pop(self):        # 出栈之前检查栈是否为空
+    def pop(self):  # 出栈之前检查栈是否为空
         if self.isEmpty():
             return 'Empty'
         else:
@@ -53,13 +54,13 @@ class Stack:
         return self.top + 1 == self.size
 
     def isEmpty(self):
-        return  self.top == -1
+        return self.top == -1
 
     def showStack(self):
         return self.stack
 
 
-s=Stack(10)
+s = Stack(10)
 for i in range(6):
     s.push(i)
 print(s.showStack())
@@ -67,7 +68,6 @@ print(s.showStack())
 for i in range(3):
     s.pop()
 print(s.showStack())
-
 
 """
 类中有top属性，用来指示栈的存储情况，初始值为-1，一旦插入一个元素，其值加1，利用top的值乐意判定栈是空还是满。
@@ -78,16 +78,15 @@ print(s.showStack())
 
 
 class ArrayStack(object):
-
-    '''
+    """
     动态数组堆栈（Array Stack）
     堆栈的数组实现插到数组后面，因此基本都是对最后一个元素进行操作
-    '''
+    """
 
     def __init__(self):
         self._data = []  # 空的容器
 
-    def __len__(self):   # size
+    def __len__(self):  # size
         return len(self._data)
 
     def is_empty(self):
@@ -111,7 +110,7 @@ class ArrayStack(object):
 
         # 打印堆栈
 
-    def printstack(self):     # showStack
+    def printstack(self):  # showStack
         for i in range(len(self._data)):
             print(self._data[i], end=' ')
         print()
@@ -134,12 +133,11 @@ mystack.pop()
 print('size was: ', str(len(mystack)))
 mystack.printstack()
 print(mystack.top())
-print('showStack was: ',mystack.showStack())
+print('showStack was: ', mystack.showStack())
 mystack.pop()
 mystack.pop()
 mystack.pop()
 print('size was: ', str(len(mystack)))
-
 
 """
 # 输出结果

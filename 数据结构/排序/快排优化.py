@@ -104,7 +104,7 @@ def partition2(nums, left, right):
     while True:
         while i <= right and nums[i] < x:  # 边界：用小于和大于号
             i += 1
-        while j >= left + 1 and nums[j] > x:
+        while j >= left + 1 and nums[j] > x:  # AT left + 1
             j -= 1
         if i > j:
             break

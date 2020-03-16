@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        test
+File Name:        sortFunc
 Description :   
 Author :          wellqin
-date:             2019/7/31
-Change Activity:  2019/7/31
+date:             2020/3/16
+Change Activity:  2020/3/16
 -------------------------------------------------
 """
-# print(map(max, ([0, 1, 2], [3, 4, 5])))
-a = 1
-b = 2
-c = 3
-a,b,c = b,c,a
-print(a,b,c)

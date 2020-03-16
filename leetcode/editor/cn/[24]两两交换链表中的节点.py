@@ -59,12 +59,28 @@ class Solution:
         # 继续递归，处理节点3->4
         # 当递归结束返回后，就变成了4->3
         # 于是head节点就指向了4，变成1->4->3
-        head.next = self.swapPairs(tmp.next)
+        head.next = self.swapPairs2(tmp.next)
         # 将2节点指向1
         tmp.next = head
 
         # 3. 返回给上一层递归的值应该是已经交换完成后的子链表
         return tmp
+
+    def swapPairs3(self, head: ListNode) -> ListNode:
+        dummy = ListNode(-1)
+        dummy.next = head
+        pre = dummy
+        while pre.next and pre.next.next:  # 后二个都存在
+            cur, nxt = pre.next, pre.next.next  # 标记这二个
+
+            # 三步走
+            pre.next = nxt
+            cur.next = nxt.next
+            nxt.next = cur
+
+            # 更新指针位置，前进二个
+            pre = pre.next.next
+        return dummy.next
 
 
 if __name__ == "__main__":
@@ -77,4 +93,4 @@ if __name__ == "__main__":
     l1_2.next = l1_3
     l1_3.next = l1_4
     # print(ss.addTwoNumbers(ll, tt))
-    print(Solution().swapPairs(l1_1))
+    print(Solution().swapPairs2(l1_1))

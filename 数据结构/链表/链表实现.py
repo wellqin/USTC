@@ -50,14 +50,14 @@ class SingleLinkList(object):
     def travel(self):
         """遍历整个列表"""
         cur = self.__head
-        while cur:
-            print(cur.val, end=' ')
-            cur = cur.next
-        print(cur.val)
-        # while cur.next:
+        # while cur:
         #     print(cur.val, end=' ')
         #     cur = cur.next
         # print(cur.val)
+        while cur.next:
+            print(cur.val, end=' ')
+            cur = cur.next
+        print(cur.val)
 
     def add(self, val):
         """链表头部添加元素"""

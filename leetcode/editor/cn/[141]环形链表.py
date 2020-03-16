@@ -37,6 +37,11 @@
 #
 # 你能用 O(1)（即，常量）内存解决此问题吗？ 
 #
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 """
 想法一： 遍历链表，将遍历过的节点加入list，如果出现重复节点，则返回True，否则遍历结束，返回False，但是结果超时。
 如果用个字典记录某个点是否被访问过，时间，空间复杂度都是O（n）
@@ -85,10 +90,24 @@ class Solution(object):
             return False
 
         slow = fast = head
+        # 这里因为fast是跳两次，所以要判断fast和fast.next是否都为空，否则会报NoneType的异常
         while fast and fast.next:  # 快的
             slow = slow.next
             fast = fast.next.next
             if slow == fast:
                 return True
         return False
+
+head = ListNode(1)  # 测试代码
+p1 = ListNode(2)  # 建立链表1->2->3->4->None;
+p2 = ListNode(3)
+p3 = ListNode(4)
+p4 = ListNode(5)
+head.next = p1
+p1.next = p2
+p2.next = p3
+p3.next = p4
+p4.next = p1
+
+print(Solution().hasCycle(head))
 

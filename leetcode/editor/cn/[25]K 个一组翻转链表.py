@@ -62,6 +62,30 @@ class Solution:
         # 当前 k-group 压根没有k个node，那么我们直接保持这个k-group不动返回head
         return head
 
+    def reverseKGroupIter(self, head, k):
+
+        dummy = ListNode(-1)
+        dummy.next = head
+        cur = pre = dummy
+
+        n = 0
+        while cur.next:
+            n += 1
+            cur = cur.next
+
+        while n >= k:
+            cur = pre.next
+            for _ in range(k - 1):
+                nxt = cur.next
+                cur.next = nxt.next
+                nxt.next = pre.next
+                pre.next = nxt
+
+            pre = cur
+            n -= k
+
+        return dummy.next
+
 
 if __name__ == "__main__":
     l1_1 = ListNode(1)
@@ -72,4 +96,4 @@ if __name__ == "__main__":
     l1_1.next = l1_2
     l1_2.next = l1_3
     l1_3.next = l1_4
-    print(Solution().reverseKGroup(l1_1, 2))
+    print(Solution().reverseKGroupIter(l1_1, 2))

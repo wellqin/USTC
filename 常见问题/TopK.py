@@ -98,6 +98,30 @@ def find_least_k_nums2(alist, k):
 alist = [1, 9, 2, 4, 7, 6, 3]  # [1, 2, 3, 4, 6, 7, 9]
 min_k = find_least_k_nums2(alist, 5)
 print(min_k)
+
+
+def bubbleSort(nums, k):
+    if not nums:
+        return []
+    for i in range(k):
+        flag = False
+        for j in range(len(nums) - 1 - i):
+            if nums[j] > nums[j + 1]:
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+                flag = True
+        # if flag:
+        #     flag = False
+        #     for j in range(len(nums) - 2 - i, 0, -1):
+        #         if nums[j] < nums[j - 1]:
+        #             nums[j], nums[j - 1] = nums[j - 1], nums[j]
+        #             flag = True
+        if not flag:
+            break
+    return nums[-4:]
+
+
+list = [19, 2, 13, 8, 34, 25, 7]
+print(bubbleSort(list, 4))
 """
 时间复杂度：O(n*k)
 分析：冒泡，将全局排序优化为了局部排序，非TopK的元素是不需要排序的，节省了计算资源。

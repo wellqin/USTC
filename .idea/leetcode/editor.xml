@@ -499,6 +499,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[297]二叉树的序列化与反序列化.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[297]二叉树的序列化与反序列化.py" />
+              <option name="questionId" value="297" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[29]两数相除.py">
           <value>
             <LeetcodeEditor>
@@ -1299,6 +1307,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[面试题 03.01]三合一.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[面试题 03.01]三合一.py" />
+              <option name="questionId" value="100172" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[面试题 04.01]节点间通路.py">
           <value>
             <LeetcodeEditor>
@@ -1360,6 +1376,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[面试题22]链表中倒数第k个节点.py" />
               <option name="questionId" value="100294" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[面试题37]序列化二叉树.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[面试题37]序列化二叉树.py" />
+              <option name="questionId" value="100307" />
             </LeetcodeEditor>
           </value>
         </entry>

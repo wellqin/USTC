@@ -9,32 +9,55 @@ Change Activity:  2019/7/11
 -------------------------------------------------
 """
 
+
 class Queue(object):
     def __init__(self):
-        self.stack1=[]
-        self.stack2=[]
+        self.queue1 = []
+        self.queue2 = []
 
-    def enqueue(self, item):
-        if len(self.stack1) == 0:
-            self.stack1.append(item)
-        elif len(self.stack2) == 0:
-            self.stack2.append(item)
-        if len(self.stack2)==1 and len(self.stack1) >= 1:
-            while len(self.stack1)>0:
-                self.stack2.append(self.stack1.pop(0))
-        elif len(self.stack1)==1 and len(self.stack2) >= 1:
-            while len(self.stack2)>0:
-                self.stack1.append(self.stack2.pop(0))
+    def enqueue(self, val):
+        # 二个队列在入栈时，只入空栈
+        if len(self.queue1) == 0:
+            self.queue1.append(val)
+        elif len(self.queue2) == 0:
+            self.queue2.append(val)
+
+        # 都不为空时，将数量大于1的POP加到只有1的栈尾部
+        if len(self.queue2) == 1 and len(self.queue1) >= 1:
+            while len(self.queue1) > 0:
+                self.queue2.append(self.queue1.pop(0))
+        elif len(self.queue1) == 1 and len(self.queue2) >= 1:
+            while len(self.queue2) > 0:
+                self.queue1.append(self.queue2.pop(0))
 
     def dequeue(self):
-        if self.stack1:
-            return self.stack1.pop(0)
-        elif self.stack2:
-            return self.stack2.pop(0)
+        if self.queue1:
+            return self.queue1.pop(0)
+        elif self.queue2:
+            return self.queue2.pop(0)
         else:
             return None
 
-q = Queue()
+
+class Stock:
+    # 剑指
+    def __init__(self):
+        self.queueA = []
+        self.queueB = []
+
+    def enqueue(self, node):
+        self.queueA.append(node)
+
+    def dequeue(self):
+        if len(self.queueA) == 0:
+            return None
+        while len(self.queueA) != 1:
+            self.queueB.append(self.queueA.pop(0))
+        self.queueA, self.queueB = self.queueB, self.queueA  # 交换是为了下一次的pop
+        return self.queueB.pop()
+
+
+q = Stock()
 q.enqueue(3)
 # print(q.dequeue())
 q.enqueue(4)

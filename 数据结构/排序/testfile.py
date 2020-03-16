@@ -53,6 +53,7 @@ def insert_sort1(nums):
     if not nums:
         return []
     N = len(nums)
+    # 插入该元素后并未改变原序列的前后顺序: 稳定
     for i in range(1, N):
         for j in range(i, 0, -1):
             if nums[j] < nums[j - 1]:
@@ -110,7 +111,7 @@ def select_sort1(nums):
 
 
 def merge_sort(nums):
-    if not nums or len(nums) == 1:
+    if not nums or len(nums) == 1:  # AT
         return nums
 
     mid = len(nums) >> 1
@@ -122,6 +123,7 @@ def merge_sort(nums):
 def merge(left, right):
     res = []
     while left and right:
+        # AT: append + <=
         res.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
     return res + left + right
 
