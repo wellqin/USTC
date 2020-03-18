@@ -1,4 +1,4 @@
-#给定一个二叉树，它的每个结点都存放着一个整数值。 
+# 给定一个二叉树，它的每个结点都存放着一个整数值。
 #
 # 找出路径和等于给定数值的路径总数。 
 #
@@ -16,13 +16,13 @@
 #   / \    \
 #  3   2   11
 # / \   \
-#3  -2   1
+# 3  -2   1
 #
-#返回 3。和等于 8 的路径有:
+# 返回 3。和等于 8 的路径有:
 #
-#1.  5 -> 3
-#2.  5 -> 2 -> 1
-#3.  -3 -> 11
+# 1.  5 -> 3
+# 2.  5 -> 2 -> 1
+# 3.  -3 -> 11
 # 
 #
 
@@ -74,7 +74,6 @@ class Solution:
     #     self.getPathNum(root.left, Sum - root.val)
     #     self.getPathNum(root.right, Sum - root.val)
 
-
     def getPathNum(self, root, Sum):
         """
         依据当前树找目标值，进而找到路径数量
@@ -82,11 +81,10 @@ class Solution:
         :param sum:
         :return:
         """
-        if root == None:
+        if root is None:
             return
         if root.val == Sum:
             self.path_num += 1
 
         self.getPathNum(root.left, Sum - root.val)
         self.getPathNum(root.right, Sum - root.val)
-

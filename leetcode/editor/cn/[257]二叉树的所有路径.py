@@ -1,4 +1,4 @@
-#给定一个二叉树，返回所有从根节点到叶子节点的路径。 
+# 给定一个二叉树，返回所有从根节点到叶子节点的路径。
 #
 # 说明: 叶子节点是指没有子节点的节点。 
 #
@@ -8,13 +8,13 @@
 #
 #   1
 # /   \
-#2     3
+# 2     3
 # \
 #  5
 #
-#输出: ["1->2->5", "1->3"]
+# 输出: ["1->2->5", "1->3"]
 #
-#解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3 
+# 解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
 #
 
 # Definition for a binary tree node.
@@ -25,10 +25,11 @@
 #         self.right = None
 
 class Node:
-    def __init__(self,item):
+    def __init__(self, item):
         self.val = item
         self.left = None
         self.right = None
+
 
 class Tree:
     def __init__(self):
@@ -70,7 +71,8 @@ class Tree:
             yield from self.helper(root.right, temp)
             temp.pop()
 
+
 t = Tree()
 for i in range(7):
     t.add(i)
-print('先序遍历:',t.binaryTreePaths(t.root))
+print('先序遍历:', t.binaryTreePaths(t.root))

@@ -1,9 +1,9 @@
-#给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。 
+# 给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
 #
 # 说明: 叶子节点是指没有子节点的节点。 
 #
 # 示例: 
-#给定如下二叉树，以及目标和 sum = 22， 
+# 给定如下二叉树，以及目标和 sum = 22，
 #
 #               5
 #             / \
@@ -19,7 +19,7 @@
 # [
 #   [5,4,11,2],
 #   [5,8,4,5]
-#]
+# ]
 # 
 #
 
@@ -30,10 +30,12 @@
 #         self.left = None
 #         self.right = None
 class Node:
-    def __init__(self,item):
+    def __init__(self, item):
         self.item = item
         self.left = None
         self.right = None
+
+
 class Solution:
 
     def __init__(self):
@@ -68,9 +70,8 @@ class Solution:
         if not root:
             return
         temp.append(root.vcur_list)
-        if root.left == None and root.right == None and sum == root.vcur_list:
-            L.append(
-                temp.copy())  # 这里是重点,append的对象必须是temp的拷贝而不是temp本身这个引用。
+        if root.left is None and root.right is None and sum == root.vcur_list:
+            L.append(temp.copy())  # 这里是重点,append的对象必须是temp的拷贝而不是temp本身这个引用。
             # 牵涉到的问题是可变对象如列表，字典等是引用赋值，而不可变对象如整数，字符串，元组等是拷贝赋值，即增加新的内存。
             # 可以用切片 root = root[:]
         else:
@@ -82,6 +83,7 @@ class Solution:
     执行用时 :88 ms, 在所有 Python3 提交中击败了35.74%的用户
     内存消耗 :18.8 MB, 在所有 Python3 提交中击败了13.77%的用户
     """
+
     def pathSum_dfs(self, root, Sum):
         res = []
         if not root:
@@ -143,10 +145,10 @@ class Solution:
         if root.right:
             self.auxPathSum(root.right, sum, cur_list + [root.item], cur_lists)
 
+
 t = Solution()
 for i in range(7):
     t.add(i)
 print('遍历:', t.pathSum(t.root, 7))
 print('dfs遍历:', t.pathSum_dfs(t.root, 7))
 print('dfs遍历:', t.pathSum1(t.root, 7))
-

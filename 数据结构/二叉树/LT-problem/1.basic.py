@@ -62,7 +62,7 @@ class Tree:
             if len(res) == level:
                 res.append([])
             helper(node.left, level + 1)
-            helper(node.right, level + 1)   # [[0], [1, 2], [3, 4, 5, 6]]
+            helper(node.right, level + 1)  # [[0], [1, 2], [3, 4, 5, 6]]
 
             """
             # left与right互换则是从右到左遍历
@@ -95,7 +95,6 @@ class Tree:
         if root.right:
             right = [str(root.val) + i for i in self.allPath(root.right)]
         return left + right
-
 
 
 tree = Tree()
@@ -183,4 +182,3 @@ def postOrderTraverse(root):
 
 print(postOrder(node))
 print(postOrderTraverse(node))
-
