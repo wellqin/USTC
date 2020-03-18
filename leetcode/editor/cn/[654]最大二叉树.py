@@ -1,4 +1,4 @@
-#给定一个不含重复元素的整数数组。一个以此数组构建的最大二叉树定义如下： 
+# 给定一个不含重复元素的整数数组。一个以此数组构建的最大二叉树定义如下：
 #
 # 
 # 二叉树的根是数组中的最大元素。 
@@ -13,7 +13,7 @@
 # 示例 ： 
 #
 # 输入：[3,2,1,6,0,5]
-#输出：返回下面这棵树的根节点：
+# 输出：返回下面这棵树的根节点：
 #
 #      6
 #    /   \
@@ -40,12 +40,12 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
         if not nums:
             return
-        root=TreeNode(max(nums))
-        root.left=self.constructMaximumBinaryTree(nums[:nums.index(max(nums))])
-        root.right=self.constructMaximumBinaryTree(nums[nums.index(max(nums))+1:])
+        root = TreeNode(max(nums))
+        root.left = self.constructMaximumBinaryTree(nums[:nums.index(max(nums))])
+        root.right = self.constructMaximumBinaryTree(nums[nums.index(max(nums)) + 1:])
         return root
-        

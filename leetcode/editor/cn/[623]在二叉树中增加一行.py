@@ -1,4 +1,4 @@
-#给定一个二叉树，根节点为第1层，深度为 1。在其第 d 层追加一行值为 v 的节点。 
+# 给定一个二叉树，根节点为第1层，深度为 1。在其第 d 层追加一行值为 v 的节点。
 #
 # 添加规则：给定一个深度值 d （正整数），针对深度为 d-1 层的每一非空节点 N，为 N 创建两个值为 v 的左子树和右子树。 
 #
@@ -9,19 +9,19 @@
 # 示例 1: 
 #
 # 
-#输入: 
-#二叉树如下所示:
+# 输入:
+# 二叉树如下所示:
 #       4
 #     /   \
 #    2     6
 #   / \   / 
 #  3   1 5   
 #
-#v = 1
+# v = 1
 #
-#d = 2
+# d = 2
 #
-#输出: 
+# 输出:
 #       4
 #      / \
 #     1   1
@@ -35,26 +35,26 @@
 # 示例 2: 
 #
 # 
-#输入: 
-#二叉树如下所示:
+# 输入:
+# 二叉树如下所示:
 #      4
 #     /   
 #    2    
 #   / \   
 #  3   1    
 #
-#v = 1
+# v = 1
 #
-#d = 3
+# d = 3
 #
-#输出: 
+# 输出:
 #      4
 #     /   
 #    2
 #   / \    
 #  1   1
 # /     \  
-#3       1
+# 3       1
 # 
 #
 # 注意: 
@@ -66,12 +66,32 @@
 #
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
-        
+        if d == 1:
+            r = TreeNode(v)
+            r.left = root
+            return r
+
+        def f(r, i):
+            if r:
+                if i < d - 1:
+                    f(r.left, i + 1)
+                    f(r.right, i + 1)
+                else:  # 到了上图中的第二层
+                    t = TreeNode(v)
+                    t.left = r.left
+                    r.left = t
+                    t = TreeNode(v)
+                    t.right = r.right
+                    r.right = t
+
+        f(root, 1)
+        return root

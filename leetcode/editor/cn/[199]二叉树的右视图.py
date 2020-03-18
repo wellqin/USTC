@@ -1,14 +1,14 @@
-#给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。 
+# 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
 #
 # 示例: 
 #
 # 输入: [1,2,3,null,5,null,4]
-#输出: [1, 3, 4]
-#解释:
+# 输出: [1, 3, 4]
+# 解释:
 #
 #   1            <---
 # /   \
-#2     3         <---
+# 2     3         <---
 # \     \
 #  5     4       <---
 # 
@@ -22,10 +22,11 @@
 #         self.right = None
 
 class Node:
-    def __init__(self,item):
+    def __init__(self, item):
         self.val = item
         self.left = None
         self.right = None
+
 
 class Tree:
     def __init__(self):
@@ -135,10 +136,12 @@ class Tree:
             if node.right != None:
                 queue.append(node.right)
         return res
+
+
 t = Tree()
 for i in range(1, 7):
     t.add(i)
-print('cengci遍历:',t.rightSideView(t.root))
-print('traverse1遍历:',t.traverse1(t.root))
-print('rightSideView1:',t.rightSideView1(t.root))
-print('leftSideView1:',t.leftSideView1(t.root))
+print('cengci遍历:', t.rightSideView(t.root))
+print('traverse1遍历:', t.traverse1(t.root))
+print('rightSideView1:', t.rightSideView1(t.root))
+print('leftSideView1:', t.leftSideView1(t.root))

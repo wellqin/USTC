@@ -49,10 +49,7 @@ class Solution(object):
         res = [[]]
         helper(root, 1)
 
-        result = []
-        for i in res[:-1]:
-            result.append(max(i))
-        return result
+        return [max(i) for i in res[:-1]]
 
 
         

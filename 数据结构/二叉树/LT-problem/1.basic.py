@@ -2,11 +2,11 @@
 """
 -------------------------------------------------
 File Name:        BinaryTree
-Description :   
+Description :
 Author :          wellqin
 date:             2020/3/16
 Change Activity:  2020/3/16
-func :  (1) 基础篇
+func :  一、基础篇
         创建树
         前中后序遍历（递归+迭代） + 层次遍历（递归+迭代）
         层次遍历拓展：反向遍历  +  之字形遍历（锯齿遍历）

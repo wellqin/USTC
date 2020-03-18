@@ -1,4 +1,4 @@
-#给定一个二叉树，计算整个树的坡度。 
+# 给定一个二叉树，计算整个树的坡度。
 #
 # 一个树的节点的坡度定义即为，该节点左子树的结点之和和右子树结点之和的差的绝对值。空结点的的坡度是0。 
 #
@@ -7,16 +7,16 @@
 # 示例: 
 #
 # 
-#输入: 
+# 输入:
 #         1
 #       /   \
 #      2     3
-#输出: 1
-#解释: 
-#结点的坡度 2 : 0
-#结点的坡度 3 : 0
-#结点的坡度 1 : |2-3| = 1
-#树的坡度 : 0 + 0 + 1 = 1
+# 输出: 1
+# 解释:
+# 结点的坡度 2 : 0
+# 结点的坡度 3 : 0
+# 结点的坡度 1 : |2-3| = 1
+# 树的坡度 : 0 + 0 + 1 = 1
 # 
 #
 # 注意: 
@@ -33,6 +33,7 @@ class Node:
         self.val = x
         self.left = None
         self.right = None
+
 
 class Solution:
     def __init__(self):
@@ -66,12 +67,14 @@ class Solution:
             right = tile(node.right)
             ret[0] += abs(left - right)
             return left + right + node.val
+
         tile(root)
 
         return ret[0]
+
+
 tt = Solution()
-for i in range(1,4):
+for i in range(1, 4):
     tt.add(i)
 
-print('findTilt:',tt.findTilt(tt.root))
-        
+print('findTilt:', tt.findTilt(tt.root))
