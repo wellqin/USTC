@@ -1,8 +1,5 @@
-str = '0123456789'
-str[:-1:2]  # '02468'
-str[:0:-3]  # '963'
-str[-8:8:2]
-str[-2:2:-2]
-str[:-1:]
-str[::]
-str[-2::-1]
+import sys
+
+n = str(input())
+print(n)
+

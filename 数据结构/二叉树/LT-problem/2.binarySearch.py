@@ -26,6 +26,8 @@ func :  二、 二叉树的搜索
                         整个树的坡度就是其所有节点的坡度之和。
 
 
+
+
 -------------------------------------------------
 """
 from functools import reduce
@@ -197,6 +199,7 @@ class Solution(object):
     def findTilt(self, root):
         res = [0]  # python中list作为全局变量无需global声明,若为变量则加上global声明
 
+        # 二叉树的坡度: 坡度定义即为，该节点左子树的结点之和和右子树结点之和的差的绝对值
         def tile(node):
             if not node:
                 return 0

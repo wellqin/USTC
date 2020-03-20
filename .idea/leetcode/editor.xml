@@ -43,6 +43,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[1044]最长重复子串.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[1044]最长重复子串.py" />
+              <option name="questionId" value="1122" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[1049]最后一块石头的重量 II.py">
           <value>
             <LeetcodeEditor>
@@ -56,6 +64,22 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[104]二叉树的最大深度.py" />
               <option name="questionId" value="104" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[105]从前序与中序遍历序列构造二叉树.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[105]从前序与中序遍历序列构造二叉树.py" />
+              <option name="questionId" value="105" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[106]从中序与后序遍历序列构造二叉树.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[106]从中序与后序遍历序列构造二叉树.py" />
+              <option name="questionId" value="106" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -104,6 +128,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[113]路径总和 II.py" />
               <option name="questionId" value="113" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[1143]最长公共子序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[1143]最长公共子序列.py" />
+              <option name="questionId" value="1250" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -219,11 +251,35 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[124]二叉树中的最大路径和.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[124]二叉树中的最大路径和.py" />
+              <option name="questionId" value="124" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[128]最长连续序列.py">
           <value>
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[128]最长连续序列.py" />
               <option name="questionId" value="128" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[1297]子串的最大出现次数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[1297]子串的最大出现次数.py" />
+              <option name="questionId" value="1423" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[129]求根到叶子节点数字之和.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[129]求根到叶子节点数字之和.py" />
+              <option name="questionId" value="129" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -723,6 +779,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[395]至少有K个重复字符的最长子串.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[395]至少有K个重复字符的最长子串.py" />
+              <option name="questionId" value="395" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[3]无重复字符的最长子串.py">
           <value>
             <LeetcodeEditor>
@@ -744,6 +808,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[404]左叶子之和.py" />
               <option name="questionId" value="404" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[409]最长回文串.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[409]最长回文串.py" />
+              <option name="questionId" value="409" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -843,6 +915,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[491]递增子序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[491]递增子序列.py" />
+              <option name="questionId" value="491" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[4]寻找两个有序数组的中位数.py">
           <value>
             <LeetcodeEditor>
@@ -864,6 +944,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[515]在每个树行中找最大值.py" />
               <option name="questionId" value="515" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[516]最长回文子序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[516]最长回文子序列.py" />
+              <option name="questionId" value="516" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -896,6 +984,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[53]最大子序和.py" />
               <option name="questionId" value="53" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[543]二叉树的直径.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[543]二叉树的直径.py" />
+              <option name="questionId" value="543" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -971,6 +1067,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[606]根据二叉树创建字符串.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[606]根据二叉树创建字符串.py" />
+              <option name="questionId" value="606" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[617]合并二叉树.py">
           <value>
             <LeetcodeEditor>
@@ -1027,6 +1131,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[647]回文子串.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[647]回文子串.py" />
+              <option name="questionId" value="647" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[64]最小路径和.py">
           <value>
             <LeetcodeEditor>
@@ -1072,6 +1184,30 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[671]二叉树中第二小的节点.py" />
               <option name="questionId" value="671" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[673]最长递增子序列的个数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[673]最长递增子序列的个数.py" />
+              <option name="questionId" value="673" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[674]最长连续递增序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[674]最长连续递增序列.py" />
+              <option name="questionId" value="674" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[687]最长同值路径.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[687]最长同值路径.py" />
+              <option name="questionId" value="687" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -1248,6 +1384,14 @@
             <LeetcodeEditor>
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[7]整数反转.py" />
               <option name="questionId" value="7" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[801]使序列递增的最小交换次数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[801]使序列递增的最小交换次数.py" />
+              <option name="questionId" value="819" />
             </LeetcodeEditor>
           </value>
         </entry>

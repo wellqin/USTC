@@ -42,57 +42,57 @@ v0-v5表示数组的索引编号0-5，二维数组的值表示节点之间的权
 """
 
 
-def dijkstra(graph, startIndex, path, cost, max):
-    """
-    求解各节点最短路径，获取path，和cost数组，
-    path[i] 表示vi节点的前继节点索引，一直追溯到起点。
-    cost[i] 表示vi节点的花费
-    """
-    lenth = len(graph)
-    v = [0] * lenth
-    # 初始化 path，cost，V
-    for i in range(lenth):
-        if i == startIndex:
-            v[startIndex] = 1
-        else:
-            cost[i] = graph[startIndex][i]
-            path[i] = startIndex if (cost[i] < max) else -1
-    print("v = ", v, )
-    print("cost = ", cost)
-    print("path = ", path)
-
-    for i in range(1, lenth):
-        minCost = max
-        curNode = -1
-        for w in range(lenth):
-            if v[w] == 0 and cost[w] < minCost:
-                minCost = cost[w]
-                curNode = w
-        # for 获取最小权值的节点
-        if curNode == -1: break
-        # 剩下都是不可通行的节点，跳出循环
-        v[curNode] = 1
-        for w in range(lenth):
-            if v[w] == 0 and (graph[curNode][w] + cost[curNode] < cost[w]):
-                cost[w] = graph[curNode][w] + cost[curNode]  # 更新权值
-                path[w] = curNode  # 更新路径
-        # for 更新其他节点的权值（距离）和路径
-    return path, cost
-
-
-if __name__ == '__main__':
-    max = 2147483647
-    graph = [
-        [max, max, 10, max, 30, 100],
-        [max, max, 5, max, max, max],
-        [max, max, max, 50, max, max],
-        [max, max, max, max, max, 10],
-        [max, max, max, 20, max, 60],
-        [max, max, max, max, max, max],
-    ]
-    path = [0] * 6
-    cost = [0] * 6
-    print("dijkstra", dijkstra(graph, 0, path, cost, max))
+# def dijkstra(graph, startIndex, path, cost, max):
+#     """
+#     求解各节点最短路径，获取path，和cost数组，
+#     path[i] 表示vi节点的前继节点索引，一直追溯到起点。
+#     cost[i] 表示vi节点的花费
+#     """
+#     lenth = len(graph)
+#     v = [0] * lenth
+#     # 初始化 path，cost，V
+#     for i in range(lenth):
+#         if i == startIndex:
+#             v[startIndex] = 1
+#         else:
+#             cost[i] = graph[startIndex][i]
+#             path[i] = startIndex if (cost[i] < max) else -1
+#     print("v = ", v, )
+#     print("cost = ", cost)
+#     print("path = ", path)
+#
+#     for i in range(1, lenth):
+#         minCost = max
+#         curNode = -1
+#         for w in range(lenth):
+#             if v[w] == 0 and cost[w] < minCost:
+#                 minCost = cost[w]
+#                 curNode = w
+#         # for 获取最小权值的节点
+#         if curNode == -1: break
+#         # 剩下都是不可通行的节点，跳出循环
+#         v[curNode] = 1
+#         for w in range(lenth):
+#             if v[w] == 0 and (graph[curNode][w] + cost[curNode] < cost[w]):
+#                 cost[w] = graph[curNode][w] + cost[curNode]  # 更新权值
+#                 path[w] = curNode  # 更新路径
+#         # for 更新其他节点的权值（距离）和路径
+#     return path, cost
+#
+#
+# if __name__ == '__main__':
+#     max = 2147483647
+#     graph = [
+#         [max, max, 10, max, 30, 100],
+#         [max, max, 5, max, max, max],
+#         [max, max, max, 50, max, max],
+#         [max, max, max, max, max, 10],
+#         [max, max, max, 20, max, 60],
+#         [max, max, max, max, max, max],
+#     ]
+#     path = [0] * 6
+#     cost = [0] * 6
+#     print("dijkstra", dijkstra(graph, 0, path, cost, max))
 
 # 利用最小堆实现, 时间复杂度: O(e * logv), e是边的个数
 
@@ -150,18 +150,19 @@ g1 = Graph()
 G = [['start', 'a', 6], ['start', 'b', 2], ['b', 'a', 3], ['b', 'end', 5], ['a', 'end', 1]]
 for i in G:
     g1.add_edge(*i)
+print(g1.graph)
 # g1.add_edge('start', 'a', 6)
 # g1.add_edge('start', 'b', 2)
 # g1.add_edge('b', 'a', 3)
 # g1.add_edge('b', 'end', 5)
 # g1.add_edge('a', 'end', 1)
 
-G = {'start': {'a': 6, 'b': 2},
-     'a': {'end': 1},
-     'b': {'end': 5, 'a': 3}
-     }
+# G = {'start': {'a': 6, 'b': 2},
+#      'a': {'end': 1},
+#      'b': {'end': 5, 'a': 3}
+#      }
 
-print(dijkstra('start', 'end', G))
+print(dijkstra('start', 'end', g1.graph))
 
 g2 = Graph()
 g2.add_edge('start', 'a', 5)

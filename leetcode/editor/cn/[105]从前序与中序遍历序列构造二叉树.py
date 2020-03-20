@@ -42,7 +42,7 @@ class Solution(object):
             return None
 
         root = TreeNode(preorder[0])
-        k = inorder.index(preorder[0])
+        k = inorder.index(preorder[0])  # inorder中的root位置
 
         root.left = self.buildTree(preorder[1:k+1], inorder[0:k])
         root.right = self.buildTree(preorder[k+1:], inorder[k+1:])

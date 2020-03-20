@@ -21,7 +21,7 @@ import bisect
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
-        :type nums: List[int]
+        :type nums: List[int] [10, 9, 2, 5, 3, 7, 101, 18]
         :rtype: int
         """
         if not nums or len(nums) == 0:
@@ -33,7 +33,7 @@ class Solution(object):
                     dp[i] = max(dp[j] + 1, dp[i])
         return max(dp)
 
-    def lengthOfLIS1(self, nums): # 用二分查找来搜索当前元素应放置的位置
+    def lengthOfLIS1(self, nums):  # 用二分查找来搜索当前元素应放置的位置
         """
         :type nums: List[int]
         :rtype: int

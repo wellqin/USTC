@@ -42,6 +42,7 @@ class Solution(object):
         res = []
         if not root:
             return []
+
         def dfs(root, cur_list):
             if root.left:
                 dfs(root.left, cur_list + [root.left.val])
@@ -50,5 +51,6 @@ class Solution(object):
             if not root.right and not root.left:
                 if sum(cur_list) == Sum:
                     res.append(cur_list)
-        dfs(root, [root.item])
+
+        dfs(root, [root.val])
         return res

@@ -51,7 +51,7 @@ class Solution:
         :param sum:
         :return:
         """
-        if root == None:
+        if root is None:
             return self.path_num
         self.getPathNum(root, sum)
         self.pathSum(root.left, sum)
