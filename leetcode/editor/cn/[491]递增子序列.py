@@ -1,10 +1,10 @@
-#给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是2。 
+# 给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是2。
 #
 # 示例: 
 #
 # 
-#输入: [4, 6, 7, 7]
-#输出: [[4, 6], [4, 7], [4, 6, 7], [4, 6, 7, 7], [6, 7], [6, 7, 7], [7,7], [4,7,7]] 
+# 输入: [4, 6, 7, 7]
+# 输出: [[4, 6], [4, 7], [4, 6, 7], [4, 6, 7, 7], [6, 7], [6, 7, 7], [7,7], [4,7,7]]
 #
 # 说明: 
 #
@@ -23,7 +23,7 @@ class Solution:
         :rtype: List[List[int]]
         """
         n = len(nums)
-        res = []     # 一组解
+        res = []  # 一组解
         incsq = [0]  # 一个解（n元0-1数组）
 
         def backtrack(t):
@@ -31,13 +31,13 @@ class Solution:
                 return
             incsq.append(0)
             s = {}
-            for i in range(t + 1, n):                        # 遍历第 t + 1~n-1 列（即n个状态)
+            for i in range(t + 1, n):  # 遍历第 t + 1~n-1 列（即n个状态)
                 if nums[i] >= nums[t] and nums[i] not in s:  # 同一层循环不能有重复数
                     s[nums[i]] = 1
                     incsq[-1] = nums[i]
-                    res.append(incsq[:])                     # 保存（一个解），注意incsq[:]
+                    res.append(incsq[:])  # 保存（一个解），注意incsq[:]
                     backtrack(i)
-            incsq.pop()                                      # 回溯，出栈
+            incsq.pop()  # 回溯，出栈
 
         # 第一个数单独遍历，避免加入单个数
         s = {}
@@ -55,6 +55,7 @@ class Solution:
         def helper(loc, tmp):
             if len(tmp) > 1 and tmp not in res:
                 res.add(tmp)
+                print(loc, tmp)
             for i in range(loc + 1, n):
                 if tmp[-1] <= nums[i]:
                     helper(i, tmp + (nums[i],))
@@ -63,5 +64,6 @@ class Solution:
             helper(i, (nums[i],))
         return [list(i) for i in res]
 
-print(Solution().findSubsequences_hs([4, 6, 7, 7]))
+
+# print(Solution().findSubsequences_hs([4, 6, 7, 7]))
 print(Solution().findSubsequences_dfs([4, 6, 7, 7]))

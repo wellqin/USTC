@@ -37,7 +37,7 @@ class Solution:
                 stack.append(i)
         return res
 
-    # 暴力
+    # 暴力[32]最长有效括号
     def longestValidParentheses1(self, s: str) -> int:
         maxnum = 0
         stack = [-1]  # 为了就是判断长度。因为符合条件的()都会相互抵消掉，不计入)的下标的话不知道抵消了多长的()
@@ -67,7 +67,7 @@ class Solution:
 
 
 # leetcode submit region end(Prohibit modification and deletion)
-s = ")()())"
+s =  "())(())"
 s1 = "()(()"  # 为2，不是4
 
 print(Solution().longestValidParentheses1(s))

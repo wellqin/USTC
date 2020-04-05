@@ -42,6 +42,8 @@ class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
+
+
 """
 想法一： 遍历链表，将遍历过的节点加入list，如果出现重复节点，则返回True，否则遍历结束，返回False，但是结果超时。
 如果用个字典记录某个点是否被访问过，时间，空间复杂度都是O（n）
@@ -98,6 +100,7 @@ class Solution(object):
                 return True
         return False
 
+
 head = ListNode(1)  # 测试代码
 p1 = ListNode(2)  # 建立链表1->2->3->4->None;
 p2 = ListNode(3)
@@ -110,4 +113,3 @@ p3.next = p4
 p4.next = p1
 
 print(Solution().hasCycle(head))
-

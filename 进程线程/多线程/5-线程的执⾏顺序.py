@@ -17,7 +17,7 @@ class MyThread(threading.Thread):
     def run(self):
         for i in range(3):
             time.sleep(1)
-            msg = "I'm "+self.name+' @ '+str(i)
+            msg = "I'm " + self.name + ' @ ' + str(i)
             print(msg)
 
 
@@ -27,6 +27,7 @@ def test():
         t.start()
         t.join()  # join使得线程按照顺序执行
 
+
 # def test():
 #     MyThreads = []
 #     for i in range(5):
@@ -35,7 +36,6 @@ def test():
 #         MyThreads.append(t)
 #     for i in MyThreads:
 #         i.join()  # join加在这个位置使得线程并发执行
-
 
 
 if __name__ == '__main__':

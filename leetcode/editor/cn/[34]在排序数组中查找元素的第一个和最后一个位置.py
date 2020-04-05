@@ -160,7 +160,7 @@ class Solution:
 # target = 8
 # print(Solution().searchRangeSelf(nums, target))
 
-nums1 = [5, 7, 7, 8, 8, 8]
+nums1 = [8, 8, 8, 8, 8, 8, 8, 8]
 target = 8
 print(Solution().searchRangeSelf(nums1, target))
 print(Solution().searchRangeEqual(nums1, target))

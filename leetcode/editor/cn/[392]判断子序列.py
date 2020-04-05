@@ -1,16 +1,16 @@
-#给定字符串 s 和 t ，判断 s 是否为 t 的子序列。 
+# 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
 #
 # 你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 <=100）。 
 #
 # 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，"ace"是"abcde"的一个子序列，而"aec"不是）。 
 #
 # 示例 1: 
-#s = "abc", t = "ahbgdc" 
+# s = "abc", t = "ahbgdc"
 #
 # 返回 true. 
 #
 # 示例 2: 
-#s = "axc", t = "ahbgdc" 
+# s = "axc", t = "ahbgdc"
 #
 # 返回 false. 
 #
@@ -36,9 +36,9 @@ class Solution:
             return True
         # dp创建是如果s, t位置调换则出错
         dp = [[0 for _ in range(len(t) + 1)] for _ in range(len(s) + 1)]
-        for i in range(1, len(s)+1):
-            for j in range(1, len(t)+1):
-                if s[i-1] == t[j-1]:
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(t) + 1):
+                if s[i - 1] == t[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1] + 1
                 else:
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
@@ -67,11 +67,7 @@ class Solution:
         return res == m
 
     def isSubsequence2(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
+        # 判断 s 是否为 t 的子序列。
         if not s:
             return True
         for i in s:

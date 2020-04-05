@@ -27,5 +27,57 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def reverse(self, x: int) -> int:
-        pass
+        if x is None:
+            return
+        if x == 0 or all(x == 0 for x in str(x)):
+            return 0
+
+        x = str(x).strip()
+
+        flag = True
+        if x[0] == "-":
+            flag = False
+            x = x[1:]
+
+        x = x[::-1].lstrip("0")
+
+        if -2 ** 31 < int(x) < (2 ** 31) - 1:
+            return int(x) if flag else -int(x)
+        else:
+            return 0
+
+    # 效率高
+    def reverse0(self, x: int) -> int:
+        flag = True if x > 0 else False
+        x = abs(x)
+        res = 0
+        while x:
+            res = res * 10 + x % 10
+            x = x // 10
+        res = res if flag else -res
+        return res if -2147483648 <= res <= 2147483648 else 0
+
+    def reverse1(self, x: int) -> int:
+        # x绝对值转换为字符串 + 字符串逆序 + 转换整数 + 判断正负 + 确认范围
+        # 虽然简写但效率不行
+        res = int(str(abs(x))[::-1]) * (-1 if x < 0 else 1)
+        return res if -2 ** 31 <= res <= 2 ** 31 - 1 else 0
+
+    def reverse2(self, x: int) -> int:
+
+        flag = 1 if x >= 0 else -1  # 用flag记录整数正负
+
+        new_x = 0
+        abs_x = abs(x)
+
+        while abs_x:
+            new_x = new_x * 10 + abs_x % 10
+            abs_x //= 10  # 注意这里用的是取整除//而非/，不然就返回的是12.3（比如输入是123），正确返回结果应该是12
+        new_x = flag * new_x
+        return new_x if 2147483648 >= new_x >= -2147483648 else 0
+
+
 # leetcode submit region end(Prohibit modification and deletion)
+x = 1534236469
+
+print(Solution().reverse0(x))
