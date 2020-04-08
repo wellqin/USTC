@@ -10,6 +10,7 @@ Change Activity:  2019/8/23
 """
 import socket
 
+
 def start_blocking():
     host = 'localhost'
     port = 8080
@@ -17,5 +18,6 @@ def start_blocking():
     csock.connect((host, port))
     data = csock.recv(1024)
     print(data)
+
 
 start_blocking()
