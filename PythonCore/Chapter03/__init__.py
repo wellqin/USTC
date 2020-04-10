@@ -4,7 +4,9 @@
 File Name:        __init__.py
 Description :   
 Author :          wellqin
-date:             2020/2/8
-Change Activity:  2020/2/8
+date:             2020/4/10
+Change Activity:  2020/4/10
 -------------------------------------------------
+
+深入类和对象
 """

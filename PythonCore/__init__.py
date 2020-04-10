@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        allIsObject
+File Name:        __init__.py
 Description :   
 Author :          wellqin
 date:             2020/4/10
 Change Activity:  2020/4/10
 -------------------------------------------------
+
+Python 核心原理
 """
