@@ -35,7 +35,7 @@ Change Activity:  2019/7/28
 from a import singleton
 
 """
-from 设计模式.mysingleton import singleton
+from DesignPatterns.mysingleton import singleton
 singleton.foo()
 
 

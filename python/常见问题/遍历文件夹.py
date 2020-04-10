@@ -37,7 +37,7 @@ def get_files(path, rule=".py"):
     return all
 
 if __name__ == "__main__":
-    b = get_files(r"C:\Users\QWust\Desktop\GitHub")
+    b = get_files(r"/")
     for i in b:
         print(i)
 

@@ -8,7 +8,7 @@ date:             2020/3/12
 Change Activity:  2020/3/12
 -------------------------------------------------
 """
-from 数据结构.树.CreateTree import Tree
+from DataStructure.树.CreateTree import Tree
 
 t = Tree()
 for i in range(7):

@@ -10,7 +10,7 @@ Change Activity:  2020/1/31
 """
 # https://www.cnblogs.com/ArsenalfanInECNU/p/5346751.html
 # from .CreateTree import Tree
-from 数据结构.二叉树.二叉树的搜索.CreateTree import Node, Tree
+from DataStructure.二叉树.二叉树的搜索.CreateTree import Node, Tree
 
 
 def traverse(root):  # 层次遍历
