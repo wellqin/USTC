@@ -22,11 +22,32 @@ def file_open(filename):
     print("file end")   # yield之后相当于__exit__函数的操作
 
 
-with file_open("test.txt") as fp:
-    print("file open processing")
+# with file_open("test.txt") as fp:
+#     print("file open processing")
     """
     运行结果：
     file open
     file open processing
     file end
     """
+
+
+class Query(object):
+
+    def __init__(self, name):
+        self.name = name
+
+    def query(self):
+        print('Query info about %s...' % self.name)
+
+
+@contextlib.contextmanager
+def create_query(name):
+    print('Begin')
+    q = Query(name)
+    yield q
+    print('End')
+
+
+create_query("wellqin")
+

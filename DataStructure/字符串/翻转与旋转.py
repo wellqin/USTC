@@ -7,6 +7,14 @@ Author :          wellqin
 date:             2019/8/5
 Change Activity:  2019/8/5
 -------------------------------------------------
+reverse源码
+
+nums = [1, 2, 3, 4, 5, 6]
+n = len(nums)
+for i in range(n // 2):
+    nums[i], nums[n - i - 1] = nums[n - i - 1], nums[i]
+print(nums)
+
 """
 # 用尽可能多的方法反转字符串,例如将s = "abcdef"反转成 "fedcba"
 from functools import reduce
