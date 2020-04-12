@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        allIsObject
+File Name:        UnderstandingObject
 Description :   
 Author :          wellqin
 date:             2020/4/10
