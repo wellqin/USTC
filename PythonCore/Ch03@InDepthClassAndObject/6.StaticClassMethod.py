@@ -13,6 +13,12 @@ Change Activity:  2020/4/11
 实例方法(self)：类中定义的一般方法，仅仅对于类的实例对象进行操作。
 类方法classmethod():硬编码，如果换类名又要重新改返回的类名
 静态方法staticmethod(cls):
+
+一般来说，要使用某个类的方法，需要先实例化一个对象再调用方法。
+而使用@staticmethod或@classmethod，就可以不需要实例化，直接类名.方法名()来调用。
+
+
+编写类时需要采用很多不同的方式来创建实例，而我们只有一个__init__函数，此时静态方法就派上用场了
 """
 
 
@@ -60,7 +66,7 @@ if __name__ == '__main__':
     # print(new_day)  # 2019/12/1
     # # 外部处理有个弊端就是，每次都需要外部额外处理
 
-    # 用staticmethod在类内部完成初始化
+    # 用staticmethod在类内部完成初始化，直接使用"类名.方法名"的形式调用
     new_day = Date.parse_from_string(date_str)
     print(new_day)  # 2019/12/1
 
