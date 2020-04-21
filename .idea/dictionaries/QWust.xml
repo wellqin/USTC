@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="QWust">
     <words>
+      <w>asyncio</w>
       <w>classmethod</w>
       <w>epoll</w>
       <w>imap</w>
