@@ -56,6 +56,10 @@ if __name__ == "__main__":
     thread2 = threading.Thread(target=get_detail_url, args=("www.baidu.com",))
 
     # 主线程运行完，就终止程序呢？
+    """
+    其实守护线程和用户线程区别不大，可以理解为特殊的用户线程。特殊就特殊在如果程序中所有的用户线程都退出了，
+    那么所有的守护线程就都会被杀死，很好理解，没有被守护的对象了，也不需要守护线程了。
+    """
     # thread1.setDaemon(True)  # 是否守护线程，必须在start()调用之前设置此参数
     # thread2.setDaemon(True)  # 会在主线程执行完后，程序立即结束，终止所有未完成的子线程
 

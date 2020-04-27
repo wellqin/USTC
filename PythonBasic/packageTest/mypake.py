@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-File Name:        test
-Description :   
+File Name:        mypake
 Author :          wellqin
-date:             2019/7/17
-Change Activity:  2019/7/17
+date:             2020/4/24
 -------------------------------------------------
 """
 
+
+def mypake():
+    return "this is mypake"

@@ -8,16 +8,30 @@ date:             2020/3/19
 Change Activity:  2020/3/19
 -------------------------------------------------
 """
+# >>> import locale
+# >>> locale.setlocale(locale.LC_ALL, '')
+# 'en_US.utf8'
+# >>> locale.currency(123.2342343234234234)
+# '$123.23'
+# >>> locale.currency(123.2342343234234234, '')  # the second argument controls the symbol
+# '123.23'
+
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-File Name:        test
-Description :   
-Author :          wellqin
-date:             2019/7/31
-Change Activity:  2019/7/31
--------------------------------------------------
-"""
+import sys
+try:
+    while True:
+        line1 = sys.stdin.readline().strip()
+        if line1 == '':
+            break
+        # line2 = sys.stdin.readline().strip()
+        a = int(line1)
+        # l = list(map(int, line2.split()))
+        # b = [int(n) for n in line2.split()]
+        print(a)
+        # print(l)
+        # print(b)
+except:
+    pass
 
 """
 题目描述：
