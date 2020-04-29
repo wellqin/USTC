@@ -15,6 +15,12 @@ Change Activity:  2019/9/1
 
 装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码并继续重用。
 概括的讲，装饰器的作用就是为已经存在的函数或对象添加额外的功能。
+
+总结几种类型：
+装饰器修饰的函数参数：无参数 | 一个参数 | 任意参数   【二层函数嵌套】
+装饰器本身的参数：最外层为装饰器参数 【三层函数嵌套】
+元信息保存：from functools import wraps 中使用进行装饰 @wraps(func)
+
 """
 def debug(func):
     def wrapper():
@@ -23,7 +29,7 @@ def debug(func):
     return wrapper
 
 @debug
-def say_hello():
+def say_hello():  # 无参数
     print("hello!")
 
 say_hello()
@@ -63,7 +69,7 @@ def say2(something):
 say2("wellqin2")
 
 
-# 高级部分
+# 高级部分：装饰器本身的参数
 """
 带参数的装饰器#
 假设我们前文的装饰器需要完成的功能不仅仅是能在进入某个函数后打出log信息，而且还需指定log的级别，那么装饰器就会是这样的。
@@ -71,8 +77,10 @@ say2("wellqin2")
 你可以这么理解，当带参数的装饰器被打在某个函数上时，比如@logging(level='DEBUG')，
 它其实是一个函数，会马上被执行，只要这个它返回的结果是一个装饰器时，那就没问题。细细再体会一下。
 """
+from functools import wraps
 def logging(level):
     def wrapper(func):
+        @wraps(func)  # 加上后 -- say123.__name__ say123
         def inner_wrapper(*args, **kwargs):
             print ("[{level}]: enter function {func}()".format(
                 level=level,
@@ -84,6 +92,7 @@ def logging(level):
 @logging(level='INFO')
 def say123(something):
     print ("say {}!".format(something))
+print("say123.__name__", say123.__name__)  # inner_wrapper, 这样有大问题，原函数变了
 
 # 如果没有使用@语法，等同于
 # say = logging(level='INFO')(say)
@@ -95,3 +104,24 @@ def do123(something):
 
 say123('hello')
 do123("my work")
+
+# 元信息
+"""
+问题，我们使用的其实已经不再是原函数了，而是一个由装饰器返回的新函数，虽然这个函数的功能和原函数一样，但是一些基础的信息其实已经丢失了。
+
+正常的函数调用__name__返回的都是函数的名称，但是当我们加上了装饰器的注解之后，就会发生变化，同样，我们输出加上了装饰器注解之后的
+
+我们会发现输出的结果变成了wrapper，这是因为我们实现的装饰器内部的函数叫做wrapper。
+不仅仅是__name__，函数内部还有很多其他的基本信息，比如记录函数内描述的__doc__，__annotations__等等，
+这些基本信息被称为是元信息，这些元信息由于我们使用注解发生了丢失。
+"""
+# Python当中为我们提供了一个专门的装饰器用来保留函数的元信息，我们只需要在实现装饰器的wrapper函数当中加上一个注解wraps即可
+# @wraps(func) 加上了这个注解之后，我们再来检查函数的元信息，会发现它和我们预期一致了
+# 参考上面实例：line83
+
+
+
+
+
+
+
