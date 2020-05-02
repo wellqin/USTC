@@ -120,6 +120,46 @@ do123("my work")
 # 参考上面实例：line83
 
 
+# 自行实例
+from functools import wraps
+import time
+
+
+def timeSpend(func):  # 1
+    @wraps(func)
+    def wrapper(*args, **kwargs):  # 3
+        st = time.time()  # 4
+        f = func(*args, **kwargs)  # 5  # 10 --> f接受了第9步的返回值li
+        lt = time.time() - st
+        print('%.8f' % lt)
+        print(func.__name__)
+        return f  # 11
+
+    return wrapper  # 2
+
+
+@timeSpend
+def iterFunc(m): # 6
+    li = []
+    for i in range(m):  # 7
+        li.append(i ** 2)
+    print(len(li))  # 8
+    return li  # 9
+
+
+n = 10
+print(iterFunc(n))  # 先执行timeSpend，timeSpend里面有func(*args, **kwargs)，就是iterFunc
+# iterFunc作为参数传给timeSpend(func)
+"""
+注意打印的顺序
+
+10
+0.00000000
+iterFunc
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+"""
+
+
 
 
 

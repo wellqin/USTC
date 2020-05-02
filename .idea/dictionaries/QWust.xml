@@ -4,7 +4,14 @@
       <w>asyncio</w>
       <w>classmethod</w>
       <w>epoll</w>
+      <w>iloc</w>
       <w>imap</w>
+      <w>imputer</w>
+      <w>jieba</w>
+      <w>scaler</w>
+      <w>scikit</w>
+      <w>sklearn</w>
+      <w>transfrom</w>
       <w>wellqin</w>
     </words>
   </dictionary>
