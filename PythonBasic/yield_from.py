@@ -10,10 +10,10 @@ Change Activity:  2020/2/11
 """
 from collections import namedtuple
 
-
 Result = namedtuple("Result", "count average")
 
 li = [40.9, 38.5, 44.3]
+
 
 # 子生成器
 def averager():
@@ -26,13 +26,15 @@ def averager():
             break
         total += term
         count += 1
-        average = total/count
+        average = total / count
     return Result(count, average)
+
 
 # 委派生成器
 def grouper(result, key):
     while True:
         result[key] = yield from averager()
+
 
 # 调用方
 def main():
