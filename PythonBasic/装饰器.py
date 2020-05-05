@@ -22,15 +22,20 @@ Change Activity:  2019/9/1
 元信息保存：from functools import wraps 中使用进行装饰 @wraps(func)
 
 """
+
+
 def debug(func):
     def wrapper():
         print("[DEBUG]: enter {}()".format(func.__name__))
         return func()
+
     return wrapper
+
 
 @debug
 def say_hello():  # 无参数
     print("hello!")
+
 
 say_hello()
 
@@ -39,15 +44,20 @@ say_hello()
 因为返回的函数并不能接受参数，你可以指定装饰器函数wrapper接受和原函数一样的参数，比如：
 """
 
+
 def debug1(func):
     def wrapper(something):  # 指定一毛一样的参数
-        print ("[DEBUG]: enter {}()".format(func.__name__))
+        print("[DEBUG]: enter {}()".format(func.__name__))
         return func(something)
+
     return wrapper  # 返回包装过函数
+
 
 @debug1
 def say(something):
-    print ("hello {}!".format(something))
+    print("hello {}!".format(something))
+
+
 say("wellqin")
 
 """
@@ -55,21 +65,25 @@ say("wellqin")
 还好Python提供了可变参数*args和关键字参数**kwargs，有了这两个参数，装饰器就可以用于任意目标函数了。
 """
 
+
 def debug2(func):
     def wrapper(*args, **kwargs):  # 指定宇宙无敌参数
-        print ("[DEBUG]: enter {}()".format(func.__name__))
-        print ('Prepare and say...',)
+        print("[DEBUG]: enter {}()".format(func.__name__))
+        print('Prepare and say...', )
         return func(*args, **kwargs)
+
     return wrapper  # 返回
+
 
 @debug2
 def say2(something):
-    print ("hello {}!".format(something))
+    print("hello {}!".format(something))
+
 
 say2("wellqin2")
 
-
 # 高级部分：装饰器本身的参数
+print("==========高级部分：装饰器本身的参数==============")
 """
 带参数的装饰器#
 假设我们前文的装饰器需要完成的功能不仅仅是能在进入某个函数后打出log信息，而且还需指定log的级别，那么装饰器就会是这样的。
@@ -78,28 +92,37 @@ say2("wellqin2")
 它其实是一个函数，会马上被执行，只要这个它返回的结果是一个装饰器时，那就没问题。细细再体会一下。
 """
 from functools import wraps
-def logging(level):
+
+
+def logging(level=None):  # 支持默认参数None
     def wrapper(func):
         @wraps(func)  # 加上后 -- say123.__name__ say123
         def inner_wrapper(*args, **kwargs):
-            print ("[{level}]: enter function {func}()".format(
+            print("[{level}]: enter function {func}()".format(
                 level=level,
                 func=func.__name__))
             return func(*args, **kwargs)
+
         return inner_wrapper
+
     return wrapper
 
-@logging(level='INFO')
+
+# @logging(level='INFO')
+@logging()  # 支持默认参数
 def say123(something):
-    print ("say {}!".format(something))
+    print("say {}!".format(something))
+
+
 print("say123.__name__", say123.__name__)  # inner_wrapper, 这样有大问题，原函数变了
+
 
 # 如果没有使用@语法，等同于
 # say = logging(level='INFO')(say)
 
 @logging(level='DEBUG')
 def do123(something):
-    print ("do {}...".format(something))
+    print("do {}...".format(something))
 
 
 say123('hello')
@@ -139,7 +162,7 @@ def timeSpend(func):  # 1
 
 
 @timeSpend
-def iterFunc(m): # 6
+def iterFunc(m):  # 6
     li = []
     for i in range(m):  # 7
         li.append(i ** 2)
@@ -158,10 +181,3 @@ print(iterFunc(n))  # 先执行timeSpend，timeSpend里面有func(*args, **kwarg
 iterFunc
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 """
-
-
-
-
-
-
-

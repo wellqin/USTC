@@ -35,7 +35,7 @@ date:             2020/4/24
 
 
 # 3.官方推荐：相对导入
-from PythonBasic.packageTest import mypake
+from PythonBasic.importpackageTest import mypake
 
 # print("mypkg")
 # print(mypake.mypake())
