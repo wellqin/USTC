@@ -26,5 +26,10 @@ def partition(nums, l, r):
     return i
 
 
-nums = [-1, 19, 2, 13, 8, 34, 25, 7]
-print(quickSort(nums, 0, len(nums) - 1))
+def main():
+    nums = [-1, 19, 2, 13, 8, 34, 25, 7]
+    print(quickSort(nums, 0, len(nums) - 1))
+
+
+if __name__ == "__main__":
+    main()

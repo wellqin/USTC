@@ -36,8 +36,8 @@ from a import singleton
 
 """
 from DesignPatterns.mysingleton import singleton
-singleton.foo()
 
+singleton.foo()
 
 # 2.使用装饰器
 
@@ -90,7 +90,6 @@ a1 = A(2)
 a2 = A(3)
 print(a1 == a2) # True
 """
-
 
 # 3.使用类
 """
@@ -188,6 +187,8 @@ print(obj)
 
 import time
 import threading
+
+
 class Singleton(object):
     _instance_lock = threading.Lock()
 
@@ -206,8 +207,10 @@ class Singleton(object):
 def task(arg):
     obj = Singleton.instance()
     print(obj)
+
+
 for i in range(10):
-    t = threading.Thread(target=task,args=[i,])
+    t = threading.Thread(target=task, args=[i, ])
     t.start()
 time.sleep(20)
 obj = Singleton.instance()
@@ -218,7 +221,6 @@ print(obj)
 如果用 obj=Singleton() ,这种方式得到的不是单例
 """
 
-
 # 4.基于__new__方法实现（推荐使用，方便）
 """
 通过上面例子，我们可以知道，当我们实现单例时，为了保证线程安全需要在内部加入锁
@@ -228,12 +230,13 @@ print(obj)
 采用这种方式的单例模式，以后实例化对象时，和平时实例化对象的方法一样 obj = Singleton() 
 """
 import threading
+
+
 class Singleton(object):
     _instance_lock = threading.Lock()
 
     def __init__(self):
         pass
-
 
     def __new__(cls, *args, **kwargs):
         if not hasattr(Singleton, "_instance"):
@@ -242,16 +245,19 @@ class Singleton(object):
                     Singleton._instance = object.__new__(cls)
         return Singleton._instance
 
+
 obj1 = Singleton()
 obj2 = Singleton()
-print(obj1,obj2)
+print(obj1, obj2)
+
 
 def task(arg):
     obj = Singleton()
     print(obj)
 
+
 for i in range(10):
-    t = threading.Thread(target=task,args=[i,])
+    t = threading.Thread(target=task, args=[i, ])
     t.start()
 
 # 5.基于metaclass方式实现
@@ -262,6 +268,8 @@ for i in range(10):
 1.类由type创建，创建类时，type的__init__方法自动执行，类() 执行type的 __call__方法(类的__new__方法,类的__init__方法)
 2.对象由类创建，创建对象时，类的__init__方法自动执行，对象()执行类的 __call__ 方法
 """
+
+
 class Foo:
     def __init__(self):
         pass
@@ -269,56 +277,56 @@ class Foo:
     def __call__(self, *args, **kwargs):
         pass
 
+
 obj = Foo()
 # 执行type的 __call__ 方法，调用 Foo类（是type的对象）的 __new__方法，用于创建对象，
 # 然后调用 Foo类（是type的对象）的 __init__方法，用于对对象初始化。
-obj()    # 执行Foo的 __call__ 方法
+obj()  # 执行Foo的 __call__ 方法
+
 
 # 元类的使用
 class SingletonType(type):
-    def __init__(self,*args,**kwargs):
-        super(SingletonType,self).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(SingletonType, self).__init__(*args, **kwargs)
 
-    def __call__(cls, *args, **kwargs): # 这里的cls，即Foo类
-        print('cls',cls)
-        obj = cls.__new__(cls,*args, **kwargs)
-        cls.__init__(obj,*args, **kwargs) # Foo.__init__(obj)
+    def __call__(cls, *args, **kwargs):  # 这里的cls，即Foo类
+        print('cls', cls)
+        obj = cls.__new__(cls, *args, **kwargs)
+        cls.__init__(obj, *args, **kwargs)  # Foo.__init__(obj)
         return obj
 
-class Foo(metaclass=SingletonType): # 指定创建Foo的type为SingletonType
+
+class Foo(metaclass=SingletonType):  # 指定创建Foo的type为SingletonType
     def __init__(self, name):
         self.name = name
+
     def __new__(cls, *args, **kwargs):
         return object.__new__(cls)
 
-obj = Foo('xx')
 
+obj = Foo('xx')
 
 # 实现单例模式
 
 import threading
 
+
 class SingletonType(type):
     _instance_lock = threading.Lock()
+
     def __call__(cls, *args, **kwargs):
         if not hasattr(cls, "_instance"):
             with SingletonType._instance_lock:
                 if not hasattr(cls, "_instance"):
-                    cls._instance = super(SingletonType,cls).__call__(*args, **kwargs)
+                    cls._instance = super(SingletonType, cls).__call__(*args, **kwargs)
         return cls._instance
 
+
 class Foo(metaclass=SingletonType):
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
 
 
 obj1 = Foo('name')
 obj2 = Foo('name')
-print(obj1,obj2)
-
-
-
-
-
-
-
+print(obj1, obj2)
