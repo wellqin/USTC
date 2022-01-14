@@ -27,4 +27,5 @@ from typing import List
 
 class Solution:
     def search(self, arr: List[int], target: int) -> int:
+        pass
 # leetcode submit region end(Prohibit modification and deletion)

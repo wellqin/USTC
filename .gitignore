@@ -16,3 +16,13 @@ PythonCore/__pycache__/
 "python/\346\265\213\350\257\225/UNItest/__pycache__/"
 "PythonBasic/\346\265\213\350\257\225/UNItest/__pycache__/"
 PythonBasic/importpackageTest/__pycache__/
+
+__pycache__
+*.pyc
+.idea
+*.egg-info/
+.tox/
+venv
+.vscode/
+.python-version
+.coverage

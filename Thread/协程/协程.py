@@ -38,11 +38,11 @@ from threading import current_thread
 # 定义负责计算两个数字的和的协程
 
 
-async def sum(a, b):
-    print("【%s-%s】coroutine start to do: %s + %s" % (os.getpid(), current_thread().getName(), a, b))
+async def sum_func(a, b):
+    print("【%s-%s】coroutine start to do: %s + %s" % (os.getpid(), current_thread().name, a, b))
     await asyncio.sleep(1)  # 模拟耗时1秒的IO操作，自动切换协程
     r = int(a) + int(b)
-    print("【%s-%s】coroutine end for : %s + %s,  result is %s" % (os.getpid(), current_thread().getName(), a, b, r))
+    print("【%s-%s】coroutine end for : %s + %s,  result is %s" % (os.getpid(), current_thread().name, a, b, r))
     return r
 
 # 定义主函数
@@ -51,13 +51,13 @@ async def sum(a, b):
 def main(a, b, c, d):
     loop = asyncio.get_event_loop()
     task = asyncio.gather(
-        sum(a, b),
-        sum(c, d)
+        sum_func(a, b),
+        sum_func(c, d)
     )
     loop.run_until_complete(task)
     r1, r2 = task.result()
     r = r1 * r2
-    print("【%s-%s】%s * %s = %s" % (os.getpid(), current_thread().getName(), r1, r2, r))
+    print("【%s-%s】%s * %s = %s" % (os.getpid(), current_thread().name, r1, r2, r))
     loop.close()
 
 
@@ -70,11 +70,11 @@ if __name__ == '__main__':
 [IO多路复用]
 什么是io多路复用
 IO多路复用是指内核一旦发现进程指定的一个或者多个IO条件准备读取，它就通知该进程。IO多路复用适用如下场合：
-　　（1）当客户处理多个描述字时（一般是交互式输入和网络套接口），必须使用I/O复用。
-　　（2）当一个客户同时处理多个套接口时，而这种情况是可能的，但很少出现。
-　　（3）如果一个TCP服务器既要处理监听套接口，又要处理已连接套接口，一般也要用到I/O复用。
-　　（4）如果一个服务器即要处理TCP，又要处理UDP，一般要使用I/O复用。
-　　（5）如果一个服务器要处理多个服务或多个协议，一般要使用I/O复用。
+（1）当客户处理多个描述字时（一般是交互式输入和网络套接口），必须使用I/O复用。
+（2）当一个客户同时处理多个套接口时，而这种情况是可能的，但很少出现。
+（3）如果一个TCP服务器既要处理监听套接口，又要处理已连接套接口，一般也要用到I/O复用。
+（4）如果一个服务器即要处理TCP，又要处理UDP，一般要使用I/O复用。
+（5）如果一个服务器要处理多个服务或多个协议，一般要使用I/O复用。
 
 与多进程和多线程技术相比，I/O多路复用技术的最大优势是系统开销小，系统不必创建进程/线程，
 也不必维护这些进程/线程，从而大大减小了系统的开销。

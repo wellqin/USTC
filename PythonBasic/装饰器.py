@@ -37,6 +37,7 @@ def say_hello():  # 无参数
     print("hello!")
 
 
+print("==========初级部分：装饰器无参数==============")
 say_hello()
 
 """
@@ -58,6 +59,7 @@ def say(something):
     print("hello {}!".format(something))
 
 
+print("==========初级部分：装饰器有指定参数==============")
 say("wellqin")
 
 """
@@ -80,6 +82,7 @@ def say2(something):
     print("hello {}!".format(something))
 
 
+print("==========初级部分：装饰器有任意参数==============")
 say2("wellqin2")
 
 # 高级部分：装饰器本身的参数

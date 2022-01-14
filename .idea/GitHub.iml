@@ -3,6 +3,12 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/leetcode" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint" />
+      <excludeFolder url="file://$MODULE_DIR$/Thread/.pytest_cache/v" />
+      <excludeFolder url="file://$MODULE_DIR$/Thread/pool/.pytest_cache/v" />
+      <excludeFolder url="file://$MODULE_DIR$/python-patterns/.idea" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (Github)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
