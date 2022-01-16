@@ -37,15 +37,30 @@ class Target:
 
 class FilterChain:
     """过滤器链带有多个过滤器，并在 Target 上按照定义的顺序执行这些过滤器。"""
-    def __init__(self):
+    def __init__(self, builder=None):
         self.filters = []
+        self.filter_chain_builder = getattr(builder, "chain", [])
         self.target = None
+
+    class FilterChainBuilder:
+        def __init__(self):
+            self.chain = []
+
+        def add_filter(self, fi: AbstractFilter):
+            self.chain.append(fi)
+            return self
+
+        def build(self):
+            return FilterChain(self)
 
     def add_filter(self, fi: AbstractFilter):
         self.filters.append(fi)
 
     def extend_filter(self, fi_chain: List[AbstractFilter]):
         self.filters.extend(fi_chain)
+
+    def build_filter(self, fi: AbstractFilter):
+        self.filters = self.FilterChainBuilder().add_filter(fi).build().filter_chain_builder
 
     def execute(self, request: str):
         # 1、处理前，过滤器可以做认证/授权/记录日志，或者跟踪请求，然后把请求传给相应的处理程序
@@ -69,15 +84,16 @@ class FilterManager:
         self.filter_chain.add_filter(fi)
 
     def set_filter_chain(self, fi_chain: List[AbstractFilter]):
-        for fi in fi_chain:
-            fi_name = getattr(AbstractFilter, fi.__name__)
-            self.filter_chain.add_filter(fi_name)
+        self.filter_chain.extend_filter(fi_chain)
+
+    def set_build_filter(self, fi: AbstractFilter):
+        self.filter_chain.build_filter(fi)
 
     def filter_request(self, request: str):
         return self.filter_chain.execute(request)
 
 
-class FilterDemo:
+class Client:
 
     def __init__(self):
         self.filter_manager = None
@@ -91,15 +107,18 @@ class FilterDemo:
 
 if __name__ == "__main__":
     filter_manager = FilterManager(Target())
+    # 1、过滤器链： 也可以使用建造者模式创建
+    filter_manager.set_build_filter(AuthenticationFilter())
 
-    # 一口气加载全部过滤器接口子类
+    # 2、一口气加载全部过滤器接口子类, __subclasses__这个方法返回的是这个类的子类的集合
     # sub_class_list = AbstractFilter.__subclasses__()
-    # filter_manager.set_filter_chain(sub_class_list)
+    # filter_manager.set_filter_chain([sub() for sub in sub_class_list])
 
-    filter_manager.set_filter(AuthenticationFilter())
-    filter_manager.set_filter(DebugFilter())
+    # 3、依次加入每个过滤器接口子类
+    # filter_manager.set_filter(AuthenticationFilter())
+    # filter_manager.set_filter(DebugFilter())
 
-    filter_demo = FilterDemo()
-    filter_demo.set_filter_manager(filter_manager)
-    res = filter_demo.send_request(["HOME", "hello", "Authentication", "Debug"])
+    client = Client()
+    client.set_filter_manager(filter_manager)
+    res = client.send_request(["HOME", "hello", "Authentication", "Debug"])
     print(res)
