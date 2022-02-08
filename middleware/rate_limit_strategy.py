@@ -114,7 +114,7 @@ class RateLimitStrategyContext:
         self._strategy = in_strategy
 
     def execute_strategy(self, in_num1, in_num2):
-        return self._strategy.doOperation(in_num1, in_num2)
+        return self._strategy.do_operation(in_num1, in_num2)
 
 
 rate_limit_strategy = RateLimitStrategyContext(in_strategy=TokenBucket())

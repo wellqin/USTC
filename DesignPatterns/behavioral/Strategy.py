@@ -13,23 +13,23 @@ from abc import abstractmethod, ABCMeta
 # 创建一个接口
 class Strategy(metaclass=ABCMeta):
     @abstractmethod
-    def doOperation(self, in_num1, in_num2):
+    def do_operation(self, in_num1, in_num2):
         print(self.__class__.__name__)
 
 
 # 创建实现接口的实体类
 class OperationAdd(Strategy):
-    def doOperation(self, in_num1, in_num2):
+    def do_operation(self, in_num1, in_num2):
         return in_num1 + in_num2
 
 
 class OperationSubtract(Strategy):
-    def doOperation(self, in_num1, in_num2):
+    def do_operation(self, in_num1, in_num2):
         return in_num1 - in_num2
 
 
 class OperationMultiply(Strategy):
-    def doOperation(self, in_num1, in_num2):
+    def do_operation(self, in_num1, in_num2):
         return in_num1 * in_num2
 
 
@@ -41,11 +41,12 @@ class Context:
         self._strategy = in_strategy
 
     def execute_strategy(self, in_num1, in_num2):
-        return self._strategy.doOperation(in_num1, in_num2)
+        return self._strategy.do_operation(in_num1, in_num2)
 
 
 # 调用输出
 if __name__ == '__main__':
+    """这里策略的选取： 可使用简单工厂模式，做到二种设计模式结合"""
     aContext = Context(in_strategy=OperationAdd())
     print("10 + 5 = {0}".format(aContext.execute_strategy(10, 5)))
 
