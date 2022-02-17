@@ -5,7 +5,9 @@ import inspect
 def get_class_that_defined_method(method):
     if isinstance(method, functools.partial):
         return get_class_that_defined_method(method.func)
-    if inspect.ismethod(method) or (inspect.isbuiltin(method) and getattr(method, '__self__', None) is not None and getattr(method.__self__, '__class__', None)):
+    if inspect.ismethod(method) or (inspect.isbuiltin(method)
+                                    and getattr(method, '__self__', None) is not None
+                                    and getattr(method.__self__, '__class__', None)):
         for cls in inspect.getmro(method.__self__.__class__):
             if method.__name__ in cls.__dict__:
                 return cls

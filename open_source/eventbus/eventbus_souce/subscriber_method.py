@@ -1,6 +1,6 @@
 import inspect
 
-from eventbus.utils import get_class_that_defined_method
+from open_source.eventbus.eventbus_souce.utils import get_class_that_defined_method
 
 
 class SubscriberMethod:
