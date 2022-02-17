@@ -5,6 +5,7 @@ from .executor import MainOrderExecutor, MainExecutor
 from .finder import Finder
 from .logger import Logger
 from .subscription import Subscription
+from .utils import SupportError
 
 
 def get_default_logger(identifier):
@@ -72,7 +73,7 @@ class EventBus:
         subscription = Subscription(subscriber, subscriber_method)
         subscriptions = self.subscriptions_by_event_type.get(event_type, [])
         if subscription in subscriptions:
-            raise Exception(f'订阅类{subscriber.__class__.__name__}已经注册了{event_type.__name__}事件')
+            raise SupportError(f'订阅类{subscriber.__class__.__name__}已经注册了{event_type.__name__}事件')
         subscriptions.append(subscription)
         # 订阅方法重排序
         subscriptions.sort(key=lambda _subscription: _subscription.subscriber_method.priority)

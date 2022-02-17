@@ -1,5 +1,7 @@
 import inspect
 
+from open_source.eventbus.eventbus_souce.utils import SupportError
+
 subscribe_annotation_property = '__subscribe_annotation__'
 
 
@@ -53,9 +55,9 @@ class Subscribe:
         qualname_splited = callable.__qualname__.split('.')
         arg_spec = inspect.getfullargspec(callable)
         if len(qualname_splited) != 2:
-            raise Exception(f'当前方法{callable.__qualname__}不是类方法')
+            raise SupportError(f'当前方法{callable.__qualname__}不是类方法')
         if (len(arg_spec.args) != 2 or arg_spec.varargs is not None
                 or arg_spec.varkw is not None or arg_spec.defaults is not None
                 or len(arg_spec.kwonlyargs) != 0 or arg_spec.kwonlydefaults is not None
                 or arg_spec.annotations.get(arg_spec.args[1]) is None):
-            raise Exception(f'请检查订阅方法，当前方法{callable.__qualname__}应为Class.Method(self, event: EventType)形式')
+            raise SupportError(f'请检查订阅方法，当前方法{callable.__qualname__}应为Class.Method(self, event: EventType)形式')

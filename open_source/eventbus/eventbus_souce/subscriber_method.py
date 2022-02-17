@@ -7,6 +7,7 @@ class SubscriberMethod:
 
     def __init__(self, method, event_type, priority: int = 0, sticky: bool = False):
         self.method = method
+        self.method_definition = None
         self.event_type = event_type
         self.priority = priority
         self.sticky = sticky

@@ -19,3 +19,9 @@ def get_class_that_defined_method(method):
         if isinstance(cls, type):
             return cls
     return getattr(method, '__objclass__', None)  # handle special descriptor objects
+
+
+class SupportError(Exception):
+    def __init__(self, msg):
+        self.msg = '请求失败: %s' % msg
+        Exception.__init__(self, self.msg)
