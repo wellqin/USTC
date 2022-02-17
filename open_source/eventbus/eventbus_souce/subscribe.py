@@ -19,7 +19,8 @@ class SubscribeAnnotation:
 
 
 class Subscribe:
-    """订阅装饰器，给被订阅的方法添加元信息
+    """
+    订阅装饰器，给被订阅的方法添加元信息
 
     订阅装饰器将会为方法添加方法元信息，用来在EventBus对类进行注册时使用。
     注意，为了降低可能产生Bug的情况，这里限制仅允许为类方法进行装饰，但并
@@ -34,7 +35,8 @@ class Subscribe:
         self.sticky: bool = sticky
 
     def __call__(self, callable):
-        """调用Subscribe装饰器对可调用对象的修改
+        """
+        调用Subscribe装饰器对可调用对象的修改
 
         该方法将限制被装饰对象为类方法，由于装饰时均不以对象绑定类方法的形式进行调用，故在装饰时需要进行特殊判断。
         :param callable: 被装饰类方法

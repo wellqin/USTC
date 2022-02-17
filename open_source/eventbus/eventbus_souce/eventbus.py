@@ -23,9 +23,19 @@ def get_default_logger(identifier):
 
 
 class EventBus:
+    """
+    1、准备订阅者这一步骤，分为注册 注销以及准备订阅方法两步。
+        1.1 准备订阅方法: 订阅方法是通过注解@Subscribe的方式来实现的
+        1.2 注册:只需要一行即可完成订阅者的注册,EventBus.getDefault().register(this);
+                EventBus.getDefault()方法其实就是通过单例模式返回EventBus的实例
+
+        1.3 注销：EventBus.getDefault().unregister(this);
+    2、发送事件
+    """
 
     def __init__(self, logger: Logger = None):
         self.finder = Finder()
+        # 事件订阅者
         self.subscriptions_by_event_type: typing.Dict[type, typing.List[Subscription]] = {}
         self.event_types_by_subscriber: typing.Dict[object, typing.List[type]] = {}
         self.sticky_events: typing.Dict[type, object] = {}
@@ -34,11 +44,23 @@ class EventBus:
         # self.executor = MainExecutor(self)
 
     def register(self, subscriber):
+        """
+        注册：我们通过获取订阅者的类对象，然后找到其订阅方法，调用subscribe订阅方法进行订阅
+        方法中的参数subscriber就是我们调用方法是传入的this，所以也就是表示Activity、Fragment。
+
+        简单概括一下就是：先根据订阅者类去METHOD_CACHE中查找，找到则直接返回订阅者方法列表，
+        找不到则根据是否使用subscriber index 来决定是否使用
+        findUsingInfo(EventBus 推荐你使用注解处理器，避免在运行时使用反射来查找订阅方法，而是在编译的时候查找)还是findUsingReflection(即直接使用反射)方法。
+        找到订阅方法列表，加入到METHOD_CACHE中方便下次使用，反之，找不到订阅方法，抛出异常。
+
+        """
         if self.is_registered(subscriber):
             self.logger.warning(f"{subscriber}已经注册过")
             return
+        # 反射找到@Subscribe注解的全部订阅方法
         subscriber_methods = self.finder.find(subscriber)
         for subscriber_method in subscriber_methods:
+            # 依次注册订阅者的每个订阅方法：1个订阅者 -> N个订阅方法
             self.subscribe(subscriber, subscriber_method)
             self.logger.debug(f'{subscriber} has registered the method {subscriber_method}')
 
@@ -77,7 +99,8 @@ class EventBus:
                 self.unsubscribe_by_event_type(subscriber, event_type)
 
     def unsubscribe_by_event_type(self, subscriber, event_type):
-        """按照事件类型取消订阅
+        """
+        按照事件类型取消订阅
 
         仅更新subscriptions_by_event_type,不更新types_by_subscriber，
         所以在调用该方法时必须提前调用更新types_by_subscriber

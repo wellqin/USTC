@@ -130,16 +130,19 @@ def run():
     current_bus = bus.get()
     salt = ''.join(random.sample(string.ascii_letters + string.digits, 8))
     setattr(current_bus, 'context_str', f'random_{salt}')
-    test = TestSubscriber()
+
+    TestSubscriber()
     SubscriberA()
     SubscriberB()
     SubscriberC()
-    bus.get().post_sticky(StickyConfigEvent('模拟配置数据'))
-    StickySubscriber()
 
+    bus.get().post_sticky(StickyConfigEvent('模拟配置数据'))
+
+    StickySubscriber()
     StickyNewSubscriber()
+
     bus.get().post(QuoteEvent({'open': 10, 'high': 100, 'low': 3, 'close': 60}))
-    return test
+    # return test
 
 
 if __name__ == '__main__':
