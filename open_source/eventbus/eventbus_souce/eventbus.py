@@ -1,7 +1,7 @@
 import logging
 import typing
 
-from .executor import MainOrderExecutor, MainExecutor
+from .executor import MainOrderExecutor
 from .finder import Finder
 from .logger import Logger
 from .subscription import Subscription

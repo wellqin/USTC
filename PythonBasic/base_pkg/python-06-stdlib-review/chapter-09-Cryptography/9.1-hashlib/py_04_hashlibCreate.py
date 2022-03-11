@@ -1,0 +1,31 @@
+import sys, hashlib
+sys.path.append('.')
+from pkg.breaker import addBreaker
+from hashlib_data import lorem
+
+@addBreaker
+def hashlib_new():
+    import argparse
+    parser = argparse.ArgumentParser('hashlib demo')
+    parser.add_argument(
+        'hash_name',
+        choices=hashlib.algorithms_available,
+        help='the name of the hash algorithm to use',
+    )
+    parser.add_argument(
+        'data',
+        nargs='?',
+        default=lorem,
+        help='the input data to hash, defaults to lorem ipsum'
+    )
+    args = parser.parse_args()
+    
+    h = hashlib.new(args.hash_name)
+    h.update(args.data.encoding('utf8'))
+    print(h.hexdigest())
+    pass
+
+if __name__ == "__main__":
+    # wtf is `argparse` module tho?
+    # why do u use it here?
+    hashlib_new()

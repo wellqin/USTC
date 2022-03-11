@@ -184,3 +184,30 @@ print(iterFunc(n))  # 先执行timeSpend，timeSpend里面有func(*args, **kwarg
 iterFunc
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 """
+
+import random
+
+
+def provide_number(min_num, max_num):
+    """装饰器：随机生成一个在 [min_num, max_num] 范围的整数，追加为函数的第一个位置参数
+    """
+
+    def wrapper(func):
+        def decorated(*args, **kwargs):
+            num = random.randint(min_num, max_num)
+            # 将 num 作为第一个参数追加后调用函数
+            return func(num, *args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+class Foo:
+    @provide_number(1, 100)
+    def print_random_number(self, num):
+        print(num)
+
+
+# OUTPUT: <__main__.Foo object at 0x104047278>
+Foo().print_random_number()
