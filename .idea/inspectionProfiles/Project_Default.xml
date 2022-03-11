@@ -60,6 +60,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="range.*" />
+          <option value="PythonBasic.base_pkg.test_import.calculate" />
         </list>
       </option>
     </inspection_tool>

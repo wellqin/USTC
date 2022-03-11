@@ -5,8 +5,6 @@ import sys
 
 from open_source.eventbus.eventbus_souce import bus, Subscribe
 
-sys.path.append("../src")
-
 
 class QuoteEvent:
 

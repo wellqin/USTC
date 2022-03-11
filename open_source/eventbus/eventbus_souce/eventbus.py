@@ -123,6 +123,7 @@ class EventBus:
 
     def post(self, event):
         self.logger.info(f"正在发布事件{event}")
+        print(f"正在发布事件{event}")
         subscriptions = self.subscriptions_by_event_type.get(event.__class__, [])
         for subscription in subscriptions:
             self.executor.enqueue(subscription, event)
