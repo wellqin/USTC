@@ -130,6 +130,7 @@ class TestWorkflowSpec(WorkflowSpec):
         end = Simple(self, 'End')
         last.connect(end)
 
+
 def task():
     spec = WorkflowSpec()
     # (Add tasks to the spec here, or create one directly from an existing file)

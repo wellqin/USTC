@@ -84,7 +84,7 @@ class Solution:
             dct[n] = i
 
 
-nums = [2, 7, 11, 15,3]
-target = 9
-print(Solution().twoSum1(nums, target))
+nums = [2, 7, 11, 15, 3]
+target = 5
+print(Solution().two_sum(nums, target))
 
