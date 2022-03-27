@@ -29,6 +29,10 @@ class log_flag:
     _vlog = True  # print是否显示线程名字
     _elog = True  # 是否打印错误信息
 
+    @property
+    def vlog(self):
+        return self._vlog
+
 
 # 所有被装饰的原始函数都会放在这个地方
 orig_func = {}
@@ -38,7 +42,7 @@ _org_print = print
 
 def _new_print(*arg, **kw):
     lock.acquire()
-    if log_flag._vlog:
+    if log_flag.vlog:
         name = current_thread().getName()
         name = "[{}]".format(name.center(13))
         _org_print(name, *arg, **kw)

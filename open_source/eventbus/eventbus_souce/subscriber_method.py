@@ -4,7 +4,9 @@ from open_source.eventbus.eventbus_souce.utils import get_class_that_defined_met
 
 
 class SubscriberMethod:
-
+    """
+    用来表示 @Subscribe 注解的方法，它主要用在 ObserverRegistry 观察者注册表中。
+    """
     def __init__(self, method, event_type, priority: int = 0, sticky: bool = False):
         self.method = method
         self.method_definition = None

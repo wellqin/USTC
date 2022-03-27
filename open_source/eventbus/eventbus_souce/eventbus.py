@@ -25,6 +25,8 @@ def get_default_logger(identifier):
 
 class EventBus:
     """
+    Observer 注册表，是最复杂的一个类，框架中几乎所有的核心逻辑都在这个类中。这个类大量使用了反射语法。
+
     1、准备订阅者这一步骤，分为注册 注销以及准备订阅方法两步。
         1.1 准备订阅方法: 订阅方法是通过注解@Subscribe的方式来实现的
         1.2 注册:只需要一行即可完成订阅者的注册,EventBus.getDefault().register(this);
@@ -41,7 +43,7 @@ class EventBus:
         self.event_types_by_subscriber: typing.Dict[object, typing.List[type]] = {}
         self.sticky_events: typing.Dict[type, object] = {}
         self.logger = logger if logger is not None else get_default_logger(id(self))
-        self.executor = MainOrderExecutor(self)
+        self.executor = MainOrderExecutor(self)  # 订阅事件线程处理方式，可以在此进行切换，存在五种执行模式，BACKGROUND模式最优
         # self.executor = MainExecutor(self)
 
     def register(self, subscriber):
@@ -55,7 +57,7 @@ class EventBus:
         找到订阅方法列表，加入到METHOD_CACHE中方便下次使用，反之，找不到订阅方法，抛出异常。
 
         """
-        if self.is_registered(subscriber):
+        if subscriber in self.event_types_by_subscriber:
             self.logger.warning(f"{subscriber}已经注册过")
             return
         # 反射找到@Subscribe注解的全部订阅方法
@@ -65,10 +67,11 @@ class EventBus:
             self.subscribe(subscriber, subscriber_method)
             self.logger.debug(f'{subscriber} has registered the method {subscriber_method}')
 
-    def is_registered(self, subscriber) -> bool:
-        return subscriber in self.event_types_by_subscriber
-
     def subscribe(self, subscriber, subscriber_method):
+        """
+        @param: subscriber：订阅者
+        @param: subscriber_method：标记是否为粘性事件
+        """
         event_type = subscriber_method.event_type
         subscription = Subscription(subscriber, subscriber_method)
         subscriptions = self.subscriptions_by_event_type.get(event_type, [])
@@ -82,14 +85,26 @@ class EventBus:
         subscriber_events = self.event_types_by_subscriber.get(subscriber, [])
         subscriber_events.append(event_type)
         self.event_types_by_subscriber.update({subscriber: subscriber_events})
-
+        # 支持发送粘性事件
+        """
+        如果你在发送普通事件前没有注册过订阅者，那么这时你发送的事件是不会被接收执行的，这个事件也就被回收了。 
+        而粘性事件就不一样了，你可以在发送粘性事件后，再去注册订阅者，一旦完成订阅，这个订阅者就会接收到这个粘性事件。 
+        用了一个sticky_events集合来保存粘性事件，存入后，与普通事件一样同样调用post()方法。 ？？ 嗯 ？？，这时我就有疑问了，
+        针对上面的使用场景，我先发送粘性事件，然后再去注册订阅，这时执行post方法去发送事件，根本就没有对应的订阅者啊，肯定是发送失败的。
+        所以，细想一下，想达到这样效果，订阅者注册订阅后应该再将这个存入下来的事件发送一下。 
+        """
         if subscriber_method.sticky:
+            # 订阅者在注册订阅方法中，如果当前订阅方法支持粘性事件，则会去stickyEvents集合中查件是否有对应的粘性事件，如果找到粘性事件，则发送该事件。
             sticky_event = self.sticky_events.get(event_type, None)
-            self.check_post_sticky_event_to_subscription(subscription, sticky_event)
+            if sticky_event is not None:  # check_post_sticky_event_to_subscription
+                self.invoke_subscriber(subscription, sticky_event)
 
-    def check_post_sticky_event_to_subscription(self, subscription: Subscription, event):
-        if event is not None:
-            self.invoke_subscriber(subscription, event)
+    def invoke_subscriber(self, subscription, event):
+        if subscription.active and not getattr(event, '__cancelled__', False):
+            try:
+                subscription.subscriber_method(subscription.subscriber, event)
+            except Exception as exception:
+                self.logger.warning(f'在为{subscription}发送{event}时出现错误:{exception}')
 
     def unregister(self, subscriber):
         subscribed_types = self.event_types_by_subscriber.get(subscriber)
@@ -135,6 +150,11 @@ class EventBus:
     def get_sticky_event(self, event_type):
         return self.sticky_events.get(event_type, None)
 
+    def cancel_delivery(self, event):
+        setattr(event, '__cancelled__', True)
+        if self.sticky_events.get(event.__class__) == event:
+            self.remove_sticky_event(event)
+
     def remove_sticky_event(self, event):
         """
         支持对事件类、事件实例进行解析并移除
@@ -146,20 +166,12 @@ class EventBus:
         elif self.sticky_events.get(event.__class__) == event:
             del self.sticky_events[event.__class__]
 
-    def cancel_delivery(self, event):
-        setattr(event, '__cancelled__', True)
-        if self.sticky_events.get(event.__class__) == event:
-            self.remove_sticky_event(event)
-
-    def invoke_subscriber(self, subscription, event):
-        if subscription.active and not getattr(event, '__cancelled__', False):
-            try:
-                subscription.subscriber_method(subscription.subscriber, event)
-            except Exception as exception:
-                self.on_exception(subscription, event, exception)
-
-    def on_exception(self, subscription, event, exception):
-        self.logger.warning(f'在为{subscription}发送{event}时出现错误:{exception}')
-
     def stop(self):
         self.executor.stop()
+
+    # def is_registered(self, subscriber) -> bool:
+    #     return subscriber in self.event_types_by_subscriber
+
+    # def check_post_sticky_event_to_subscription(self, subscription: Subscription, event):
+    #     if event is not None:
+    #         self.invoke_subscriber(subscription, event)

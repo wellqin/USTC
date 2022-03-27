@@ -27,7 +27,8 @@ class Finder:
                 continue
             assert len(method.__annotations__) == 1, '订阅方法参数不合法'
             event_type = list(method.__annotations__.values())[0]
-            subscriber_method = SubscriberMethod(method.__func__, event_type, priority=annotation.priority, sticky=annotation.sticky)
+            subscriber_method = SubscriberMethod(method.__func__, event_type,
+                                                 priority=annotation.priority, sticky=annotation.sticky)
             subscriber_methods.append(subscriber_method)
 
         return subscriber_methods
