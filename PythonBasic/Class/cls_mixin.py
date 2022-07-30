@@ -7,15 +7,26 @@ class Foo(object):
 
     @staticmethod
     def average(*mixes):  # "父类中的静态方法"
+        """
+        @param mixes:
+        @return:
+        """
         return sum(mixes) / len(mixes)
 
     @staticmethod
     def static_method():  # "父类中的静态方法"
+        """
+        @return:
+        """
         print("父类中的静态方法")
         return Foo.average(Foo.X, Foo.Y)
 
     @classmethod
     def class_method(cls):  # 父类中的类方法
+        """
+        cls
+        @return:
+        """
         print("父类中的类方法")
         return cls.average(cls.X, cls.Y)
 

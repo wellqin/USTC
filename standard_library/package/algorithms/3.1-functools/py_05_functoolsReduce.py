@@ -1,6 +1,6 @@
 import functools, sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-from PythonBasic.package.algorithms.breaker import addBreaker
+from standard_library.package.algorithms.breaker import addBreaker
 def do_reduce(a: int, b: int):
     print('do_reduce({}, {})'.format(a, b))
     return a + b

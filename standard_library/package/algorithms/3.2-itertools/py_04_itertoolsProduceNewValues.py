@@ -3,7 +3,7 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-from PythonBasic.package.algorithms.breaker import addBreaker
+from standard_library.package.algorithms.breaker import addBreaker
 
 
 @addBreaker

@@ -1,6 +1,6 @@
 import functools, sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-from PythonBasic.package.algorithms.breaker import addBreaker
+from standard_library.package.algorithms.breaker import addBreaker
 
 @functools.lru_cache(maxsize=2)
 def expensive(a: int, b: int):

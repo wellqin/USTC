@@ -14,6 +14,10 @@ def singleton(cls):
 
 @singleton
 class A(object):
+    """
+    装饰器解析
+    A = singleton(A) -> 此步骤返回了_singleton这个函数
+    """
     a = 1
 
     def __init__(self, x=0):

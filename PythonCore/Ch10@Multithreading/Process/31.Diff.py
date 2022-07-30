@@ -45,7 +45,7 @@ def random_sleep(n):
 if __name__ == "__main__":
     with ThreadPoolExecutor(3) as executor:
         # 多进程：20s  ||  多线程：20s
-        all_task = [executor.submit(random_sleep, (num)) for num in [2] * 30]
+        all_task = [executor.submit(random_sleep, num) for num in [2] * 30]
         start_time = time.time()
         for future in as_completed(all_task):
             data = future.result()

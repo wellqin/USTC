@@ -38,9 +38,6 @@ from functools import partial  # partial将函数进行包装
 # 先定义一个协程async，必须搭配事件循环才可以使用，asyncio实现了事件循环
 # async def get_html(url):
 #     print('start get url')
-#     # 不能直接使用time.sleep,这是同步阻塞的函数，不能在协程中使用，如果使用time在并发的情况有多少个就有多少个2秒
-#     # 要加await去等待
-#     # time.sleep(2) 不会并发，会单线程同步阻塞
 #     await asyncio.sleep(2)
 #     print('end get url')
 #
@@ -74,16 +71,16 @@ def callbackNO(future):  # 无参数
 
 if __name__ == '__main__':
     start_time = time.time()
-    # 1.获取协程的返回值的第一种方式：ensure_future
+    # # 1.获取协程的返回值的第一种方式：ensure_future
     # loop = asyncio.get_event_loop()
     # get_future = asyncio.ensure_future(get_html('www.baidu.com'))  # 也可以
-    # ensure_future原理还是获取event_loop，没有loop会自动获取，然后调用create_task方法，一个线程只有一个loop
-    # 其中run_until_complete可以接收future类型，task类型（是future类型的一个子类），也可以接收可迭代类型
+    # # ensure_future原理还是获取event_loop，没有loop会自动获取，然后调用create_task方法，一个线程只有一个loop
+    # # 其中run_until_complete可以接收future类型，task类型（是future类型的一个子类），也可以接收可迭代类型
     # loop.run_until_complete(get_future)
     # print(time.time() - start_time)
     # print(get_future.result())  # AHA
-
-    # 2.获取协程的返回值的第二种方式：create_task
+    #
+    # # 2.获取协程的返回值的第二种方式：create_task
     # loop = asyncio.get_event_loop()
     # task = loop.create_task(get_html('www.baidu.com'))
     # loop.run_until_complete(task)
@@ -93,14 +90,14 @@ if __name__ == '__main__':
     # 情景：任务get_html完成后，需要额外处理时，可以加上回调函数callback
     # 3.获取协程的返回值的第三种方式：add_done_callback与callback
     # 3.1 callback无参数的情况，默认传task
-    # loop = asyncio.get_event_loop()
-    # task = loop.create_task(get_html('www.baidu.com'))
-    # task.add_done_callback(callbackNO)  # 这里只接受方法名，而不接受方法的参数，用下面的partial
-    # loop.run_until_complete(task)
-    # print(task.result())  # AHA
-
     loop = asyncio.get_event_loop()
     task = loop.create_task(get_html('www.baidu.com'))
-    task.add_done_callback(partial(callback, 'www.baidu.com'))
+    task.add_done_callback(callbackNO)  # 这里只接受方法名，而不接受方法的参数，用下面的partial
     loop.run_until_complete(task)
     print(task.result())  # AHA
+
+    # loop = asyncio.get_event_loop()
+    # task = loop.create_task(get_html('www.baidu.com'))
+    # task.add_done_callback(partial(callback, 'www.baidu.com'))
+    # loop.run_until_complete(task)
+    # print(task.result())  # AHA

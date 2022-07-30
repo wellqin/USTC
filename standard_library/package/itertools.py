@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 # itertools - 为高效循环而创建迭代器的函数
-import itertools
 
 """一、无穷迭代器：count、cycle、repeat"""
 

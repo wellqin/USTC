@@ -7,7 +7,6 @@ date:             2020/5/4
 正则表达式(Regular Expression)是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为"元字符"）。
 正则表达式使用单个字符串来描述、匹配一系列匹配某个句法规则的字符串。
 """
-import regex
 
 # re模块操作
 # 1. re模块的使用过程
@@ -23,7 +22,6 @@ result.group()
 """
 
 # 2. re模块示例
-import re
 result = re.match("life", "life is sort,you need python!")  # 匹配以life开头的语句
 print(result.group())
 

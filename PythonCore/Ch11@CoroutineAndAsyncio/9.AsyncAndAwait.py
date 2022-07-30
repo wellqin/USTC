@@ -16,7 +16,7 @@ Change Activity:  2020/4/20
 await：将控制权交出去并等待结果返回,await只能接收awaitable对象，可以理解成yield from
 """
 import types
-from collections import Awaitable
+# from collections import Awaitable
 
 
 # async def downloader(url):

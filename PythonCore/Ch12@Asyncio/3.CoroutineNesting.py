@@ -39,26 +39,26 @@ Change Activity:  2020/4/21
 import asyncio
 
 
-# 协程嵌套实例
-async def compute(x, y):
-    print("Compute %s + %s .." % (x, y))
-    await asyncio.sleep(1.0)
-    return x + y
-
-
-async def print_sum(x, y):
-    result = await compute(x, y)
-    print("%s + %s = %s" % (x, y, result))
-
-
-loop = asyncio.get_event_loop()
-loop.run_until_complete(print_sum(1, 2))  # loop.run_forever()不会停止
-# Compute 1 + 2 ..
-# 1 + 2 = 3
-
-# 在运行完指定的协程后run_until_complete可以把loop停止掉，原因何在
-# 看python\Lib\asyncio\base_events.py中有run_until_complete源码
-loop.close()
+# # 协程嵌套实例
+# async def compute(x, y):
+#     print("Compute %s + %s .." % (x, y))
+#     await asyncio.sleep(1.0)
+#     return x + y
+#
+#
+# async def print_sum(x, y):
+#     result = await compute(x, y)
+#     print("%s + %s = %s" % (x, y, result))
+#
+#
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(print_sum(1, 2))  # loop.run_forever()不会停止
+# # Compute 1 + 2 ..
+# # 1 + 2 = 3
+#
+# # 在运行完指定的协程后run_until_complete可以把loop停止掉，原因何在
+# # 看python\Lib\asyncio\base_events.py中有run_until_complete源码
+# loop.close()
 
 
 """
@@ -109,36 +109,39 @@ def _run_until_complete_cb(fut):
 """
 
 
-# # 取消future(task)示例，在console用运行，触发KeyboardInterrupt，即Ctrl + C
-# async def get_html(sleep_time):
-#     print("waiting")
-#     await asyncio.sleep(sleep_time)
-#     print("done after {}s".format(sleep_time))
-#
-#
-# task1 = get_html(2)
-# task2 = get_html(3)
-# task3 = get_html(3)
-# tasks = [task1, task2, task3]
-# loop = asyncio.get_event_loop()
-# try:
-#     loop.run_until_complete(asyncio.wait(tasks))
-# except KeyboardInterrupt as e:  # 人工按键停止，希望终止所有协程
-#     # 这里没用loop，怎么直接获取到所有task呢？
-#     # 在源码中看过程
-#     """
-#         def all_tasks(cls, loop=None):
-#         # Return a set of all tasks for an event loop.
-#         # By default all tasks for the current event loop are returned.
-#         if loop is None:  # 如果没传递loop，回去自动找，在通过循环获取loop中的所有task
-#             loop = events.get_event_loop()
-#         return {t for t in cls._all_tasks if t._loop is loop}
-#     """
-#     all_tasks = asyncio.Task.all_tasks()  # 获取所有协程task
-#     for task in all_tasks:
-#         print("cancel task")
-#         print(task.cancel())  # 返回bool值，运行中的task不可以被cancel，在asyncio.sleep中触发异常，全部返回TRUE
-#     loop.stop()  # 必须加这二句，否则异常pending
-#     loop.run_forever()
-# finally:
-#     loop.close()
+# 取消future(task)示例，在console用运行，触发KeyboardInterrupt，即Ctrl + C
+async def get_html(sleep_time):
+    print("waiting")
+    await asyncio.sleep(sleep_time)
+    print("done after {}s".format(sleep_time))
+
+
+task1 = get_html(2)
+task2 = get_html(3)
+task3 = get_html(30)
+tasks = [task1, task2, task3]
+loop = asyncio.get_event_loop()
+try:
+    loop.run_until_complete(asyncio.wait(tasks))
+except KeyboardInterrupt as e:  # 人工按键停止，希望终止所有协程
+    # 这里没用loop，怎么直接获取到所有task呢？
+    # 在源码中看过程
+    """
+        def all_tasks(cls, loop=None):
+        # Return a set of all tasks for an event loop.
+        # By default all tasks for the current event loop are returned.
+        if loop is None:  # 如果没传递loop，回去自动找，在通过循环获取loop中的所有task
+            loop = events.get_event_loop()
+        return {t for t in cls._all_tasks if t._loop is loop}
+    """
+    all_tasks = asyncio.all_tasks(loop)  # 获取所有协程task, 3.9中把asyncio.Task.all_tasks移除了，用asyncio.all_tasks代替
+    for task in all_tasks:
+        print("cancel task")
+        print(task.cancel())  # 返回bool值，运行中的task不可以被cancel，在asyncio.sleep中触发异常，全部返回TRUE
+    loop.stop()  # 必须加这二句，否则异常pending
+    print("loop状态", loop.is_running())
+    loop.run_forever()
+    print("loop状态", loop.is_running())
+finally:
+    print("loop状态", loop.is_running())
+    loop.close()
