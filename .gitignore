@@ -1,0 +1,29 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea/
+*.iml
+DataStructure/__pycache__/
+"DataStructure/\344\272\214\345\217\211\346\240\221/\344\272\214\345\217\211\346\240\221\347\232\204\346\220\234\347\264\242/__pycache__/"
+"DataStructure/\346\240\221/__pycache__/"
+DesignPatterns/__pycache__/
+PythonCore/Ch03@InDepthClassAndObject/__pycache__/
+PythonCore/__pycache__/
+"Thread/NetIO/IO\345\244\232\350\267\257\345\244\215\347\224\250/"
+"Thread/\345\244\232\350\277\233\347\250\213/__pycache__/"
+"python/\346\265\213\350\257\225/UNItest/__pycache__/"
+"PythonBasic/\346\265\213\350\257\225/UNItest/__pycache__/"
+PythonBasic/importpackageTest/__pycache__/
+
+__pycache__
+*.pyc
+.idea
+*.egg-info/
+.tox/
+venv
+.venv/
+.vscode/
+.python-version
+.coverage
